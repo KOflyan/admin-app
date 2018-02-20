@@ -20,7 +20,7 @@ public class UserDao extends Dao<User> {
     }
 
     @Override
-    public User getById() {
+    public User getById(int id) {
         return null;
     }
 
@@ -31,6 +31,19 @@ public class UserDao extends Dao<User> {
 
     @Override
     public void update(User user) {
+
+    }
+
+    @Override
+    public void add(User user) {
+
+    }
+
+    /**
+     * This will fetch all info about user (including his accounts and devices).
+     * @param id
+     */
+    public void getFull(int id) {
 
     }
 }

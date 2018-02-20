@@ -15,7 +15,7 @@ public class AdminDao extends Dao<Admin> {
     }
 
     @Override
-    public Admin getById() {
+    public Admin getById(int id) {
         return null;
     }
 
@@ -26,6 +26,11 @@ public class AdminDao extends Dao<Admin> {
 
     @Override
     public void update(Admin admin) {
+
+    }
+
+    @Override
+    public void add(Admin admin) {
 
     }
 }

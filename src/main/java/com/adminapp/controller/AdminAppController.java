@@ -42,8 +42,7 @@ public class AdminAppController extends WebMvcConfigurerAdapter{
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/users")
-    public @ResponseBody
-    List<User> getAllUsers() {
+    public @ResponseBody List<User> getAllUsers() {
         return service.getAllUsers();
     }
 }

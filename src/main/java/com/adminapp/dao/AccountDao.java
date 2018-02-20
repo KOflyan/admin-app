@@ -15,7 +15,7 @@ public class AccountDao extends Dao<Account> {
     }
 
     @Override
-    public Account getById() {
+    public Account getById(int id) {
         return null;
     }
 
@@ -26,6 +26,11 @@ public class AccountDao extends Dao<Account> {
 
     @Override
     public void update(Account account) {
+
+    }
+
+    @Override
+    public void add(Account account) {
 
     }
 }

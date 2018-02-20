@@ -15,7 +15,7 @@ public class DeviceDao extends Dao<Device> {
     }
 
     @Override
-    public Device getById() {
+    public Device getById(int id) {
         return null;
     }
 
@@ -26,6 +26,11 @@ public class DeviceDao extends Dao<Device> {
 
     @Override
     public void update(Device device) {
+
+    }
+
+    @Override
+    public void add(Device device) {
 
     }
 }
