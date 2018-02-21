@@ -6,15 +6,15 @@
 
 #### Install:
 
-'npm install yarn'
+`npm install yarn`
 
-'cd admin-front'
-'yarn install'
+`cd admin-front`
+`yarn install`
 
 ##### Run dev server:
 
-'cd admin-front'
-'yarn start'
+`cd admin-front`
+`yarn start`
 
 
 
