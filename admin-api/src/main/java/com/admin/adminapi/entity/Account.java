@@ -43,4 +43,15 @@ public class Account {
         this.isActive = isActive;
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", accountName='" + accountName + '\'' +
+                ", isActive=" + isActive +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

@@ -43,4 +43,15 @@ public class Device {
         this.family = family;
         this.osVersion = osVersion;
     }
+
+    @Override
+    public String toString() {
+        return "Device{" +
+                "id=" + id +
+                ", accountId=" + accountId +
+                ", deviceName='" + deviceName + '\'' +
+                ", family='" + family + '\'' +
+                ", osVersion='" + osVersion + '\'' +
+                '}';
+    }
 }

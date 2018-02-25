@@ -9,7 +9,6 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "`User`")
-@Component
 public class User {
 
     @Id
@@ -30,9 +29,6 @@ public class User {
     @Column(name = "email")
     @Getter @Setter private String email;
 
-    @Column(name = "registration_date")
-    @Getter @Setter private Date registrationDate;
-
     @Column(name = "language")
     @Getter @Setter private String language;
 
@@ -43,13 +39,12 @@ public class User {
     }
 
     public User(String name, String surname, String username, String password,
-                String email, Date registrationDate, String language, String country) {
+                String email, String language, String country) {
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.registrationDate = registrationDate;
         this.language = language;
         this.country = country;
     }
@@ -62,7 +57,6 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", registrationDate='" + registrationDate + '\'' +
                 ", language='" + language + '\'' +
                 ", country='" + country + '\'' +
                 '}';

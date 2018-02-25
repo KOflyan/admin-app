@@ -1,12 +1,15 @@
 package com.admin.adminapi.dao.base;
 
+import com.admin.adminapi.utils.Utils;
 import org.springframework.core.GenericTypeResolver;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
+@Component
 public abstract class Dao<T> {
 
     @PersistenceContext
@@ -17,11 +20,9 @@ public abstract class Dao<T> {
 
     @SuppressWarnings("unchecked")
     public Dao() {
-        clazz = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), Dao.class);
-        className = clazz.getName();
-        if (className.contains(".")) {
-            className = className.substring(className.lastIndexOf('.') + 1);
-        }
+//        clazz = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), Dao.class);
+        clazz = Utils.resolveClassOfT(getClass(), Dao.class);
+        className = Utils.getClassName(clazz);
     }
 
     @SuppressWarnings("unchecked")
@@ -46,10 +47,9 @@ public abstract class Dao<T> {
         // TODO
     }
 
-    public void add(T t) {
-        // TODO ?????
+    public void create(T t) {
+        // TODO
     }
-
 
     private Query executeQuery(String query) {
         return entityManager.createNativeQuery(query, clazz);
