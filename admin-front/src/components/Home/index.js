@@ -7,13 +7,16 @@ class Home extends React.Component {
     return (
       <div>
         <Link to="/register">
-          <button class="btn btn-outline-primary"> Register New User </button>
+          <button className="btn btn-outline-primary"> Register New User </button>
         </Link>
-        <br/>
-        <h2>Hello, I am Home page</h2>
-        <br></br>
-        <br></br>
-        <h1>Here will be user information</h1>
+        <center>
+          <br/>
+          <br/>
+          <h2>Hello, I am Home page</h2>
+          <br></br>
+          <br></br>
+          <h1>Here will be user information</h1>
+        </center>
       </div>
     )
   }
