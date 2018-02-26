@@ -2,6 +2,7 @@ package com.admin.adminapi.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "`Device`")
+@ToString
 public class Device {
 
     @Id
@@ -42,5 +44,16 @@ public class Device {
         this.deviceName = deviceName;
         this.family = family;
         this.osVersion = osVersion;
+    }
+
+    @Override
+    public String toString() {
+        return "Device{" +
+                "id=" + id +
+                ", accountId=" + accountId +
+                ", deviceName='" + deviceName + '\'' +
+                ", family='" + family + '\'' +
+                ", osVersion='" + osVersion + '\'' +
+                '}';
     }
 }

@@ -6,4 +6,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserDao extends Dao<User> {
+
+    @Override
+    public void update(User user) {
+
+    }
+
+    @Override
+    public void create(User user) {
+
+    }
 }

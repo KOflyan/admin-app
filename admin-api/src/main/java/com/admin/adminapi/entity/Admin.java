@@ -3,6 +3,7 @@ package com.admin.adminapi.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "`Admin`")
+@ToString
 public class Admin {
 
 
@@ -42,17 +44,5 @@ public class Admin {
         this.username = username;
         this.password = password;
         this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        return "Admin{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                '}';
     }
 }

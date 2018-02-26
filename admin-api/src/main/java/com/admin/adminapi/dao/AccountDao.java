@@ -10,4 +10,14 @@ import java.util.List;
 
 @Repository
 public class AccountDao extends Dao<Account> {
+
+    @Override
+    public void update(Account account) {
+
+    }
+
+    @Override
+    public void create(Account account) {
+
+    }
 }
