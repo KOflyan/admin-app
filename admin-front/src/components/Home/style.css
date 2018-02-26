@@ -1,3 +1,7 @@
+.center {
+    margin: 0 auto;
+}
+
 .btn-outline-primary {
   float: left;
 }

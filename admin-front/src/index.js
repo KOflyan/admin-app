@@ -1,11 +1,11 @@
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import App from './components/App';
+import App from './App';
 
-import registerServiceWorker from './components/registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
     <BrowserRouter>

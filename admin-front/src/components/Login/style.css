@@ -1,34 +1,3 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* default above */
-
 .panel-login {
   width: 300px;
   height: 300px;
@@ -96,6 +65,7 @@
 }
 
 .btn-login {
+  width: 150px;
 	background-color: #59B2E0;
 	outline: none;
 	color: #fff;
@@ -106,9 +76,10 @@
 	text-transform: uppercase;
 	border-color: #59B2E6;
 }
+
 .btn-login:hover,
 .btn-login:focus {
-	color: #fff;
+	color: black;
 	background-color: #53A3CD;
 	border-color: #53A3CD;
 }
