@@ -2,6 +2,7 @@ package com.admin.adminapi.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "`User`")
+@ToString
 public class User {
 
     @Id
@@ -47,18 +49,5 @@ public class User {
         this.email = email;
         this.language = language;
         this.country = country;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", language='" + language + '\'' +
-                ", country='" + country + '\'' +
-                '}';
     }
 }

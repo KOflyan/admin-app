@@ -3,10 +3,13 @@ package com.admin.adminapi.service.base;
 import com.admin.adminapi.dao.base.Dao;
 import com.admin.adminapi.dto.base.Dto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
-public abstract class AdminApiService<T> {
+@Component
+public abstract class GenericService<T> {
 
     @Autowired
     private Dao<T> dao;

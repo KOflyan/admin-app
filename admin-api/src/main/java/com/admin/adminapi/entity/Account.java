@@ -3,6 +3,7 @@ package com.admin.adminapi.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "`Account`")
+@ToString
 public class Account {
 
     @Id
@@ -42,16 +44,5 @@ public class Account {
         this.accountName = accountName;
         this.isActive = isActive;
         this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", accountName='" + accountName + '\'' +
-                ", isActive=" + isActive +
-                ", type='" + type + '\'' +
-                '}';
     }
 }

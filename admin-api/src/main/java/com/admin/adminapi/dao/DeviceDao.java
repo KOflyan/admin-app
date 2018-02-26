@@ -8,4 +8,14 @@ import java.util.List;
 
 @Repository
 public class DeviceDao extends Dao<Device> {
+
+    @Override
+    public void update(Device device) {
+
+    }
+
+    @Override
+    public void create(Device device) {
+
+    }
 }
