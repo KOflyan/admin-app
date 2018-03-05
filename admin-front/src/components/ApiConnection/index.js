@@ -1,5 +1,5 @@
-function search(cb) {
-  return fetch(`/users`)
+function getAllUsers(cb) {
+  return fetch(`/user/all`)
   .then(response => {
     return checkStatus(response);
   }).then(response => {
@@ -18,6 +18,6 @@ function checkStatus(response) {
   throw error;
 }
 
-const ApiConnection = { search };
+const ApiConnection = { getAllUsers };
 
 export default ApiConnection;
