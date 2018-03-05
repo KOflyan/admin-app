@@ -5,14 +5,14 @@ import Login from './../Login'
 import Register from './../Register'
 
 
-const Main = () => (
+const Content = () => (
   <main>
     <Switch>
       <Route path='/home' component={ Home }/>
-      <Route path='/Login' component={ Login }/>
+      <Route path='/login' component={ Login }/>
       <Route path='/register' component={ Register }/>
     </Switch>
   </main>
 )
 
-export default Main
+export default Content
