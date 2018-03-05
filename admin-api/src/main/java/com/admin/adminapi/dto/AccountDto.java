@@ -2,20 +2,19 @@ package com.admin.adminapi.dto;
 
 import com.admin.adminapi.dto.base.Dto;
 import com.admin.adminapi.entity.Account;
+import com.admin.adminapi.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Component
+@Getter @Setter
 public class AccountDto extends Dto<Account> {
-
-    @NotNull
-    @Min(1)
-    @Getter @Setter private int userId;
 
     @NotNull
     @Size(min = 4, max = 25)
@@ -31,8 +30,7 @@ public class AccountDto extends Dto<Account> {
     public AccountDto() {
     }
 
-    public AccountDto(int userId, String accountName, boolean isActive, String type) {
-        this.userId = userId;
+    public AccountDto(String accountName, boolean isActive, String type) {
         this.accountName = accountName;
         this.isActive = isActive;
         this.type = type;
@@ -40,7 +38,7 @@ public class AccountDto extends Dto<Account> {
 
     @Override
     public Account get() {
-        return new Account(userId, accountName, isActive, type);
+        return new Account(accountName, isActive, type);
     }
 
 }

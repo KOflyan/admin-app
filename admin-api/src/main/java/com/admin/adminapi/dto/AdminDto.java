@@ -10,21 +10,22 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Component
+@Getter @Setter
 public class AdminDto extends Dto<Admin> {
 
-    @Getter @Setter private String name;
-    @Getter @Setter private String surname;
+    private String name;
+    private String surname;
 
     @NotNull
     @Size(min = 4, max = 50)
-    @Getter @Setter private String username;
+    private String username;
 
     @NotNull
     @Size(min = 5, max = 255)
-    @Getter @Setter private String password;
+    private String password;
 
     @NotNull
-    @Getter @Setter private String role;
+    private String role;
 
     public AdminDto() {
     }

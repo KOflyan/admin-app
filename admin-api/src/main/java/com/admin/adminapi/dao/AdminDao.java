@@ -8,14 +8,4 @@ import java.util.List;
 
 @Repository
 public class AdminDao extends Dao<Admin> {
-
-    @Override
-    public void update(Admin admin) {
-
-    }
-
-    @Override
-    public void create(Admin admin) {
-
-    }
 }

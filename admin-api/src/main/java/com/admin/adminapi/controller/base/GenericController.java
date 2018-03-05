@@ -5,25 +5,27 @@ import com.admin.adminapi.service.base.GenericService;
 import com.admin.adminapi.utils.Messages;
 import com.admin.adminapi.utils.Utils;
 import lombok.Getter;
+import lombok.Setter;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
+@Component
+@Getter @Setter
 public abstract class GenericController<T> extends WebMvcConfigurerAdapter {
 
     private final Logger logger = Logger.getLogger(GenericController.class);
 
     @Autowired
-    @Getter protected GenericService<T> service;
-    @Getter protected String className;
+    protected GenericService<T> service;
+    protected String className;
 
     public GenericController() {
         className = Utils.getClassName(Utils.resolveClassOfT(getClass(), GenericController.class));

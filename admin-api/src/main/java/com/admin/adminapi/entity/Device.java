@@ -4,30 +4,30 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "`Device`")
-@ToString
-public class Device {
+@Table(name = "Device")
+@Getter @Setter
+public class Device implements Serializable{
 
     @Id
-    @Getter @Setter private int id;
+    @Column(name = "id")
+    private int id;
 
+    @Id
     @Column(name = "account_id")
-    @Getter @Setter private int accountId;
+    private int accountId;
 
     @Column(name = "device_name")
-    @Getter @Setter private String deviceName;
+    private String deviceName;
 
     @Column(name = "family")
-    @Getter @Setter private String family;
+    private String family;
 
     @Column(name = "os_version")
-    @Getter @Setter private String osVersion;
+    private String osVersion;
 
     public Device() {
 
@@ -44,16 +44,5 @@ public class Device {
         this.deviceName = deviceName;
         this.family = family;
         this.osVersion = osVersion;
-    }
-
-    @Override
-    public String toString() {
-        return "Device{" +
-                "id=" + id +
-                ", accountId=" + accountId +
-                ", deviceName='" + deviceName + '\'' +
-                ", family='" + family + '\'' +
-                ", osVersion='" + osVersion + '\'' +
-                '}';
     }
 }

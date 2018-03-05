@@ -11,28 +11,27 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "`Admin`")
-@ToString
+@Table(name = "Admin")
+@Getter @Setter
 public class Admin {
 
-
     @Id
-    @Getter @Setter private int id;
+    private int id;
 
     @Column(name = "name")
-    @Getter @Setter private String name;
+    private String name;
 
     @Column(name = "surname")
-    @Getter @Setter private String surname;
+    private String surname;
 
     @Column(name = "username")
-    @Getter @Setter private String username;
+    private String username;
 
     @Column(name = "password")
-    @Getter @Setter private String password;
+    private String password;
 
     @Column(name = "role")
-    @Getter @Setter private String role;
+    private String role;
 
     public Admin() {
 

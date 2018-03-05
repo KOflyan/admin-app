@@ -7,40 +7,47 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Component
+@Getter @Setter
 public class UserDto extends Dto<User> {
 
-    @Getter @Setter private String name;
+    private String name;
 
-    @Getter @Setter private String surname;
+    private String surname;
+
+    @NotNull
+    @Min(1)
+    private int accountId;
 
     @NotNull
     @Size(min = 4, max = 25)
-    @Getter @Setter private String username;
+    private String username;
 
     @NotNull
     @Size(min = 5, max = 255)
-    @Getter @Setter private String password;
+    private String password;
 
     @NotNull
     @Email
     @Size(min = 10, max = 50)
-    @Getter @Setter private String email;
+    private String email;
 
     @NotNull
-    @Getter @Setter private String language;
+    private String language;
 
     @NotNull
-    @Getter @Setter private String country;
+    private String country;
 
     public UserDto() {
     }
 
-    public UserDto(String name, String surname, String username, String password,
+    public UserDto(int accountId, String name, String surname, String username, String password,
                    String email, String language, String country) {
+        this.accountId = accountId;
         this.name = name;
         this.surname = surname;
         this.username = username;
@@ -52,6 +59,6 @@ public class UserDto extends Dto<User> {
 
     @Override
     public User get() {
-        return new User(name, surname, username, password, email, language, country);
+        return new User(accountId, name, surname, username, password, email, language, country);
     }
 }

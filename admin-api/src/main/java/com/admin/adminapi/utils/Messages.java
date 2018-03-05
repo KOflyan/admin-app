@@ -7,7 +7,7 @@ import lombok.ToString;
 public enum Messages {
 
     DTO_ERROR(0, "DTO error occurred."),
-    DATABASE_ERROR(1, "Could not fetch info from database"),
+    DATABASE_ERROR(1, "Error occurred while connecting to the database"),
     SUCCESS(2, "Success!");
 
 

@@ -13,7 +13,7 @@ import java.util.List;
 public abstract class Dao<T> {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     private String className;
     private Class<T> clazz;
@@ -25,31 +25,28 @@ public abstract class Dao<T> {
 
     @SuppressWarnings("unchecked")
     public List<T> getAll() {
-        String query = String.format("SELECT * FROM `%s`", className);
-//        return entityManager.createQuery("select u from User u").getResultList();
-        return executeQuery(query).getResultList();
+        String query = String.format("SELECT t from %s t", className);
+        return entityManager.createQuery(query).getResultList();
     }
 
     @SuppressWarnings("unchecked")
     public T getById(int id) {
-        String query = String.format("SELECT * FROM `%s` WHERE id=%s", className, id);
-        return (T) executeQuery(query).getSingleResult();
-//        return (T) entityManager.createQuery("select u from User u where u.id = :id")
-//                .setParameter("id", id)
-//                .getSingleResult();
+        return entityManager.find(clazz, id);
     }
 
     @SuppressWarnings("unchecked")
     public void delete(int id) {
-        String query = String.format("DELETE FROM `%s` WHERE id=%s", className, id);
-        executeQuery(query);
+        String query = String.format("SELECT t FROM %s t WHERE id= :id", className);
+        entityManager.createQuery(query)
+                .setParameter("id", id)
+                .executeUpdate();
     }
 
-    public abstract void update(T t);
+    public void update(T t) {
+        entityManager.refresh(t);
+    }
 
-    public abstract void create(T t);
-
-    private Query executeQuery(String query) {
-        return entityManager.createNativeQuery(query, clazz);
+    public void create(T t) {
+        entityManager.persist(t);
     }
 }
