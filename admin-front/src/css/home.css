@@ -1,0 +1,28 @@
+.center {
+    margin: 0 auto;
+}
+
+.btn-outline-primary {
+  float: left;
+}
+
+.form-container {
+  background-color: #222;
+  height: 50px;
+  padding: 6px;
+}
+
+.form-inline {
+  float: left;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40px;
+  float: right;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
