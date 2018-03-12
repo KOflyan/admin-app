@@ -1,5 +1,5 @@
 function getAllUsers(cb) {
-  return fetch(`/user/all`)
+  return fetch('/user/all')
   .then(response => {
     return checkStatus(response);
   }).then(response => {

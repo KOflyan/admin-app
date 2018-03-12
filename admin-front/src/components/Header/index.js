@@ -30,6 +30,9 @@ class Header extends React.Component {
                 <NavLink href="/register">Register New User</NavLink>
               </NavItem>
               <NavItem>
+                <NavLink href="/registerAdmin">Add New Corporate User</NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink href="/devices">Devices</NavLink>
               </NavItem>
             </Nav>
