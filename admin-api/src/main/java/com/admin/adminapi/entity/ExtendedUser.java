@@ -1,6 +1,8 @@
 package com.admin.adminapi.entity;
 
+import com.admin.adminapi.entity.base.Account;
 import com.admin.adminapi.entity.base.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,7 +28,7 @@ import java.util.Set;
                 name = "User.getAll",
                 query = "SELECT u " +
                         "FROM ExtendedUser u " +
-//                            "LEFT JOIN FETCH u.account a " +
+                            "LEFT JOIN FETCH u.account a " +
                             "LEFT JOIN FETCH u.devices d " +
                         "GROUP BY u.id, d.id " +
                         "ORDER BY u.id"
@@ -49,12 +51,13 @@ public class ExtendedUser extends User {
     @JoinColumn(name = "user_id")
     private Set<Device> devices;
 
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "id", insertable = false, updatable = false)
-//    private Account account;
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = SimpleAccount.class)
+    @JoinColumn(name = "id", insertable = false, updatable = false)
+    private Account account;
 
 
     public ExtendedUser() {
+
     }
 
 }

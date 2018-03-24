@@ -1,7 +1,7 @@
 package com.admin.adminapi.controller;
 
 import com.admin.adminapi.controller.base.GenericController;
-import com.admin.adminapi.entity.Account;
+import com.admin.adminapi.entity.base.Account;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

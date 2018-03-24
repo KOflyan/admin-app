@@ -1,7 +1,8 @@
 package com.admin.adminapi.dto;
 
 import com.admin.adminapi.dto.base.Dto;
-import com.admin.adminapi.entity.Account;
+import com.admin.adminapi.entity.SimpleAccount;
+import com.admin.adminapi.entity.base.Account;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -35,7 +36,7 @@ public class AccountDto extends Dto<Account> {
 
     @Override
     public Account get() {
-        return new Account(accountName, isActive, type);
+        return new SimpleAccount(accountName, isActive, type);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.admin.adminapi.dao;
 
 import com.admin.adminapi.dao.base.Dao;
-import com.admin.adminapi.entity.Account;
+import com.admin.adminapi.entity.base.Account;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

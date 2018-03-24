@@ -1,16 +1,11 @@
 package com.admin.adminapi.dao.base;
 
-import com.admin.adminapi.entity.Account;
 import com.admin.adminapi.entity.Device;
 import com.admin.adminapi.utils.Utils;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.core.GenericTypeResolver;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NamedNativeQuery;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.List;
 
 @Component

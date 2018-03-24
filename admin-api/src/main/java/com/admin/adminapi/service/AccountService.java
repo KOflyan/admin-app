@@ -1,6 +1,6 @@
 package com.admin.adminapi.service;
 
-import com.admin.adminapi.entity.Account;
+import com.admin.adminapi.entity.base.Account;
 import com.admin.adminapi.service.base.GenericService;
 import org.springframework.stereotype.Service;
 

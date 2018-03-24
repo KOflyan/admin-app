@@ -1,8 +1,9 @@
-package com.admin.adminapi.entity;
+package com.admin.adminapi.entity.base;
 
 
 import com.admin.adminapi.entity.base.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,8 +13,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "Account")
 @Getter @Setter @EqualsAndHashCode
 
 @NamedQueries({
@@ -21,36 +20,28 @@ import java.util.Set;
         @NamedQuery(
                 name = "Account.fullInfo",
                 query = "SELECT a " +
-//                            "SIZE(d), SIZE(u)" +
-                       "FROM Account a " +
+                       "FROM ExtendedAccount a " +
                             "LEFT JOIN FETCH a.devices d " +
                             "LEFT JOIN FETCH a.users u " +
                         "GROUP BY a.id, u.id, d.id"
 
         )
 })
-public class Account {
+@MappedSuperclass
+public abstract class Account {
 
     @Id
     @Column(name = "id")
-    private int id;
+    protected int id;
 
     @Column(name = "account_name")
-    private String name;
+    protected String name;
 
     @Column(name = "is_active")
-    private boolean isActive;
+    protected boolean isActive;
 
     @Column(name = "type")
-    private String type;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Device.class)
-    @JoinColumn(name = "account_id")
-    private Set<Device> devices;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = SimpleUser.class)
-    @JoinColumn(name = "account_id")
-    private Set<User> users;
+    protected String type;
 
 //    private int deviceCount;
 //    private int userCount;

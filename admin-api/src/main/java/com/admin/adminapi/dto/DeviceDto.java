@@ -1,14 +1,11 @@
 package com.admin.adminapi.dto;
 
 import com.admin.adminapi.dto.base.Dto;
-import com.admin.adminapi.entity.Account;
 import com.admin.adminapi.entity.Device;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
