@@ -4,6 +4,7 @@ import com.admin.adminapi.dto.base.Dto;
 import com.admin.adminapi.entity.Admin;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Email;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
@@ -25,6 +26,11 @@ public class AdminDto extends Dto<Admin> {
     private String password;
 
     @NotNull
+    @Email
+    @Size(min = 10, max = 50)
+    private String email;
+
+    @NotNull
     private String role;
 
     public AdminDto() {
@@ -40,7 +46,7 @@ public class AdminDto extends Dto<Admin> {
 
     @Override
     public Admin get() {
-        return new Admin(name, surname, username, password, role);
+        return new Admin(name, surname, username, email, password, role);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.admin.adminapi.entity;
 
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -24,6 +25,9 @@ public class Admin {
     @Column(name = "surname")
     private String surname;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "username")
     private String username;
 
@@ -37,10 +41,11 @@ public class Admin {
 
     }
 
-    public Admin(String name, String surname, String username, String password, String role) {
+    public Admin(String name, String surname, String username, String email, String password, String role) {
         this.name = name;
         this.surname = surname;
         this.username = username;
+        this.email = email;
         this.password = password;
         this.role = role;
     }

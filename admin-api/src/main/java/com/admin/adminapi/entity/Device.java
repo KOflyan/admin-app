@@ -1,5 +1,6 @@
 package com.admin.adminapi.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,16 +10,18 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "Device")
-@Getter @Setter
-public class Device implements Serializable{
+@Getter @Setter @EqualsAndHashCode
+public class Device {
 
     @Id
     @Column(name = "id")
     private int id;
 
-    @Id
     @Column(name = "account_id")
     private int accountId;
+
+    @Column(name = "user_id")
+    private int userId;
 
     @Column(name = "device_name")
     private String deviceName;
@@ -29,18 +32,14 @@ public class Device implements Serializable{
     @Column(name = "os_version")
     private String osVersion;
 
+
     public Device() {
 
     }
 
-    public Device(String deviceName, String family, String osVersion) {
-        this.deviceName = deviceName;
-        this.family = family;
-        this.osVersion = osVersion;
-    }
-
-    public Device(int accountId, String deviceName, String family, String osVersion) {
+    public Device(int accountId, int userId, String deviceName, String family, String osVersion) {
         this.accountId = accountId;
+        this.userId = userId;
         this.deviceName = deviceName;
         this.family = family;
         this.osVersion = osVersion;

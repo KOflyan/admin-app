@@ -1,7 +1,8 @@
 package com.admin.adminapi.dto;
 
 import com.admin.adminapi.dto.base.Dto;
-import com.admin.adminapi.entity.User;
+import com.admin.adminapi.entity.SimpleUser;
+import com.admin.adminapi.entity.base.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
@@ -59,6 +60,6 @@ public class UserDto extends Dto<User> {
 
     @Override
     public User get() {
-        return new User(accountId, name, surname, username, password, email, language, country);
+        return new SimpleUser(accountId, name, surname, username, password, email, language, country, true);
     }
 }

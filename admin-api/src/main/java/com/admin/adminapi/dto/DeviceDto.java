@@ -22,6 +22,10 @@ public class DeviceDto extends Dto<Device> {
     private int accountId;
 
     @NotNull
+    @Size(min = 1)
+    private int userId;
+
+    @NotNull
     @Size(min = 3)
     private String deviceName;
 
@@ -36,8 +40,9 @@ public class DeviceDto extends Dto<Device> {
     public DeviceDto() {
     }
 
-    public DeviceDto(int accountId, String deviceName, String family, String osVersion) {
+    public DeviceDto(int accountId, int userId, String deviceName, String family, String osVersion) {
         this.accountId = accountId;
+        this.userId = userId;
         this.deviceName = deviceName;
         this.family = family;
         this.osVersion = osVersion;
@@ -45,6 +50,6 @@ public class DeviceDto extends Dto<Device> {
 
     @Override
     public Device get() {
-        return new Device(accountId, deviceName, family, osVersion);
+        return new Device(accountId, userId, deviceName, family, osVersion);
     }
 }

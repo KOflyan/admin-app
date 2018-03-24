@@ -32,12 +32,14 @@ public abstract class GenericController<T> extends WebMvcConfigurerAdapter {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/all")
-    public @ResponseBody List<T> getAll() {
-        return service.getAll();
+    public @ResponseBody List<T> getAll(@RequestParam(value = "skip", required = false) Integer skip,
+                                        @RequestParam(value = "limit", required = false) Integer limit) {
+
+        return skip == null || limit == null ? service.getAll() : service.getAll(skip, limit);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/id")
-    public @ResponseBody T getById(@PathParam("id") int id) {
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
+    public @ResponseBody T getById(@PathVariable("id") int id) {
         return service.getById(id);
     }
 
@@ -46,6 +48,7 @@ public abstract class GenericController<T> extends WebMvcConfigurerAdapter {
 
         if (bindingResult.hasErrors()) {
             logger.error(Messages.DTO_ERROR);
+            throw new IllegalArgumentException();
         }
 
         service.update(dto);
@@ -54,11 +57,14 @@ public abstract class GenericController<T> extends WebMvcConfigurerAdapter {
         return "redirect:/";
     }
 
+    // FIXME this seems not right
     @RequestMapping(method = RequestMethod.POST, path = "/delete")
     public String delete(@RequestParam("id") int id, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             logger.error(Messages.DTO_ERROR);
+            throw new IllegalArgumentException();
+
         }
 
         service.delete(id);
@@ -73,6 +79,7 @@ public abstract class GenericController<T> extends WebMvcConfigurerAdapter {
 
         if (bindingResult.hasErrors()) {
             logger.error(Messages.DTO_ERROR);
+            throw new IllegalArgumentException();
         }
 
         service.create(dto);
