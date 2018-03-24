@@ -48,7 +48,7 @@ public class Account {
     @JoinColumn(name = "account_id")
     private Set<Device> devices;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = ExtendedUser.class)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = SimpleUser.class)
     @JoinColumn(name = "account_id")
     private Set<User> users;
 
