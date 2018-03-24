@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Admin")
-@Getter @Setter
+@Getter @Setter @EqualsAndHashCode
 public class Admin {
 
     @Id

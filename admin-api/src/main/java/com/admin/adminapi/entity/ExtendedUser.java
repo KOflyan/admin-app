@@ -13,33 +13,21 @@ import java.util.Set;
         @NamedQuery(
 
                 name = "User.fullInfo",
-                query = "SELECT new ExtendedUser (" +
-                            "u.id, u.accountId," +
-                            "u.name, u.surname," +
-                            "u.username, u.email," +
-                            "u.language, u.country," +
-                            "a.name, u.isActive " +
-                        ")" +
+                query = "SELECT u " +
 
                         "FROM ExtendedUser u " +
-                            "JOIN u.account a " +
-                            "JOIN u.devices d " +
+//                            "LEFT JOIN FETCH u.account a " +
+                            "LEFT JOIN FETCH u.devices d " +
                         "WHERE u.id = :id " +
                         "GROUP BY u.id, d.id " +
                         "ORDER BY u.id"
         ),
         @NamedQuery(
                 name = "User.getAll",
-                query = "SELECT " +
-                            "u.id, u.accountId," +
-                            "u.name, u.surname," +
-                            "u.username, u.email," +
-                            "u.language, u.country, " +
-                            "a.name, u.isActive " +
-//                        ")" +
+                query = "SELECT u " +
                         "FROM ExtendedUser u " +
-                            "JOIN u.account a " +
-                            "JOIN u.devices d " +
+//                            "LEFT JOIN FETCH u.account a " +
+                            "LEFT JOIN FETCH u.devices d " +
                         "GROUP BY u.id, d.id " +
                         "ORDER BY u.id"
         ),
@@ -56,34 +44,17 @@ import java.util.Set;
 @Table(name = "User")
 public class ExtendedUser extends User {
 
-    @Column
-    private String accountName;
-
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private Set<Device> devices;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Account account;
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "id", insertable = false, updatable = false)
+//    private Account account;
 
 
     public ExtendedUser() {
     }
 
-
-    public ExtendedUser(int id, int accountId, String name, String surname, String username,
-                String email, String language, String country, String accountName,
-                boolean isActive) {
-
-        this.id = id;
-        this.accountId = accountId;
-        this.name = name;
-        this.surname = surname;
-        this.username = username;
-        this.email = email;
-        this.language = language;
-        this.country = country;
-        this.accountName = accountName;
-        this.isActive = isActive;
-    }
 }
