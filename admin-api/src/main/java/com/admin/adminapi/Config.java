@@ -23,7 +23,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableAutoConfiguration
 @EnableTransactionManagement
-@ControllerAdvice(basePackages = "com.admin.adminapi.controller")
+@ControllerAdvice(basePackages = "com.admin.adminapi.impl.controller")
 public class Config {
 
     @Bean
@@ -39,7 +39,7 @@ public class Config {
 //    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
 //        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 //        em.setDataSource(dataSource());
-//        em.setPackagesToScan("com.admin.adminapi.entity");
+//        em.setPackagesToScan("com.admin.adminapi.impl.dao.entities");
 //
 //        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 //        em.setJpaVendorAdapter(vendorAdapter);
