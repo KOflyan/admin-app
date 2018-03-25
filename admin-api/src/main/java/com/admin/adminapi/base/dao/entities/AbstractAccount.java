@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Getter @Setter @EqualsAndHashCode
 @MappedSuperclass
-public abstract class Account {
+ public abstract class AbstractAccount {
 
     @Id
     @Column(name = "id")
@@ -24,10 +24,10 @@ public abstract class Account {
     @Column(name = "type")
     protected String type;
 
-    public Account() {
+    public AbstractAccount() {
     }
 
-    public Account(String name, boolean isActive, String type) {
+    public AbstractAccount(String name, boolean isActive, String type) {
         this.name = name;
         this.isActive = isActive;
         this.type = type;

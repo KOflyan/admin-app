@@ -1,6 +1,5 @@
 package com.admin.adminapi.base.dao;
 
-import com.admin.adminapi.impl.dao.entities.Device;
 import com.admin.adminapi.utils.Utils;
 import org.springframework.stereotype.Component;
 
@@ -20,10 +19,17 @@ public abstract class Dao<T> {
     public Dao() {
         clazz = Utils.resolveClassOfT(getClass(), Dao.class);
         className = Utils.getClassName(clazz);
+
+        // This is needed in case of @MappedSuperclass (Account, User) - you cannot query it
+        if (className.contains("Account")) {
+            className = "Account";
+        } else if (className.contains("User")) {
+            className = "User";
+        }
     }
 
     public List<T> getAll() {
-        String query = String.format("SELECT t FROM %s t LIMIT", className);
+        String query = String.format("SELECT t FROM %s t", className);
 
         return em.createQuery(query, clazz)
                 .getResultList();
@@ -31,11 +37,11 @@ public abstract class Dao<T> {
 
     public List<T> getAll(int skip, int limit) {
 
-        String query = String.format("SELECT t FROM %s t LIMIT :skip, :_limit", className);
+        String query = String.format("SELECT t FROM %s t", className);
 
-        return em.createNamedQuery(query, clazz)
-                .setParameter("skip", skip)
-                .setParameter("_limit", limit)
+        return em.createQuery(query, clazz)
+                .setFirstResult(skip)
+                .setMaxResults(limit)
                 .getResultList();
     }
 
@@ -51,12 +57,6 @@ public abstract class Dao<T> {
         em.createQuery(query, clazz)
                 .setParameter("id", id)
                 .executeUpdate();
-    }
-
-    public List<Device> getUserDevices(int accountId) {
-        return em.createNamedQuery("User.getDevices", Device.class)
-                .setParameter("userId", accountId)
-                .getResultList();
     }
 
     public void update(T t) {

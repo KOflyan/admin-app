@@ -1,8 +1,8 @@
 package com.admin.adminapi.impl.dto;
 
+import com.admin.adminapi.base.dao.entities.AbstractAccount;
 import com.admin.adminapi.base.dto.Dto;
-import com.admin.adminapi.impl.dao.entities.SimpleAccount;
-import com.admin.adminapi.base.dao.entities.Account;
+import com.admin.adminapi.impl.dao.entities.Account;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 
 @Component
 @Getter @Setter
-public class AccountDto extends Dto<Account> {
+public class AccountDto extends Dto<AbstractAccount> {
 
     @NotNull
     @Size(min = 4, max = 25)
@@ -35,8 +35,8 @@ public class AccountDto extends Dto<Account> {
     }
 
     @Override
-    public Account get() {
-        return new SimpleAccount(accountName, isActive, type);
+    public AbstractAccount get() {
+        return new Account(accountName, isActive, type);
     }
 
 }

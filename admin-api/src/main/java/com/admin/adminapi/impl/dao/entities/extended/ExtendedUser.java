@@ -1,9 +1,9 @@
 package com.admin.adminapi.impl.dao.entities.extended;
 
-import com.admin.adminapi.base.dao.entities.Account;
-import com.admin.adminapi.base.dao.entities.User;
+import com.admin.adminapi.base.dao.entities.AbstractAccount;
+import com.admin.adminapi.base.dao.entities.AbstractUser;
 import com.admin.adminapi.impl.dao.entities.Device;
-import com.admin.adminapi.impl.dao.entities.SimpleAccount;
+import com.admin.adminapi.impl.dao.entities.Account;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +13,7 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(
 
-                name = "User.fullInfo",
+                name = "User.getById",
                 query = "SELECT u " +
 
                         "FROM ExtendedUser u " +
@@ -31,30 +31,21 @@ import java.util.Set;
                             "LEFT JOIN FETCH u.devices d " +
                         "GROUP BY u.id, d.id " +
                         "ORDER BY u.id"
-        ),
-        @NamedQuery(
-                name = "User.getDevices",
-                query = "SELECT " +
-                        "d " +
-                        "FROM ExtendedUser u " +
-                        "   LEFT JOIN FETCH u.devices d " +
-                        "WHERE u.id = :userId " +
-                        "ORDER BY d.id"
         )
 })
 @Entity
 @Getter @Setter
 @Table(name = "User")
-public class ExtendedUser extends User {
+public class ExtendedUser extends AbstractUser {
 
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private Set<Device> devices;
 
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = SimpleAccount.class)
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Account.class)
     @JoinColumn(name = "id", insertable = false, updatable = false)
-    private Account account;
+    private AbstractAccount account;
 
 
     public ExtendedUser() {

@@ -1,9 +1,9 @@
 package com.admin.adminapi.impl.dao.entities.extended;
 
-import com.admin.adminapi.base.dao.entities.Account;
-import com.admin.adminapi.base.dao.entities.User;
+import com.admin.adminapi.base.dao.entities.AbstractAccount;
+import com.admin.adminapi.base.dao.entities.AbstractUser;
 import com.admin.adminapi.impl.dao.entities.Device;
-import com.admin.adminapi.impl.dao.entities.SimpleUser;
+import com.admin.adminapi.impl.dao.entities.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,11 +14,12 @@ import java.util.Set;
 @NamedQueries({
 
         @NamedQuery(
-                name = "Account.fullInfo",
+                name = "Account.getById",
                 query = "SELECT a " +
                         "FROM ExtendedAccount a " +
                             "LEFT JOIN FETCH a.devices d " +
                             "LEFT JOIN FETCH a.users u " +
+                        "WHERE a.id = :id " +
                         "GROUP BY a.id, u.id, d.id"
 
         )
@@ -26,15 +27,15 @@ import java.util.Set;
 @Entity
 @Table(name = "Account")
 @Getter @Setter
-public class ExtendedAccount extends Account {
+public class ExtendedAccount extends AbstractAccount {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Device.class)
     @JoinColumn(name = "account_id")
     private Set<Device> devices;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = SimpleUser.class)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = User.class)
     @JoinColumn(name = "account_id")
-    private Set<User> users;
+    private Set<AbstractUser> users;
 
     public ExtendedAccount() {
 

@@ -1,8 +1,8 @@
 package com.admin.adminapi.impl.dto;
 
+import com.admin.adminapi.base.dao.entities.AbstractUser;
 import com.admin.adminapi.base.dto.Dto;
-import com.admin.adminapi.impl.dao.entities.SimpleUser;
-import com.admin.adminapi.base.dao.entities.User;
+import com.admin.adminapi.impl.dao.entities.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 
 @Component
 @Getter @Setter
-public class UserDto extends Dto<User> {
+public class UserDto extends Dto<AbstractUser> {
 
     private String name;
 
@@ -59,7 +59,7 @@ public class UserDto extends Dto<User> {
     }
 
     @Override
-    public User get() {
-        return new SimpleUser(accountId, name, surname, username, password, email, language, country, true);
+    public AbstractUser get() {
+        return new User(accountId, name, surname, username, password, email, language, country, true);
     }
 }

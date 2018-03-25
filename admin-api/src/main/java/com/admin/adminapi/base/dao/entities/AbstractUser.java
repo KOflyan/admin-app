@@ -10,7 +10,7 @@ import javax.persistence.MappedSuperclass;
 
 @Getter @Setter @EqualsAndHashCode
 @MappedSuperclass
-public abstract class User {
+public abstract class AbstractUser {
 
     @Id
     @Column(name = "id")
@@ -43,12 +43,12 @@ public abstract class User {
     @Column(name = "is_active")
     protected boolean isActive;
 
-    public User() {
+    public AbstractUser() {
 
     }
 
-    public User(int accountId, String name, String surname,
-                    String username, String password, String email, String language, String country, boolean isActive) {
+    public AbstractUser(int accountId, String name, String surname,
+                        String username, String password, String email, String language, String country, boolean isActive) {
         this.accountId = accountId;
         this.name = name;
         this.surname = surname;

@@ -2,7 +2,6 @@ package com.admin.adminapi.base.service;
 
 import com.admin.adminapi.base.dao.Dao;
 import com.admin.adminapi.base.dto.Dto;
-import com.admin.adminapi.impl.dao.entities.Device;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,9 +35,5 @@ public abstract class GenericService<T> {
 
     public void update(Dto<T> dto) {
         dao.update(dto.get());
-    }
-
-    public List<Device> getUserDevices(int userId) {
-        return dao.getUserDevices(userId);
     }
 }
