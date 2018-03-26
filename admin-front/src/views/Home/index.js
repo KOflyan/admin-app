@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import logo from './../../logo.svg';
-
-import ApiConnection from './../ApiConnection';
+import { NavLink } from 'reactstrap';
+import logo from './../../img/logo.svg';
+import { Table, Badge } from 'reactstrap';
+import ApiConnection from './../../utils/ApiConnection';
 
 class Home extends React.Component {
   constructor() {
@@ -33,16 +33,17 @@ class Home extends React.Component {
          </form>
          <img src={logo} className="App-logo" alt="logo"/>
        </div>
-        <table className="table table-hover table-outline mb-0 d-md-down-none">
+        <Table striped>
           <thead className="thead-dark">
             <tr>
-              <th className="text-center"><i className="icon-people"></i></th>
+              <th>#</th>
               <th>User</th>
               <th>Username</th>
               <th>Language</th>
+              <th>Country</th>
               <th>Email</th>
               <th className="text-center">Active</th>
-              <th className="text-center"><i className="icon-settings"></i></th>
+              <th className="text-center">Modify</th>
             </tr>
           </thead>
           <tbody>
@@ -50,11 +51,12 @@ class Home extends React.Component {
                 return ( <tr key={user.id}>
                             <td>
                               <div>ID { user.id } </div>
+                              <div className="small text-muted">
+                                Account ID {user.accountId}
+                              </div>
                             </td>
                             <td>
                               <div>{ user.name + " " + user.surname }</div>
-                              <div className="small text-muted">
-                                Registered: { user.registrationDate }</div>
                             </td>
                             <td>
                               <div>{ user.username }</div>
@@ -64,22 +66,33 @@ class Home extends React.Component {
                               <strong>{ user.language }</strong>
                             </td>
                             <td>
+                              <strong>{ user.country }</strong>
+                            </td>
+                            <td>
                               <div className="float-left">
-                                <strong>{ user.email }</strong>
+                                <div>{ user.email }</div>
                               </div>
                             </td>
                             <td className="text-center">
-                                  <button type="button" className="btn btn-success"><em className="fa fa-check"></em></button>
+                              <NavLink>
+                                { user.active ? (
+                                    <Badge color="success">Active</Badge>
+                                  ) : (
+                                    <Badge color="danger">Inactive</Badge>
+                                  )}
+                              </NavLink>
                             </td>
                             <td className="text-center">
-                              <button type="button" className="btn btn-dark"><em className="fa fa-pencil"></em></button>
+                              <NavLink href="/user">
+                                <button type="button" className="btn btn-dark"></button>
+                              </NavLink>
                             </td>
                           </tr>
                         )
                       })
                     }
           </tbody>
-        </table>
+        </Table>
       </div>
     )
   }

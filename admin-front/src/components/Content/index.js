@@ -1,9 +1,10 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import Home from './../Home'
-import Login from './../Login'
-import Register from './../Register'
-import RegisterAdmin from './../RegisterAdmin'
+import Home from './../../views/Home'
+import Login from './../../views/Login'
+import Register from './../../views/Register'
+import RegisterAdmin from './../../views/RegisterAdmin'
+import User from './../../views/User'
 
 
 const Content = () => (
@@ -13,7 +14,8 @@ const Content = () => (
       <Route path='/home' component={ Home }/>
       <Route path='/login' component={ Login }/>
       <Route path='/register' component={ Register }/>
-      <Route path='/registerAdmin' component={ RegisterAdmin}/>
+      <Route path='/registerAdmin' component={ RegisterAdmin }/>
+      <Route path='/user' component={ User }/>
     </Switch>
   </main>
 )

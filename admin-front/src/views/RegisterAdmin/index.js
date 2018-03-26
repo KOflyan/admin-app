@@ -12,11 +12,11 @@ class RegisterAdmin extends React.Component {
       				</div>
             </div>
           </div>
-      <div className="panel-body">
-        <RegistrationForm/>
+          <div className="panel-body">
+            <RegistrationForm/>
+          </div>
+        </div>
       </div>
-      </div>
-    </div>
     )
   }
 }
