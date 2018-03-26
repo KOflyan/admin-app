@@ -1,32 +1,45 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import logo from './../../logo.svg';
-
-
-import './style.css'
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 
 class Header extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.toggleNavbar = this.toggleNavbar.bind(this);
+    this.state = {
+      collapsed: true
+    };
+  }
+
+  toggleNavbar() {
+    this.setState({
+      collapsed: !this.state.collapsed
+    });
+  }
+
   render() {
     return (
-      <nav className='nav-container container-fluid'>
-          <div className='row'>
-           <ul className='custom-nav col-12 col-lg-8'>
-             <li>
-              <NavLink to='/home' activeClassName='active'>Home</NavLink>
-             </li>
-             <li>
-              <NavLink to='/register' activeClassName='active'>Register</NavLink>
-             </li>
-           </ul>
-
-           <form class="form-inline my-2 my-lg-0">
-             <input class="form-control mr-sm-2" type="text" placeholder="Search"/>
-             <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-           </form>
-          <img src={logo} className="App-logo" alt="logo" />
-       </div>
-     </nav>
-    )
+      <div>
+        <Navbar color="faded" light>
+          <NavbarBrand href="/home" className="mr-auto">Home</NavbarBrand>
+          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+          <Collapse isOpen={!this.state.collapsed} navbar>
+            <Nav navbar>
+              <NavItem>
+                <NavLink href="/register">Register New User</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/registerAdmin">Add New Corporate User</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/devices">Devices</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+     </div>
+    );
   }
 }
 export default Header;
