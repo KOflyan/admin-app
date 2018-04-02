@@ -29,11 +29,11 @@ import java.util.Set;
 @Getter @Setter
 public class ExtendedAccount extends AbstractAccount {
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Device.class)
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, targetEntity = Device.class)
     @JoinColumn(name = "account_id")
     private Set<Device> devices;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = User.class)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, targetEntity = User.class)
     @JoinColumn(name = "account_id")
     private Set<AbstractUser> users;
 

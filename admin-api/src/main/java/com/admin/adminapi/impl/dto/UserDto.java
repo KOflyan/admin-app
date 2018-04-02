@@ -16,6 +16,8 @@ import javax.validation.constraints.Size;
 @Getter @Setter
 public class UserDto extends Dto<AbstractUser> {
 
+    private Long id;
+
     private String name;
 
     private String surname;
@@ -60,6 +62,6 @@ public class UserDto extends Dto<AbstractUser> {
 
     @Override
     public AbstractUser get() {
-        return new User(accountId, name, surname, username, password, email, language, country, true);
+        return new User(id, accountId, name, surname, username, password, email, language, country, true);
     }
 }

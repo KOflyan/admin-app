@@ -14,6 +14,8 @@ import javax.validation.constraints.Size;
 @Getter @Setter
 public class DeviceDto extends Dto<Device> {
 
+    private Long id;
+
     @NotNull
     @Min(1)
     private int accountId;
@@ -47,6 +49,6 @@ public class DeviceDto extends Dto<Device> {
 
     @Override
     public Device get() {
-        return new Device(accountId, userId, deviceName, family, osVersion);
+        return new Device(id, accountId, userId, deviceName, family, osVersion);
     }
 }

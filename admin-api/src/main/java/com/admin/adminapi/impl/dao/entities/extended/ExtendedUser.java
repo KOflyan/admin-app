@@ -39,11 +39,11 @@ import java.util.Set;
 public class ExtendedUser extends AbstractUser {
 
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
     private Set<Device> devices;
 
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Account.class)
+    @ManyToOne(cascade = CascadeType.MERGE, targetEntity = Account.class)
     @JoinColumn(name = "id", insertable = false, updatable = false)
     private AbstractAccount account;
 

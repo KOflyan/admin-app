@@ -14,7 +14,7 @@ public class Device implements AbstractEntity {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "account_id")
@@ -37,7 +37,8 @@ public class Device implements AbstractEntity {
 
     }
 
-    public Device(int accountId, int userId, String deviceName, String family, String osVersion) {
+    public Device(Long id, int accountId, int userId, String deviceName, String family, String osVersion) {
+        this.id = id;
         this.accountId = accountId;
         this.userId = userId;
         this.deviceName = deviceName;
