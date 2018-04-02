@@ -3,9 +3,7 @@ import { NavLink } from 'reactstrap';
 import logo from './../../img/logo.svg';
 import { Table, Badge } from 'reactstrap';
 import UserApi from './../../utils/UserApi';
-import { TablePagination } from 'react-pagination-table';
-
-const Header = ["#", "User", "Username", "Language", "Country", "Email", "Active", "Modify"];
+import Pagination from './../../utils/Pagination';
 
 
 class UserTable extends React.Component {
@@ -14,13 +12,27 @@ class UserTable extends React.Component {
 
     this.state = {
       data: [],
+      renderedData: [],
+      page: 1,
+      total: 0,
     };
+
+    this.handlePageChange = this.handlePageChange.bind(this);
+
+  }
+
+  handlePageChange(page) {
+    const renderedData = this.state.data.slice((page - 1) * 10, (page - 1) * 10 + 10);
+    // in a real app you could query the specific page from a server user list
+    this.setState({ page, renderedData });
   }
 
   getDataOnLoad = () => {
     UserApi.all(apiData => {
       this.setState({
-        data: apiData
+        data: apiData,
+        renderedData: apiData.slice(0, 10),
+        total: apiData.length
       });
     });
   }
@@ -31,20 +43,13 @@ class UserTable extends React.Component {
 
 
   render() {
+    const { page, total, renderedData} = this.state;
     return (
       <div>
-        <TablePagination
-            title="TablePagination"
-            subTitle="Sub Title"
-            headers={ Header }
-            data={ this.state.data }
-            columns="id.name.username.language.country.email.active"
-            perPageItemCount={ 5 }
-            totalCount={ this.state.data.length }
-        />        {/* <div className ='form-container'>
-          <form className="form-inline my-2 my-lg-0">
-             <input className="form-control mr-sm-2" style={{width: '400px'}} type="text" placeholder="Search"/>
-             <button className="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+       <div className ='form-container'>
+         <form className="form-inline my-2 my-lg-0">
+           <input className="form-control mr-sm-2" style={{width: '400px'}} type="text" placeholder="Search"/>
+           <button className="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
          </form>
          <img src={logo} className="App-logo" alt="logo"/>
        </div>
@@ -62,7 +67,7 @@ class UserTable extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.data.map(user => {
+            {renderedData.map(user => {
                 return ( <tr key={user.id}>
                             <td>
                               <div>ID { user.id } </div>
@@ -77,8 +82,8 @@ class UserTable extends React.Component {
                               <div>{ user.username }</div>
                             </td>
                             <td>
-                              {/*<i className="h4 mb-0 flag-icon flag-icon-{{ user.language }}"></i>*/}
-                              {/* <strong>{ user.language }</strong>
+                              {/* <i className="h4 mb-0 flag-icon flag-icon-{{ user.language }}"></i> */}
+                               <strong>{ user.language }</strong>
                             </td>
                             <td>
                               <strong>{ user.country }</strong>
@@ -107,7 +112,13 @@ class UserTable extends React.Component {
                       })
                     }
           </tbody>
-        </Table> */} */}
+        </Table>
+        <Pagination
+          margin={10}
+          page={page}
+          count={Math.ceil(total / 10)}
+          onPageChange={this.handlePageChange}
+        />
       </div>
     )
   }
