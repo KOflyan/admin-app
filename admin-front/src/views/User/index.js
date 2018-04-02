@@ -3,6 +3,10 @@ import { NavLink } from 'reactstrap';
 import logo from './../../img/logo.svg';
 import { Table, Badge } from 'reactstrap';
 import UserApi from './../../utils/UserApi';
+import { TablePagination } from 'react-pagination-table';
+
+const Header = ["#", "User", "Username", "Language", "Country", "Email", "Active", "Modify"];
+
 
 class UserTable extends React.Component {
   constructor() {
@@ -25,10 +29,19 @@ class UserTable extends React.Component {
     this.getDataOnLoad();
   }
 
+
   render() {
     return (
       <div>
-        <div className ='form-container'>
+        <TablePagination
+            title="TablePagination"
+            subTitle="Sub Title"
+            headers={ Header }
+            data={ this.state.data }
+            columns="id.name.username.language.country.email.active"
+            perPageItemCount={ 5 }
+            totalCount={ this.state.data.length }
+        />        {/* <div className ='form-container'>
           <form className="form-inline my-2 my-lg-0">
              <input className="form-control mr-sm-2" style={{width: '400px'}} type="text" placeholder="Search"/>
              <button className="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
@@ -65,7 +78,7 @@ class UserTable extends React.Component {
                             </td>
                             <td>
                               {/*<i className="h4 mb-0 flag-icon flag-icon-{{ user.language }}"></i>*/}
-                              <strong>{ user.language }</strong>
+                              {/* <strong>{ user.language }</strong>
                             </td>
                             <td>
                               <strong>{ user.country }</strong>
@@ -94,7 +107,7 @@ class UserTable extends React.Component {
                       })
                     }
           </tbody>
-        </Table>
+        </Table> */} */}
       </div>
     )
   }

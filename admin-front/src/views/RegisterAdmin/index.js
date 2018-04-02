@@ -45,7 +45,6 @@ class RegistrationForm extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state)
     fetch('/admin/create', {
       method: 'POST',
       headers: {
