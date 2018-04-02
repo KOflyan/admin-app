@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Row, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import ApiConnection from './../../utils/ApiConnection';
+import React from 'react';
+import { Button, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import UserApi from './../../utils/UserApi';
 
 class User extends React.Component {
   constructor() {
@@ -9,6 +8,23 @@ class User extends React.Component {
     this.state = {
       data: [],
     };
+  }
+
+  getDataOnLoad = () => {
+    //
+    // console.log(match.params.id);
+    //
+    //
+    // const userId = 0;
+    UserApi.all(apiData => {
+      this.setState({
+        data: apiData
+      });
+    });
+  }
+
+  componentDidMount() {
+    this.getDataOnLoad();
   }
 
 

@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { NavLink } from 'reactstrap';
 import logo from './../../img/logo.svg';
 import { Table, Badge } from 'reactstrap';
-import ApiConnection from './../../utils/ApiConnection';
 import UserApi from './../../utils/UserApi';
 
 class UserTable extends React.Component {
