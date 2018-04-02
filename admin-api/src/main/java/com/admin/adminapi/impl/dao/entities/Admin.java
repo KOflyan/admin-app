@@ -1,22 +1,22 @@
 package com.admin.adminapi.impl.dao.entities;
 
 
+import com.admin.adminapi.base.dao.entities.AbstractEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Admin")
 @Getter @Setter @EqualsAndHashCode
-public class Admin {
+public class Admin implements AbstractEntity{
 
     @Id
-    private int id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "name")
     private String name;

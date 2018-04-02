@@ -8,16 +8,9 @@ import org.springframework.stereotype.Repository;
 public class AccountDao extends Dao<AbstractAccount> {
 
     @Override
-    public AbstractAccount getById(int id) {
+    public AbstractAccount find(Long id) {
         return em.createNamedQuery("Account.getById", AbstractAccount.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
-
-//
-//    @Override
-//    public List<AbstractAccount> getAll() {
-//        return em.createNamedQuery("AbstractAccount.getById", AbstractAccount.class)
-//                .getResultList();
-//    }
 }

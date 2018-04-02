@@ -2,6 +2,7 @@ package com.admin.adminapi.impl.service;
 
 import com.admin.adminapi.base.dao.entities.AbstractAccount;
 import com.admin.adminapi.base.service.GenericService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

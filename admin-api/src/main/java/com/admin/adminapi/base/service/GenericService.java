@@ -1,6 +1,7 @@
 package com.admin.adminapi.base.service;
 
 import com.admin.adminapi.base.dao.Dao;
+import com.admin.adminapi.base.dao.entities.AbstractEntity;
 import com.admin.adminapi.base.dto.Dto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,24 +9,28 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public abstract class GenericService<T> {
+public abstract class GenericService<T extends AbstractEntity> {
 
     @Autowired
     protected Dao<T> dao;
 
-    public T getById(int id) {
-        return dao.getById(id);
+//    public GenericService(Dao<T> dao) {
+//        this.dao = dao;
+//    }
+
+    public T find(Long id) {
+        return dao.find(id);
     }
 
-    public List<T> getAll(int skip, int limit) {
-        return dao.getAll(skip, limit);
+    public List<T> findAll(int skip, int limit) {
+        return dao.findAll(skip, limit);
     }
 
-    public List<T> getAll() {
-        return dao.getAll();
+    public List<T> findAll() {
+        return dao.findAll();
     }
 
-    public void delete(int id) {
+    public void delete(Long id) {
         dao.delete(id);
     }
 
@@ -33,7 +38,7 @@ public abstract class GenericService<T> {
         dao.create(dto.get());
     }
 
-    public void update(Dto<T> dto) {
-        dao.update(dto.get());
+    public void update(Long id) {
+        dao.update(id);
     }
 }

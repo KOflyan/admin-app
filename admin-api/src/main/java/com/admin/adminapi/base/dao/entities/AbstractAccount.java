@@ -9,11 +9,12 @@ import javax.persistence.*;
 
 @Getter @Setter @EqualsAndHashCode
 @MappedSuperclass
- public abstract class AbstractAccount {
+ public abstract class AbstractAccount implements AbstractEntity {
 
     @Id
     @Column(name = "id")
-    protected int id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    protected Long id;
 
     @Column(name = "account_name")
     protected String name;
