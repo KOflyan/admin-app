@@ -1,6 +1,7 @@
 package com.admin.adminapi.base.dto;
 
 
+import com.admin.adminapi.base.dao.entities.AbstractEntity;
 import com.admin.adminapi.impl.dto.AccountDto;
 import com.admin.adminapi.impl.dto.AdminDto;
 import com.admin.adminapi.impl.dto.DeviceDto;
@@ -23,7 +24,7 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = AdminDto.class, name = "Admin")
 })
 @Getter @Setter
-public abstract class Dto<T> implements Serializable {
+public abstract class Dto<T extends AbstractEntity> implements Serializable {
 
     @JsonProperty
     private String type;
