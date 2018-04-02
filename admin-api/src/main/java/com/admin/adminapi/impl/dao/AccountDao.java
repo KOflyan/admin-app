@@ -18,6 +18,8 @@ public class AccountDao extends Dao<AbstractAccount> {
 
     public void setActiveState(Long id, boolean isActive) throws NoResultException {
 
+        find(id);
+
         em.createQuery("UPDATE Account a SET a.isActive = :isActive WHERE a.id = :id")
                 .setParameter("isActive", isActive)
                 .setParameter("id", id)
