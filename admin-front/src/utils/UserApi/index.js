@@ -20,9 +20,8 @@ function getUserById(id, cb) {
   return fetch('/user/' + id)
   .then(response => {
     return ApiConnection.checkStatus(response);
-  }).then(response => {
-    return response.json();
-  }).then(cb);
+  }).then( response => response.json() )
+  .then(cb);
 }
 
 

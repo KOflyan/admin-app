@@ -20,6 +20,7 @@ class UserTable extends React.Component {
       });
     });
   }
+
   componentDidMount() {
     this.getDataOnLoad();
   }
@@ -84,7 +85,7 @@ class UserTable extends React.Component {
                               </NavLink>
                             </td>
                             <td className="text-center">
-                              <NavLink href={`/user/${user.id}`}>
+                              <NavLink href={`/user/?id=${user.id}`}>
                                 <button type="button" className="btn btn-dark"></button>
                               </NavLink>
                             </td>
