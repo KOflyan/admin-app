@@ -14,7 +14,8 @@ public class Device implements AbstractEntity {
 
     @Id
     @Column(name = "id")
-    private int id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
 
     @Column(name = "account_id")
     private int accountId;

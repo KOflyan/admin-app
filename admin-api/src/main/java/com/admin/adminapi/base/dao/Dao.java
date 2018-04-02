@@ -4,6 +4,8 @@ import com.admin.adminapi.utils.Utils;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.io.Serializable;
@@ -24,14 +26,14 @@ public abstract class Dao<T extends Serializable> {
         className = Utils.getClassName(clazz);
     }
 
-    public List<T> getAll() {
+    public List<T> findAll() {
         String query = String.format("SELECT t FROM %s t", className);
 
         return em.createQuery(query, clazz)
                 .getResultList();
     }
 
-    public List<T> getAll(int skip, int limit) {
+    public List<T> findAll(int skip, int limit) {
 
         String query = String.format("SELECT t FROM %s t", className);
 
@@ -41,25 +43,39 @@ public abstract class Dao<T extends Serializable> {
                 .getResultList();
     }
 
-    public T getById(int id) {
-        String query = String.format("SELECT t FROM %s t WHERE t.id = :id", className);
-        return em.createQuery(query, clazz)
-                .setParameter("id", id)
-                .getSingleResult();
+    public T find(Long id) {
+        return em.find(clazz, id);
     }
 
-    public void delete(int id) {
-        String query = String.format("DELETE t FROM %s t WHERE t.id = :id", className);
-        em.createQuery(query, clazz)
+    public void delete(Long id) throws EntityNotFoundException {
+        String query = String.format("DELETE FROM %s t WHERE t.id = :id", className);
+
+        try {
+            find(id);
+        } catch (NoResultException ex) {
+            throw new EntityNotFoundException();
+        }
+
+        em.createQuery(query)
                 .setParameter("id", id)
                 .executeUpdate();
     }
 
-    public void update(T t) {
-        em.refresh(t);
-    }
-
     public void create(T t) {
         em.persist(t);
+    }
+
+    public void update(Long id) throws EntityNotFoundException {
+        String query = String.format("UPDATE %s t WHERE t.id = :id", className);
+
+        try {
+            find(id);
+        } catch (NoResultException ex) {
+            throw new EntityNotFoundException();
+        }
+
+        em.createQuery(query, clazz)
+                .setParameter("id", id)
+                .executeUpdate();
     }
 }

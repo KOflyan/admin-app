@@ -4,7 +4,7 @@
 
 ---------
 
-## http://localhost:7000/api/swagger-ui.html
+## http://localhost:3000/api/swagger-ui.html
 
 Build:
 

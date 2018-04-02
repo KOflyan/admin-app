@@ -4,9 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @Getter @Setter @EqualsAndHashCode
 @MappedSuperclass
@@ -14,7 +12,8 @@ public abstract class AbstractUser implements AbstractEntity {
 
     @Id
     @Column(name = "id")
-    protected int id;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    protected Long id;
 
     @Column(name = "account_id", insertable = false, updatable = false)
     protected int accountId;

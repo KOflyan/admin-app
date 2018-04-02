@@ -15,12 +15,12 @@ import lombok.Setter;
 import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeInfo( use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
+@JsonTypeInfo( use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = UserDto.class, name = "UserDto"),
-        @JsonSubTypes.Type(value = AccountDto.class, name = "AccountDto"),
-        @JsonSubTypes.Type(value = DeviceDto.class, name = "DeviceDto"),
-        @JsonSubTypes.Type(value = AdminDto.class, name = "AdminDto")
+        @JsonSubTypes.Type(value = UserDto.class, name = "User"),
+        @JsonSubTypes.Type(value = AccountDto.class, name = "Account"),
+        @JsonSubTypes.Type(value = DeviceDto.class, name = "Device"),
+        @JsonSubTypes.Type(value = AdminDto.class, name = "Admin")
 })
 @Getter @Setter
 public abstract class Dto<T> implements Serializable {

@@ -1,36 +1,44 @@
 package com.admin.adminapi.base.service;
 
-import com.admin.adminapi.base.dao.BaseRepository;
+import com.admin.adminapi.base.dao.Dao;
 import com.admin.adminapi.base.dao.entities.AbstractEntity;
 import com.admin.adminapi.base.dto.Dto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public abstract class GenericService<T extends AbstractEntity> {
 
-    protected BaseRepository<T> repository;
+    @Autowired
+    protected Dao<T> dao;
 
-    public GenericService(BaseRepository<T> repository) {
-        this.repository = repository;
-    }
-
-    public T getById(Long id) {
-        return repository.findOne(id);
-    }
-
-//    public List<T> getAll(int skip, int limit) {
-//        return repository.getAll(skip, limit);
+//    public GenericService(Dao<T> dao) {
+//        this.dao = dao;
 //    }
 
-    public List<T> getAll() {
-        return repository.findAll();
+    public T find(Long id) {
+        return dao.find(id);
+    }
+
+    public List<T> findAll(int skip, int limit) {
+        return dao.findAll(skip, limit);
+    }
+
+    public List<T> findAll() {
+        return dao.findAll();
     }
 
     public void delete(Long id) {
-        repository.delete(id);
+        dao.delete(id);
     }
 
-    public void createOrUpdate(Dto<T> dto) {
-        repository.save(dto.get());
+    public void create(Dto<T> dto) {
+        dao.create(dto.get());
+    }
+
+    public void update(Long id) {
+        dao.update(id);
     }
 }
