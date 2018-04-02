@@ -16,8 +16,8 @@ public class User extends AbstractUser {
 
     }
 
-    public User(int accountId, String name, String surname, String username,
+    public User(Long id, int accountId, String name, String surname, String username,
                 String password, String email, String language, String country, boolean isActive) {
-        super(accountId, name, surname, username, password, email, language, country, isActive);
+        super(id, accountId, name, surname, username, password, email, language, country, isActive);
     }
 }

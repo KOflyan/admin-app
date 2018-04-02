@@ -1,5 +1,6 @@
 package com.admin.adminapi.base.dao;
 
+import com.admin.adminapi.base.dao.entities.AbstractEntity;
 import com.admin.adminapi.utils.Utils;
 import org.springframework.stereotype.Component;
 
@@ -8,12 +9,11 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.io.Serializable;
 import java.util.List;
 
 @Component
 @Transactional
-public abstract class Dao<T extends Serializable> {
+public abstract class Dao<T extends AbstractEntity> {
 
     @PersistenceContext
     protected EntityManager em;
@@ -47,35 +47,21 @@ public abstract class Dao<T extends Serializable> {
         return em.find(clazz, id);
     }
 
-    public void delete(Long id) throws EntityNotFoundException {
+    public void delete(Long id) throws NoResultException {
         String query = String.format("DELETE FROM %s t WHERE t.id = :id", className);
 
-        try {
-            find(id);
-        } catch (NoResultException ex) {
-            throw new EntityNotFoundException();
-        }
+        find(id);
 
         em.createQuery(query)
                 .setParameter("id", id)
                 .executeUpdate();
     }
 
-    public void create(T t) {
-        em.persist(t);
-    }
-
-    public void update(Long id) throws EntityNotFoundException {
-        String query = String.format("UPDATE %s t WHERE t.id = :id", className);
-
+    public void save(T t) {
         try {
-            find(id);
-        } catch (NoResultException ex) {
-            throw new EntityNotFoundException();
+            em.merge(t);
+        } catch (EntityNotFoundException ex) {
+            em.persist(t);
         }
-
-        em.createQuery(query, clazz)
-                .setParameter("id", id)
-                .executeUpdate();
     }
 }

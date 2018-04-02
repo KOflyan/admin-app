@@ -13,7 +13,7 @@ import javax.persistence.*;
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
     @Column(name = "account_name")
@@ -28,7 +28,8 @@ import javax.persistence.*;
     public AbstractAccount() {
     }
 
-    public AbstractAccount(String name, boolean isActive, String type) {
+    public AbstractAccount(Long id, String name, boolean isActive, String type) {
+        this.id = id;
         this.name = name;
         this.isActive = isActive;
         this.type = type;

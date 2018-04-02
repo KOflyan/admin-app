@@ -6,6 +6,7 @@ import com.admin.adminapi.base.dto.Dto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @Component
@@ -14,11 +15,7 @@ public abstract class GenericService<T extends AbstractEntity> {
     @Autowired
     protected Dao<T> dao;
 
-//    public GenericService(Dao<T> dao) {
-//        this.dao = dao;
-//    }
-
-    public T find(Long id) {
+    public T find(Long id) throws NoResultException {
         return dao.find(id);
     }
 
@@ -30,15 +27,11 @@ public abstract class GenericService<T extends AbstractEntity> {
         return dao.findAll();
     }
 
-    public void delete(Long id) {
+    public void delete(Long id) throws NoResultException {
         dao.delete(id);
     }
 
-    public void create(Dto<T> dto) {
-        dao.create(dto.get());
-    }
-
-    public void update(Long id) {
-        dao.update(id);
+    public void save(Dto<T> dto) {
+        dao.save(dto.get());
     }
 }

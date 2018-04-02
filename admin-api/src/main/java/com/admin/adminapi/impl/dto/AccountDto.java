@@ -14,6 +14,8 @@ import javax.validation.constraints.Size;
 @Getter @Setter
 public class AccountDto extends Dto<AbstractAccount> {
 
+    private Long id;
+
     @NotNull
     @Size(min = 4, max = 25)
     private String accountName;
@@ -33,7 +35,7 @@ public class AccountDto extends Dto<AbstractAccount> {
     @Override
     public AbstractAccount get() {
 
-        return new Account(accountName, true, accountType);
+        return new Account(id, accountName, true, accountType);
     }
 
 }

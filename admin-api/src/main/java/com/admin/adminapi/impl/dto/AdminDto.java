@@ -15,6 +15,8 @@ import javax.validation.constraints.Size;
 @Getter @Setter
 public class AdminDto extends Dto<Admin> {
 
+    private Long id;
+
     private String name;
     private String surname;
 
@@ -47,7 +49,7 @@ public class AdminDto extends Dto<Admin> {
 
     @Override
     public Admin get() {
-        return new Admin(name, surname, username, email, password, role);
+        return new Admin(id, name, surname, username, email, password, role);
     }
 
 }

@@ -15,7 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -44,7 +44,7 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
         return service.find(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/create")
+    @RequestMapping(method = RequestMethod.POST, path = "/save")
     public @ResponseBody ResponseEntity create(@RequestBody @Valid Dto<T> dto, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -52,23 +52,7 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
-        service.create(dto);
-        logger.info(Messages.SUCCESS);
-
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @RequestMapping(method = RequestMethod.POST, path = "/update/{id}")
-    public @ResponseBody ResponseEntity update(@PathVariable("id") Long id) {
-
-        try {
-            service.update(id);
-        } catch (EntityNotFoundException ex) {
-            logger.info(Messages.ENTITY_NO_FOUND_ERROR);
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-
-        }
-
+        service.save(dto);
         logger.info(Messages.SUCCESS);
 
         return new ResponseEntity(HttpStatus.OK);
@@ -78,7 +62,7 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
     public @ResponseBody ResponseEntity delete(@PathVariable("id") Long id) {
         try {
             service.delete(id);
-        } catch (EntityNotFoundException ex) {
+        } catch (NoResultException ex) {
             logger.warn(Messages.ENTITY_NO_FOUND_ERROR);
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
