@@ -4,7 +4,6 @@ import com.admin.adminapi.base.dao.entities.AbstractEntity;
 import com.admin.adminapi.base.dto.Dto;
 import com.admin.adminapi.base.service.GenericService;
 import com.admin.adminapi.utils.Messages;
-import com.admin.adminapi.utils.Utils;
 import lombok.Getter;
 import lombok.Setter;
 import org.jboss.logging.Logger;
@@ -22,15 +21,10 @@ import java.util.List;
 @Getter @Setter
 public abstract class GenericController<T extends AbstractEntity> extends WebMvcConfigurerAdapter {
 
-    private final Logger logger = Logger.getLogger(GenericController.class);
-    protected GenericService<T> service;
-    protected String className;
+    protected final Logger logger = Logger.getLogger(GenericController.class);
 
     @Autowired
-    public GenericController(GenericService<T> service) {
-        this.service = service;
-        className = Utils.getClassName(Utils.resolveClassOfT(getClass(), GenericController.class));
-    }
+    protected GenericService<T> service;
 
     @RequestMapping(method = RequestMethod.GET, path = "/all")
     public @ResponseBody List<T> findAll(@RequestParam(value = "skip", required = false) Integer skip,
