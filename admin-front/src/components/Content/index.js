@@ -4,7 +4,8 @@ import Home from './../../views/Home'
 import Login from './../../views/Login'
 import Register from './../../views/Register'
 import RegisterAdmin from './../../views/RegisterAdmin'
-import User from './../../views/User'
+import UserTable from './../../views/User'
+import User from './../../views/User/user'
 
 
 const Content = () => (
@@ -15,7 +16,8 @@ const Content = () => (
       <Route path='/login' component={ Login }/>
       <Route path='/register' component={ Register }/>
       <Route path='/registerAdmin' component={ RegisterAdmin }/>
-      <Route path='/user' component={ User }/>
+      <Route exact path='/user' component={ UserTable }/>
+      <Route path='/user/:id' component={ User }/>
     </Switch>
   </main>
 )

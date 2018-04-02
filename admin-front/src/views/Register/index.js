@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 class Register extends React.Component {
   render() {
@@ -13,7 +13,7 @@ class Register extends React.Component {
             </div>
           </div>
       <div className="panel-body">
-        <form id="register-form" action="#" method="post" role="form">
+        <form id="register-form" action="#" method="post">
   				<div className="form-group">
   					<input type="text" name="username" id="username" tabindex="1" className="form-control" placeholder="Username"/>
   				</div>

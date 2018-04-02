@@ -1,73 +1,103 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { NavLink } from 'reactstrap';
+import logo from './../../img/logo.svg';
+import { Table, Badge } from 'reactstrap';
 import ApiConnection from './../../utils/ApiConnection';
+import UserApi from './../../utils/UserApi';
 
-class User extends React.Component {
+class UserTable extends React.Component {
   constructor() {
     super();
+
     this.state = {
       data: [],
     };
   }
 
+  getDataOnLoad = () => {
+    UserApi.all(apiData => {
+      this.setState({
+        data: apiData
+      });
+    });
+  }
+  componentDidMount() {
+    this.getDataOnLoad();
+  }
 
   render() {
     return (
-      <Form>
-        <FormGroup>
-          <Label for="exampleEmail">Email</Label>
-          <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
-        </FormGroup>
-        <FormGroup>
-          <Label for="examplePassword">Password</Label>
-          <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
-        </FormGroup>
-
-
-        <FormGroup>
-          <Label for="exampleText">Text Area</Label>
-          <Input type="textarea" name="text" id="exampleText" />
-        </FormGroup>
-        <FormGroup>
-          <Label for="exampleFile">File</Label>
-          <Input type="file" name="file" id="exampleFile" />
-          <FormText color="muted">
-            This is some placeholder block-level help text for the above input.
-            Its a bit lighter and easily wraps to a new line.
-          </FormText>
-        </FormGroup>
-        <FormGroup tag="fieldset">
-          <legend>Radio Buttons</legend>
-          <FormGroup check>
-            <Label check>
-              <Input type="radio" name="radio1" />{' '}
-              Option one is this and that—be sure to include why its great
-            </Label>
-          </FormGroup>
-          <FormGroup check>
-            <Label check>
-              <Input type="radio" name="radio1" />{' '}
-              Option two can be something else and selecting it will deselect option one
-            </Label>
-          </FormGroup>
-          <FormGroup check disabled>
-            <Label check>
-              <Input type="radio" name="radio1" disabled />{' '}
-              Option three is disabled
-            </Label>
-          </FormGroup>
-        </FormGroup>
-        <FormGroup check>
-          <Label check>
-            <Input type="checkbox" />{' '}
-            Check me out
-          </Label>
-        </FormGroup>
-        <Button>Submit</Button>
-      </Form>
+      <div>
+        <div className ='form-container'>
+          <form className="form-inline my-2 my-lg-0">
+             <input className="form-control mr-sm-2" style={{width: '400px'}} type="text" placeholder="Search"/>
+             <button className="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+         </form>
+         <img src={logo} className="App-logo" alt="logo"/>
+       </div>
+        <Table striped>
+          <thead className="thead-dark">
+            <tr>
+              <th>#</th>
+              <th>User</th>
+              <th>Username</th>
+              <th>Language</th>
+              <th>Country</th>
+              <th>Email</th>
+              <th className="text-center">Active</th>
+              <th className="text-center">Modify</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.data.map(user => {
+                return ( <tr key={user.id}>
+                            <td>
+                              <div>ID { user.id } </div>
+                              <div className="small text-muted">
+                                Account ID {user.accountId}
+                              </div>
+                            </td>
+                            <td>
+                              <div>{ user.name + " " + user.surname }</div>
+                            </td>
+                            <td>
+                              <div>{ user.username }</div>
+                            </td>
+                            <td>
+                              {/*<i className="h4 mb-0 flag-icon flag-icon-{{ user.language }}"></i>*/}
+                              <strong>{ user.language }</strong>
+                            </td>
+                            <td>
+                              <strong>{ user.country }</strong>
+                            </td>
+                            <td>
+                              <div className="float-left">
+                                <div>{ user.email }</div>
+                              </div>
+                            </td>
+                            <td className="text-center">
+                              <NavLink>
+                                { user.active ? (
+                                    <Badge color="success">Active</Badge>
+                                  ) : (
+                                    <Badge color="danger">Inactive</Badge>
+                                  )}
+                              </NavLink>
+                            </td>
+                            <td className="text-center">
+                              <NavLink href={`/user/${user.id}`}>
+                                <button type="button" className="btn btn-dark"></button>
+                              </NavLink>
+                            </td>
+                          </tr>
+                        )
+                      })
+                    }
+          </tbody>
+        </Table>
+      </div>
     )
   }
 }
 
-export default User;
+export default UserTable;

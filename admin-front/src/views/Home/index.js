@@ -3,17 +3,19 @@ import { NavLink } from 'reactstrap';
 import logo from './../../img/logo.svg';
 import { Table, Badge } from 'reactstrap';
 import ApiConnection from './../../utils/ApiConnection';
+import UserApi from './../../utils/UserApi';
 
 class Home extends React.Component {
   constructor() {
     super();
+
     this.state = {
       data: [],
     };
   }
 
   getDataOnLoad = () => {
-    ApiConnection.getAllUsers(apiData => {
+    UserApi.all(apiData => {
       this.setState({
         data: apiData
       });
@@ -83,7 +85,7 @@ class Home extends React.Component {
                               </NavLink>
                             </td>
                             <td className="text-center">
-                              <NavLink href="/user">
+                              <NavLink href={`/user/${user.id}`}>
                                 <button type="button" className="btn btn-dark"></button>
                               </NavLink>
                             </td>
