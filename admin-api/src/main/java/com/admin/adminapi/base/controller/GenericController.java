@@ -1,5 +1,6 @@
 package com.admin.adminapi.base.controller;
 
+import com.admin.adminapi.base.dao.entities.AbstractEntity;
 import com.admin.adminapi.base.dto.Dto;
 import com.admin.adminapi.base.service.GenericService;
 import com.admin.adminapi.utils.Messages;
@@ -7,8 +8,6 @@ import com.admin.adminapi.utils.Utils;
 import lombok.Getter;
 import lombok.Setter;
 import org.jboss.logging.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -16,29 +15,29 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import javax.validation.Valid;
 import java.util.List;
 
-@Component
 @Getter @Setter
-public abstract class GenericController<T> extends WebMvcConfigurerAdapter {
+public abstract class GenericController<T extends AbstractEntity> extends WebMvcConfigurerAdapter {
 
     private final Logger logger = Logger.getLogger(GenericController.class);
 
-    @Autowired
     protected GenericService<T> service;
     protected String className;
 
-    public GenericController() {
+    public GenericController(GenericService<T> service) {
+        this.service = service;
         className = Utils.getClassName(Utils.resolveClassOfT(getClass(), GenericController.class));
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/all")
     public @ResponseBody List<T> getAll(@RequestParam(value = "skip", required = false) Integer skip,
-                                        @RequestParam(value = "limit", required = false) Integer limit) {
+                   @RequestParam(value = "limit", required = false) Integer limit) {
 
-        return skip == null || limit == null ? service.getAll() : service.getAll(skip, limit);
+//        return skip == null || limit == null ? service.getAll() : service.getAll(skip, limit);
+        return service.getAll();
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    public @ResponseBody T getById(@PathVariable("id") int id) {
+    public @ResponseBody T getById(@PathVariable("id") Long id) {
         return service.getById(id);
     }
 
@@ -50,7 +49,7 @@ public abstract class GenericController<T> extends WebMvcConfigurerAdapter {
             throw new IllegalArgumentException();
         }
 
-        service.update(dto);
+        service.createOrUpdate(dto);
         logger.info(Messages.SUCCESS);
 
         return "redirect:/";
@@ -58,7 +57,7 @@ public abstract class GenericController<T> extends WebMvcConfigurerAdapter {
 
     // FIXME this seems not right
     @RequestMapping(method = RequestMethod.POST, path = "/delete")
-    public String delete(@RequestParam("id") int id, BindingResult bindingResult) {
+    public String delete(@RequestParam("id") Long id, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             logger.error(Messages.DTO_ERROR);
@@ -77,12 +76,13 @@ public abstract class GenericController<T> extends WebMvcConfigurerAdapter {
     public String create(@RequestBody @Valid Dto<T> dto, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            logger.error(Messages.DTO_ERROR);
+            logger.error(Messages.DTO_ERROR.getMessage());
+            logger.error(dto);
             throw new IllegalArgumentException();
         }
 
-        service.create(dto);
-        logger.info(Messages.SUCCESS);
+        service.createOrUpdate(dto);
+        logger.info(Messages.SUCCESS.getMessage());
         return "redirect:/";
     }
 

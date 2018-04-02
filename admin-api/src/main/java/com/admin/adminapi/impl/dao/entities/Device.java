@@ -1,5 +1,6 @@
 package com.admin.adminapi.impl.dao.entities;
 
+import com.admin.adminapi.base.dao.entities.AbstractEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Device")
 @Getter @Setter @EqualsAndHashCode
-public class Device {
+public class Device implements AbstractEntity {
 
     @Id
     @Column(name = "id")

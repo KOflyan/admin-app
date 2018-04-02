@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Getter @Setter @EqualsAndHashCode
 @MappedSuperclass
- public abstract class AbstractAccount {
+ public abstract class AbstractAccount implements AbstractEntity {
 
     @Id
     @Column(name = "id")

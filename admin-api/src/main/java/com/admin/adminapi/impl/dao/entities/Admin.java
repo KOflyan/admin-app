@@ -1,6 +1,7 @@
 package com.admin.adminapi.impl.dao.entities;
 
 
+import com.admin.adminapi.base.dao.entities.AbstractEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Admin")
 @Getter @Setter @EqualsAndHashCode
-public class Admin {
+public class Admin implements AbstractEntity{
 
     @Id
     private int id;

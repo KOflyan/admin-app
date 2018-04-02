@@ -5,10 +5,13 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+import java.io.Serializable;
 import java.util.List;
 
 @Component
-public abstract class Dao<T> {
+@Transactional
+public abstract class Dao<T extends Serializable> {
 
     @PersistenceContext
     protected EntityManager em;
@@ -19,13 +22,6 @@ public abstract class Dao<T> {
     public Dao() {
         clazz = Utils.resolveClassOfT(getClass(), Dao.class);
         className = Utils.getClassName(clazz);
-
-        // This is needed in case of @MappedSuperclass (Account, User) - you cannot query it
-        if (className.contains("Account")) {
-            className = "Account";
-        } else if (className.contains("User")) {
-            className = "User";
-        }
     }
 
     public List<T> getAll() {

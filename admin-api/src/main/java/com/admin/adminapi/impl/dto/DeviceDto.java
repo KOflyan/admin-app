@@ -19,7 +19,7 @@ public class DeviceDto extends Dto<Device> {
     private int accountId;
 
     @NotNull
-    @Size(min = 1)
+    @Min(1)
     private int userId;
 
     @NotNull

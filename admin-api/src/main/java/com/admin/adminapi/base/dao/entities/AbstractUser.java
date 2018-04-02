@@ -10,7 +10,7 @@ import javax.persistence.MappedSuperclass;
 
 @Getter @Setter @EqualsAndHashCode
 @MappedSuperclass
-public abstract class AbstractUser {
+public abstract class AbstractUser implements AbstractEntity {
 
     @Id
     @Column(name = "id")

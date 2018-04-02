@@ -2,6 +2,8 @@ package com.admin.adminapi.impl.controller;
 
 import com.admin.adminapi.base.controller.GenericController;
 import com.admin.adminapi.base.dao.entities.AbstractUser;
+import com.admin.adminapi.impl.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,11 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 @EnableAutoConfiguration
 @RequestMapping("/user")
 public class UserController extends GenericController<AbstractUser> {
+
+    @Autowired
+    public UserController(UserService service) {
+        super(service);
+    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

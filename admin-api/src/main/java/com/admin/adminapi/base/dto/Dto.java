@@ -1,8 +1,36 @@
 package com.admin.adminapi.base.dto;
 
-public abstract class Dto<T> {
 
-    public abstract T get();
+import com.admin.adminapi.impl.dto.AccountDto;
+import com.admin.adminapi.impl.dto.AdminDto;
+import com.admin.adminapi.impl.dto.DeviceDto;
+import com.admin.adminapi.impl.dto.UserDto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serializable;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo( use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = UserDto.class, name = "UserDto"),
+        @JsonSubTypes.Type(value = AccountDto.class, name = "AccountDto"),
+        @JsonSubTypes.Type(value = DeviceDto.class, name = "DeviceDto"),
+        @JsonSubTypes.Type(value = AdminDto.class, name = "AdminDto")
+})
+@Getter @Setter
+public abstract class Dto<T> implements Serializable {
+
+    @JsonProperty
+    private String type;
+
+    public T get() {
+         return null;
+     }
 
 
 }

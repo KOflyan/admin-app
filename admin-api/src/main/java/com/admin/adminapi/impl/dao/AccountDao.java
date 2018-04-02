@@ -4,7 +4,6 @@ import com.admin.adminapi.base.dao.Dao;
 import com.admin.adminapi.base.dao.entities.AbstractAccount;
 import org.springframework.stereotype.Repository;
 
-@Repository
 public class AccountDao extends Dao<AbstractAccount> {
 
     @Override
@@ -13,11 +12,4 @@ public class AccountDao extends Dao<AbstractAccount> {
                 .setParameter("id", id)
                 .getSingleResult();
     }
-
-//
-//    @Override
-//    public List<AbstractAccount> getAll() {
-//        return em.createNamedQuery("AbstractAccount.getById", AbstractAccount.class)
-//                .getResultList();
-//    }
 }

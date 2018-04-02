@@ -44,7 +44,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 //	compile('org.springframework.session:spring-session')
 	runtime('org.springframework.boot:spring-boot-devtools')
-//	runtime('com.h2database:h2')
+	runtime('com.h2database:h2')
 	runtime('mysql:mysql-connector-java')
 	compileOnly('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
