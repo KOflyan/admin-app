@@ -38,16 +38,7 @@ class User extends React.Component {
   }
 
   handleSubmit(event) {
-    fetch('/user/save', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        data: this.state.data
-      })
-    })
+    UserApi.update(this.state.data);
     event.preventDefault();
   }
 
@@ -55,52 +46,52 @@ class User extends React.Component {
   render() {
     return (
       <div>
-        <div class="card border-info mb-3">
+        <div className="card border-info mb-3">
           <div className="card-header">User information</div>
             <div className="card-body">
               <form onSubmit={this.handleSubmit}>
                 <div className="form-row">
-                  <div class="form-group col-md-2">
-                    <label for="id">User ID</label>
-                    <input type="text" class="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
+                  <div className="form-group col-md-2">
+                    <label htmlFor="id">User ID</label>
+                    <input type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
                   </div>
-                  <div class="form-group col-md-2">
-                    <label for="accountId">Account ID</label>
-                    <input type="text" class="form-control" id="accountId" value={this.state.data.accountId || ''} onChange={this.handleInputChange}/>
-                  </div>
-                  <div className="form-group col">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" value={this.state.data.name || ''} onChange={this.handleInputChange}/>
+                  <div className="form-group col-md-2">
+                    <label htmlFor="accountId">Account ID</label>
+                    <input type="text" className="form-control" id="accountId" value={this.state.data.accountId || ''} onChange={this.handleInputChange}/>
                   </div>
                   <div className="form-group col">
-                    <label for="surname">Surname</label>
-                    <input type="text" class="form-control" id="surname" value={this.state.data.surname || ''} onChange={this.handleInputChange}/>
+                    <label htmlFor="name">Name</label>
+                    <input type="text" className="form-control" id="name" value={this.state.data.name || ''} onChange={this.handleInputChange}/>
+                  </div>
+                  <div className="form-group col">
+                    <label htmlFor="surname">Surname</label>
+                    <input type="text" className="form-control" id="surname" value={this.state.data.surname || ''} onChange={this.handleInputChange}/>
                   </div>
                 </div>
                 <div className="form-row">
                   <div className="form-group col">
-                    <label for="username">Username</label>
-                      <input type="text" class="form-control" id="username" value={this.state.data.username || ''} onChange={this.handleInputChange}/>
+                    <label htmlFor="username">Username</label>
+                      <input type="text" className="form-control" id="username" value={this.state.data.username || ''} onChange={this.handleInputChange}/>
                   </div>
                   <div className="form-group col">
-                    <label for="email">Email</label>
-                    <input type="text" class="form-control" id="email" value={this.state.data.email || ''} onChange={this.handleInputChange}/>
-                  </div>
-                </div>
-                <div className="form-row">
-                  <div className="form-group col">
-                    <label for="country">Country</label>
-                    <input type="text" class="form-control" id="country" value={this.state.data.country || ''} onChange={this.handleInputChange}/>
-                  </div>
-                  <div className="form-group col">
-                    <label for="language">Language</label>
-                    <input type="text" class="form-control" id="language" value={this.state.data.language || ''} onChange={this.handleInputChange}/>
+                    <label htmlFor="email">Email</label>
+                    <input type="text" className="form-control" id="email" value={this.state.data.email || ''} onChange={this.handleInputChange}/>
                   </div>
                 </div>
                 <div className="form-row">
                   <div className="form-group col">
-                    <label for="active">Active</label>
-                    <input type="text" class="form-control" id="active" value={this.state.data.active || ''} onChange={this.handleInputChange}/>
+                    <label htmlFor="country">Country</label>
+                    <input type="text" className="form-control" id="country" value={this.state.data.country || ''} onChange={this.handleInputChange}/>
+                  </div>
+                  <div className="form-group col">
+                    <label htmlFor="language">Language</label>
+                    <input type="text" className="form-control" id="language" value={this.state.data.language || ''} onChange={this.handleInputChange}/>
+                  </div>
+                </div>
+                <div className="form-row">
+                  <div className="form-group col">
+                    <label htmlFor="active">Active</label>
+                    <input type="text" className="form-control" id="active" value={this.state.data.active || ''} onChange={this.handleInputChange}/>
                   </div>
                   <div className="form-group col">
                     <button type="submit" className="btn btn-danger btn-block" style={{position:'absolute', bottom: '0'}}  onClick={this.handleSubmit}>Submit</button>

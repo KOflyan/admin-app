@@ -62,7 +62,7 @@ class UserTable extends React.Component {
               <th>Language</th>
               <th>Country</th>
               <th>Email</th>
-              <th className="text-center">Active</th>
+              <th className="text-center">Status</th>
               <th className="text-center">Modify</th>
             </tr>
           </thead>

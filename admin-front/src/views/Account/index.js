@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'reactstrap';
 import logo from './../../img/logo.svg';
 import { Table, Badge } from 'reactstrap';
-import UserApi from './../../utils/UserApi';
+import AccountApi from './../../utils/AccountApi';
 import Pagination from './../../utils/Pagination';
 
 
@@ -23,12 +23,12 @@ class AccountTable extends React.Component {
 
   handlePageChange(page) {
     const renderedData = this.state.data.slice((page - 1) * 10, (page - 1) * 10 + 10);
-    // in a real app you could query the specific page from a server user list
+
     this.setState({ page, renderedData });
   }
 
   getDataOnLoad = () => {
-    UserApi.all(apiData => {
+    AccountApi.all(apiData => {
       this.setState({
         data: apiData,
         renderedData: apiData.slice(0, 10),
@@ -57,45 +57,27 @@ class AccountTable extends React.Component {
           <thead className="thead-dark">
             <tr>
               <th>#</th>
-              <th>User</th>
-              <th>Username</th>
-              <th>Language</th>
-              <th>Country</th>
-              <th>Email</th>
-              <th className="text-center">Active</th>
+              <th>Name</th>
+              <th>Type</th>
+              <th className="text-center">Status</th>
               <th className="text-center">Modify</th>
             </tr>
           </thead>
           <tbody>
-            {renderedData.map(user => {
-                return ( <tr key={user.id}>
+            {renderedData.map(account => {
+                return ( <tr key={ account.id }>
                             <td>
-                              <div>ID { user.id } </div>
-                              <div className="small text-muted">
-                                Account ID {user.accountId}
-                              </div>
+                              <div>ID { account.id } </div>
                             </td>
                             <td>
-                              <div>{ user.name + " " + user.surname }</div>
+                              <div>{ account.name }</div>
                             </td>
                             <td>
-                              <div>{ user.username }</div>
-                            </td>
-                            <td>
-                              {/* <i className="h4 mb-0 flag-icon flag-icon-{{ user.language }}"></i> */}
-                               <strong>{ user.language }</strong>
-                            </td>
-                            <td>
-                              <strong>{ user.country }</strong>
-                            </td>
-                            <td>
-                              <div className="float-left">
-                                <div>{ user.email }</div>
-                              </div>
+                              <div>{ account.type }</div>
                             </td>
                             <td className="text-center">
                               <NavLink>
-                                { user.active ? (
+                                { account.active ? (
                                     <Badge color="success">Active</Badge>
                                   ) : (
                                     <Badge color="danger">Inactive</Badge>
@@ -103,7 +85,7 @@ class AccountTable extends React.Component {
                               </NavLink>
                             </td>
                             <td className="text-center">
-                              <NavLink href={`/user/${user.id}`}>
+                              <NavLink href={`/account/${account.id}`}>
                                 <button type="button" className="btn btn-dark"></button>
                               </NavLink>
                             </td>
@@ -124,4 +106,4 @@ class AccountTable extends React.Component {
   }
 }
 
-export default UserTable;
+export default AccountTable;

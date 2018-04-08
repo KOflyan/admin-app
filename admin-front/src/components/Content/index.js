@@ -6,6 +6,9 @@ import RegisterUser from './../../views/RegisterUser'
 import RegisterAdmin from './../../views/RegisterAdmin'
 import UserTable from './../../views/User'
 import User from './../../views/User/user'
+import AccountTable from './../../views/Account'
+import Account from './../../views/Account/account'
+
 
 
 const Content = () => (
