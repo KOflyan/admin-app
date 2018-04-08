@@ -26,74 +26,121 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className ='form-container'>
-          <form className="form-inline my-2 my-lg-0">
-             <input className="form-control mr-sm-2" style={{width: '400px'}} type="text" placeholder="Search"/>
-             <button className="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-         </form>
-         <img src={logo} className="App-logo" alt="logo"/>
-       </div>
-        <Table striped>
-          <thead className="thead-dark">
-            <tr>
-              <th>#</th>
-              <th>User</th>
-              <th>Username</th>
-              <th>Language</th>
-              <th>Country</th>
-              <th>Email</th>
-              <th className="text-center">Active</th>
-              <th className="text-center">Modify</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.data.map(user => {
-                return ( <tr key={user.id}>
-                            <td>
-                              <div>ID { user.id } </div>
-                              <div className="small text-muted">
-                                Account ID {user.accountId}
-                              </div>
-                            </td>
-                            <td>
-                              <div>{ user.name + " " + user.surname }</div>
-                            </td>
-                            <td>
-                              <div>{ user.username }</div>
-                            </td>
-                            <td>
-                              {/*<i className="h4 mb-0 flag-icon flag-icon-{{ user.language }}"></i>*/}
-                              <strong>{ user.language }</strong>
-                            </td>
-                            <td>
-                              <strong>{ user.country }</strong>
-                            </td>
-                            <td>
-                              <div className="float-left">
-                                <div>{ user.email }</div>
-                              </div>
-                            </td>
-                            <td className="text-center">
-                              <NavLink>
-                                { user.active ? (
-                                    <Badge color="success">Active</Badge>
-                                  ) : (
-                                    <Badge color="danger">Inactive</Badge>
-                                  )}
-                              </NavLink>
-                            </td>
-                            <td className="text-center">
-                              <NavLink href={`/user/${user.id}`}>
-                                <button type="button" className="btn btn-dark"></button>
-                              </NavLink>
-                            </td>
-                          </tr>
-                        )
-                      })
-                    }
-          </tbody>
-        </Table>
+      <div className="card" style={{'padding-top': '10px'}}>
+          <div className="row">
+            <div className="col">
+              <label for="user-card" style={{'margin-left':'2%'}}><strong>User management</strong></label>
+              <div className="card border-danger mb-3" id="user-card">
+                <div className="card-header">
+                  List all users or view user information.
+                </div>
+                <div className="card-body">
+                  <div className="card border-primary mb-3">
+                    <a href="/users" className="btn btn-fix text-left">
+                      {/* <img className="card-img-top" src="..." alt="Card image cap"/> */}
+                      <div className="card-block">
+                        <h4 className="card-title text-dark">List all</h4>
+                        <p className="card-text"><small class="text-muted">List all registered users</small></p>
+                      </div>
+                    </a>
+                  </div>
+                  <div className="card border-primary mb-3">
+                    <a href="/registerUser" class="btn btn-fix text-left">
+                      {/* <img class="card-img-top " src="..." alt="Card image cap"/> */}
+                      <div class="card-block ">
+                        <h4 class="card-title text-dark ">Create new user</h4>
+                        <p class="card-text "><small class="text-muted">Register new user manually</small></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <label for="device-card" style={{'margin-left':'2%'}}><strong>Device management</strong></label>
+              <div className="card border-danger mb-3" id="device-card">
+                <div className="card-header">
+                  List all devices or view device information.
+                </div>
+                <div className="card-body">
+                  <div className="card border-primary mb-3">
+                    <a href="/users" className="btn btn-fix text-left">
+                      {/* <img className="card-img-top" src="..." alt="Card image cap"/> */}
+                      <div className="card-block">
+                        <h4 className="card-title text-dark">List all</h4>
+                        <p className="card-text"><small class="text-muted">List all devices</small></p>
+                      </div>
+                    </a>
+                  </div>
+                  <div className="card border-primary mb-3">
+                    <a href="/register" class="btn btn-fix text-left">
+                      {/* <img class="card-img-top " src="..." alt="Card image cap"/> */}
+                      <div class="card-block ">
+                        <h4 class="card-title text-dark ">Soon come</h4>
+                        <p class="card-text "><small class="text-muted">Register new user manually</small></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="col">
+              <label for="account-card" style={{'margin-left':'2%'}}><strong>Account management</strong></label>
+              <div className="card border-danger mb-3" id="account-card">
+                <div className="card-header">
+                  List all account or view account information.
+                </div>
+                <div className="card-body">
+                  <div className="card border-primary mb-3">
+                    <a href="/accounts" className="btn btn-fix text-left">
+                        {/* <img className="card-img-top " src="..." alt="Card image cap"/> */}
+                      <div className="card-block">
+                        <h4 className="card-title text-dark ">List all</h4>
+                        <p className="card-text">
+                          <small class="text-muted">List all accounts and their status</small>
+                        </p>
+                      </div>
+                    </a>
+                  </div>
+                  <div className="card border-primary mb-3">
+                    <a href="#" class="btn btn-fix text-left">
+                      {/* <img class="card-img-top " src="..." alt="Card image cap"/> */}
+                      <div class="card-block ">
+                        <h4 class="card-title text-dark ">Create new account</h4>
+                        <p class="card-text "><small class="text-muted">Register new user manually</small></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <label for="corporate-card" style={{'margin-left':'2%'}}><strong>Corporate user management</strong></label>
+              <div className="card border-danger mb-3" id="corporate-card">
+                <div className="card-header">
+                  List all corporate users that have access to admin application.
+                </div>
+                <div className="card-body">
+                  {/* <div className="card border-primary mb-3">
+                    <a href="/users" className="btn btn-fix text-left">
+                      <img className="card-img-top" src="..." alt="Card image cap"/>
+                      <div className="card-block">
+                        <h4 className="card-title text-dark">List all</h4>
+                        <p className="card-text"><small class="text-muted">List all devices</small></p>
+                      </div>
+                    </a>
+                  </div> */}
+                  <div className="card border-primary mb-3">
+                    <a href="/register" class="btn btn-fix text-left">
+                      {/* <img class="card-img-top " src="..." alt="Card image cap"/> */}
+                      <div class="card-block ">
+                        <h4 class="card-title text-dark ">Register user</h4>
+                        <p class="card-text "><small class="text-muted">Register new corporate user</small></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
       </div>
     )
   }

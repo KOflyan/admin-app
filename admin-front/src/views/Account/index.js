@@ -6,7 +6,7 @@ import UserApi from './../../utils/UserApi';
 import Pagination from './../../utils/Pagination';
 
 
-class UserTable extends React.Component {
+class AccountTable extends React.Component {
   constructor() {
     super();
 
