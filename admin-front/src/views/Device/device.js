@@ -1,7 +1,7 @@
 import React from 'react';
 import AccountApi from './../../utils/AccountApi';
 
-class Account extends React.Component {
+class Device extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -75,56 +75,9 @@ class Account extends React.Component {
               </form>
             </div>
           </div>
-          <div className="row">
-            <div className="col">
-              {this.state.data.users ? <UsersForAccount users={this.state.data.users} /> : null}
-            </div>
-            <div className="col">
-              {this.state.data.devices ? <DevicesForAccount devices={this.state.data.devices} /> : null}
-            </div>
-          </div>
         </div>
     )
   }
 }
 
-class UsersForAccount extends React.Component {
-  render() {
-    return (
-      <div>
-        {console.log(this.props)}
-      {this.props.users.map(user => {
-          return ( <div key={ user.id }>
-                        <div>ID { user.id } </div>
-                    </div>
-                  )
-                })
-              }
-
-      </div>
-
-
-    )
-  }
-}
-
-class DevicesForAccount extends React.Component {
-  render() {
-    return (
-      <div>
-      {this.props.devices.map(device => {
-          return ( <div key={ device.id }>
-                        <div>ID { device.id } </div>
-                    </div>
-                  )
-                })
-              }
-
-      </div>
-
-
-    )
-  }
-}
-
-export default Account;
+export default Device;

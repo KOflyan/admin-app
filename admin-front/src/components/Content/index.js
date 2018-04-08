@@ -8,6 +8,9 @@ import UserTable from './../../views/User'
 import User from './../../views/User/user'
 import AccountTable from './../../views/Account'
 import Account from './../../views/Account/account'
+import DeviceTable from './../../views/Device'
+import Device from './../../views/Device/device'
+
 
 
 
@@ -23,6 +26,8 @@ const Content = () => (
       <Route path='/user/:id' component={ User }/>
       <Route exact path='/accounts' component={ AccountTable }/>
       <Route path='/account/:id' component={ Account }/>
+      <Route exact path='/devices' component={ DeviceTable }/>
+      <Route path='/device/:id' component={ Device }/>
     </Switch>
   </main>
 )

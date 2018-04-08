@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button, Row, Col, Form, FormGroup, label, Input, Card, CardTitle, CardText } from 'reactstrap';
 import UserApi from './../../utils/UserApi';
 
 class User extends React.Component {
