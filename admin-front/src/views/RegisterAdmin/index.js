@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 class RegisterAdmin extends React.Component {
   render() {
@@ -12,11 +12,11 @@ class RegisterAdmin extends React.Component {
       				</div>
             </div>
           </div>
-      <div className="panel-body">
-        <RegistrationForm/>
+          <div className="panel-body">
+            <RegistrationForm/>
+          </div>
+        </div>
       </div>
-      </div>
-    </div>
     )
   }
 }
@@ -45,7 +45,6 @@ class RegistrationForm extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state)
     fetch('/admin/create', {
       method: 'POST',
       headers: {
