@@ -1,5 +1,6 @@
 import React from 'react';
-import UserApi from './../../utils/UserApi';
+import Constants from './../../utils/Constants';
+import ApiConnection from './../../utils/ApiConnection';
 
 class User extends React.Component {
   constructor() {
@@ -16,7 +17,7 @@ class User extends React.Component {
 
     const userId = this.props.match.params.id;
 
-    UserApi.get(userId, apiData => {
+    ApiConnection.get(Constants.userApiUrl, userId, apiData => {
 
       this.setState({
         data: apiData
@@ -37,7 +38,7 @@ class User extends React.Component {
   }
 
   handleSubmit(event) {
-    UserApi.update(this.state.data);
+    ApiConnection.update(Constants.userApiUrl, this.state.data);
     event.preventDefault();
   }
 

@@ -1,14 +1,14 @@
 import React from 'react';
 
 class Home extends React.Component {
-  
+
   render() {
     return (
       <div className="card" style={{'paddingTop': '10px'}}>
           <div className="row">
             <div className="col">
               <label htmlFor="user-card" style={{'marginLeft':'2%'}}><strong>User management</strong></label>
-              <div className="card border-danger mb-3" id="user-card">
+              <div className="card border-info mb-3" id="user-card">
                 <div className="card-header">
                   List all users or view user information.
                 </div>
@@ -34,7 +34,7 @@ class Home extends React.Component {
                 </div>
               </div>
               <label htmlFor="device-card" style={{'marginLeft':'2%'}}><strong>Device management</strong></label>
-              <div className="card border-danger mb-3" id="device-card">
+              <div className="card border-info mb-3" id="device-card">
                 <div className="card-header">
                   List all devices or view device information.
                 </div>
@@ -63,7 +63,7 @@ class Home extends React.Component {
 
             <div className="col">
               <label htmlFor="account-card" style={{'marginLeft':'2%'}}><strong>Account management</strong></label>
-              <div className="card border-danger mb-3" id="account-card">
+              <div className="card border-info mb-3" id="account-card">
                 <div className="card-header">
                   List all account or view account information.
                 </div>
@@ -91,7 +91,7 @@ class Home extends React.Component {
                 </div>
               </div>
               <label htmlFor="corporate-card" style={{'marginLeft':'2%'}}><strong>Corporate user management</strong></label>
-              <div className="card border-danger mb-3" id="corporate-card">
+              <div className="card border-info mb-3" id="corporate-card">
                 <div className="card-header">
                   List all corporate users that have access to admin application.
                 </div>

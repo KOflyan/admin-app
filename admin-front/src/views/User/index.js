@@ -2,7 +2,8 @@ import React from 'react';
 import { NavLink } from 'reactstrap';
 import logo from './../../img/logo.svg';
 import { Table, Badge } from 'reactstrap';
-import UserApi from './../../utils/UserApi';
+import Constants from './../../utils/Constants';
+import ApiConnection from './../../utils/ApiConnection';
 import Pagination from './../../utils/Pagination';
 
 
@@ -28,7 +29,7 @@ class UserTable extends React.Component {
   }
 
   getDataOnLoad = () => {
-    UserApi.all(apiData => {
+    ApiConnection.all(Constants.userApiUrl, apiData => {
       this.setState({
         data: apiData,
         renderedData: apiData.slice(0, 10),
