@@ -1,11 +1,4 @@
-function getAllUsers(cb) {
-  return fetch('/user/all')
-  .then(response => {
-    return checkStatus(response);
-  }).then(response => {
-    return response.json();
-  }).then(cb);
-}
+const ApiConnection = { checkStatus };
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -17,7 +10,5 @@ function checkStatus(response) {
   console.log(error);
   throw error;
 }
-
-const ApiConnection = { getAllUsers };
 
 export default ApiConnection;
