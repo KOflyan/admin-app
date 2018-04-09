@@ -32,7 +32,7 @@ class RegistrationForm extends React.Component {
       password: '',
       confirmPassword: '',
       role: 'admin',
-      type: 'Admin'
+      type: 'admin'
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -47,6 +47,7 @@ class RegistrationForm extends React.Component {
   }
 
   handleSubmit(event) {
+    delete this.state['confirmPassword'];
     fetch('/admin/save', {
       method: 'POST',
       headers: {

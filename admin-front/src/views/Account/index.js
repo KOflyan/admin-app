@@ -69,7 +69,7 @@ class AccountTable extends React.Component {
                 return ( <tr key={ account.id }>
                             <td><div>ID { account.id } </div></td>
                             <td><div>{ account.name }</div></td>
-                            <td><div>{ account.type }</div></td>
+                            <td><div>{ account.accountType }</div></td>
                             <td className="text-center">
                               <NavLink>
                                 { account.active ? (

@@ -2,7 +2,8 @@ const ApiConnection = {
 
   all: function(url, cb) { getAll(url, cb) },
   get: function(url, id, cb) { getById(url, id, cb) },
-  update: function(url, data) { updateInfo(url, data) }
+  update: function(url, data) { updateInfo(url, data) },
+  delete: function(url, id) { deleteById(url, id) }
 
 }
 
@@ -21,8 +22,8 @@ function getById(url, id, cb) {
 }
 
 function updateInfo(url, data) {
-
-  console.log(data['type']);
+  data['type'] = url;
+  console.log(data);
   fetch('/' + url + '/save', {
     method: 'POST',
     headers: {
@@ -32,6 +33,16 @@ function updateInfo(url, data) {
     body: JSON.stringify({
       data: data
     })
+  })
+}
+
+function deleteById(url, id) {
+  fetch('/' + url + '/delete/' + id, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
   })
 }
 

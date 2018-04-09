@@ -11,6 +11,7 @@ class Device extends React.Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.deleteById = this.deleteById.bind(this);
   }
 
   getDataOnLoad = () => {
@@ -42,41 +43,48 @@ class Device extends React.Component {
     event.preventDefault();
   }
 
+  deleteById() {
+    ApiConnection.delete(Constants.deviceApiUrl, this.state.data.id);
+  }
+
 
   render() {
     return (
       <div>
         <div className="card border-info mb-3">
-          <div className="card-header">Account information</div>
-            <div className="card-body">
-              <form onSubmit={this.handleSubmit}>
-                <div className="form-row">
-                  <div className="form-group col-md-2">
-                    <label htmlFor="id">Account ID</label>
-                    <input type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
-                  </div>
-                  <div className="form-group col">
-                    <label htmlFor="name">Name</label>
-                    <input type="text" className="form-control" id="name" value={this.state.data.name || ''} onChange={this.handleInputChange}/>
-                  </div>
-                  <div className="form-group col">
-                    <label htmlFor="username">Type</label>
-                      <input type="text" className="form-control" id="username" value={this.state.data.type || ''} onChange={this.handleInputChange}/>
-                  </div>
+          <div className="card-header">
+            Device information
+            <button type="button" className="btn btn-danger float-right" onClick={this.deleteById}>Delete</button>
+          </div>
+          <div className="card-body">
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-row">
+                <div className="form-group col-md-2">
+                  <label htmlFor="id">Account ID</label>
+                  <input type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
                 </div>
-                <div className="form-row">
-                  <div className="form-group col">
-                    <label htmlFor="email">Status</label>
-                    <input type="text" className="form-control" id="email" value={this.state.data.active || ''} onChange={this.handleInputChange}/>
-                  </div>
-                  <div className="form-group col">
-                    <button type="submit" className="btn btn-danger btn-block" style={{position:'absolute', bottom: '0'}}  onClick={this.handleSubmit}>Submit</button>
-                  </div>
+                <div className="form-group col">
+                  <label htmlFor="name">Name</label>
+                  <input type="text" className="form-control" id="name" value={this.state.data.name || ''} onChange={this.handleInputChange}/>
                 </div>
-              </form>
-            </div>
+                <div className="form-group col">
+                  <label htmlFor="username">Type</label>
+                    <input type="text" className="form-control" id="username" value={this.state.data.type || ''} onChange={this.handleInputChange}/>
+                </div>
+              </div>
+              <div className="form-row">
+                <div className="form-group col">
+                  <label htmlFor="email">Status</label>
+                  <input type="text" className="form-control" id="email" value={this.state.data.active || ''} onChange={this.handleInputChange}/>
+                </div>
+                <div className="form-group col">
+                  <button type="submit" className="btn btn-danger btn-block" style={{position:'absolute', bottom: '0'}}  onClick={this.handleSubmit}>Submit</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
+      </div>
     )
   }
 }
