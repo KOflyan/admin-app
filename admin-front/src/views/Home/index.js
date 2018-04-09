@@ -10,7 +10,7 @@ class Home extends React.Component {
               <label htmlFor="user-card" style={{'marginLeft':'2%'}}><strong>User management</strong></label>
               <div className="card border-info mb-3" id="user-card">
                 <div className="card-header">
-                  List all users or view user information.
+                  List all users or view user information
                 </div>
                 <div className="card-body">
                   <div className="card border-primary mb-3">
@@ -36,7 +36,7 @@ class Home extends React.Component {
               <label htmlFor="device-card" style={{'marginLeft':'2%'}}><strong>Device management</strong></label>
               <div className="card border-info mb-3" id="device-card">
                 <div className="card-header">
-                  List all devices or view device information.
+                  List all devices or view device information
                 </div>
                 <div className="card-body">
                   <div className="card border-primary mb-3">
@@ -65,7 +65,7 @@ class Home extends React.Component {
               <label htmlFor="account-card" style={{'marginLeft':'2%'}}><strong>Account management</strong></label>
               <div className="card border-info mb-3" id="account-card">
                 <div className="card-header">
-                  List all account or view account information.
+                  List all account or view account information
                 </div>
                 <div className="card-body">
                   <div className="card border-primary mb-3">
@@ -93,11 +93,11 @@ class Home extends React.Component {
               <label htmlFor="corporate-card" style={{'marginLeft':'2%'}}><strong>Corporate user management</strong></label>
               <div className="card border-info mb-3" id="corporate-card">
                 <div className="card-header">
-                  List all corporate users that have access to admin application.
+                  List all corporate users that have access to admin application
                 </div>
                 <div className="card-body">
                   <div className="card border-primary mb-3">
-                    <a href="/register" className="btn btn-fix text-left">
+                    <a href="/registerAdmin" className="btn btn-fix text-left">
                       {/* <img class="card-img-top " src="..." alt="Card image cap"/> */}
                       <div className="card-block ">
                         <h4 className="card-title text-dark ">Register user</h4>

@@ -24,7 +24,7 @@ class UserTable extends React.Component {
 
   handlePageChange(page) {
     const renderedData = this.state.data.slice((page - 1) * 10, (page - 1) * 10 + 10);
-    // in a real app you could query the specific page from a server user list
+    
     this.setState({ page, renderedData });
   }
 

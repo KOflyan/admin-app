@@ -7,22 +7,23 @@ const ApiConnection = {
 }
 
 function getAll(url, cb) {
-  return fetch(url + '/all')
+  return fetch('/' + url + '/all')
   .then( response => checkStatus(response) )
   .then( response => response.json() )
   .then(cb);
 }
 
 function getById(url, id, cb) {
-  return fetch(url + '/' + id)
+  return fetch('/' + url + '/' + id)
   .then( response => checkStatus(response) )
   .then( response => response.json() )
   .then(cb);
 }
 
 function updateInfo(url, data) {
-  console.log(data);
-  fetch(url + '/update', {
+
+  console.log(data['type']);
+  fetch('/' + url + '/save', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
