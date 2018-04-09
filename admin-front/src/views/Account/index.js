@@ -2,7 +2,8 @@ import React from 'react';
 import { NavLink } from 'reactstrap';
 import logo from './../../img/logo.svg';
 import { Table, Badge } from 'reactstrap';
-import AccountApi from './../../utils/AccountApi';
+import ApiConnection from './../../utils/ApiConnection';
+import Constants from './../../utils/Constants';
 import Pagination from './../../utils/Pagination';
 
 
@@ -28,7 +29,7 @@ class AccountTable extends React.Component {
   }
 
   getDataOnLoad = () => {
-    AccountApi.all(apiData => {
+    ApiConnection.all(Constants.accountApiUrl, apiData => {
       this.setState({
         data: apiData,
         renderedData: apiData.slice(0, 10),
@@ -66,15 +67,9 @@ class AccountTable extends React.Component {
           <tbody>
             {renderedData.map(account => {
                 return ( <tr key={ account.id }>
-                            <td>
-                              <div>ID { account.id } </div>
-                            </td>
-                            <td>
-                              <div>{ account.name }</div>
-                            </td>
-                            <td>
-                              <div>{ account.type }</div>
-                            </td>
+                            <td><div>ID { account.id } </div></td>
+                            <td><div>{ account.name }</div></td>
+                            <td><div>{ account.type }</div></td>
                             <td className="text-center">
                               <NavLink>
                                 { account.active ? (

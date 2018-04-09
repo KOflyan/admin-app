@@ -1,5 +1,6 @@
 import React from 'react';
-import AccountApi from './../../utils/AccountApi';
+import Constants from './../../utils/Constants';
+import ApiConnection from './../../utils/ApiConnection';
 
 class Device extends React.Component {
   constructor() {
@@ -14,9 +15,9 @@ class Device extends React.Component {
 
   getDataOnLoad = () => {
 
-    const accountId = this.props.match.params.id;
+    const deviceId = this.props.match.params.id;
 
-    AccountApi.get(accountId, apiData => {
+    ApiConnection.get(Constants.deviceApiUrl, deviceId, apiData => {
 
       this.setState({
         data: apiData
@@ -37,7 +38,7 @@ class Device extends React.Component {
   }
 
   handleSubmit(event) {
-    AccountApi.update(this.state.data);
+    ApiConnection.update(Constants.deviceApiUrl, this.state.data);
     event.preventDefault();
   }
 

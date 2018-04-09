@@ -8,7 +8,7 @@ class RegisterAdmin extends React.Component {
           <div className="panel-heading">
       			<div className="row">
       				<div className="center">
-      					<h5>Register</h5>
+      					<h5>Register admin</h5>
       				</div>
             </div>
           </div>
@@ -24,14 +24,16 @@ class RegisterAdmin extends React.Component {
 class RegistrationForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state =
-    {name: '',
-    surname: '',
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    role: 'admin'};
+    this.state ={
+      name: '',
+      surname: '',
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      role: 'admin',
+      type: 'Admin'
+    };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,7 +47,7 @@ class RegistrationForm extends React.Component {
   }
 
   handleSubmit(event) {
-    fetch('/admin/create', {
+    fetch('/admin/save', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

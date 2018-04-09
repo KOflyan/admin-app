@@ -2,7 +2,8 @@ import React from 'react';
 import { NavLink } from 'reactstrap';
 import logo from './../../img/logo.svg';
 import { Table, Badge } from 'reactstrap';
-import UserApi from './../../utils/UserApi';
+import Constants from './../../utils/Constants';
+import ApiConnection from './../../utils/ApiConnection';
 import Pagination from './../../utils/Pagination';
 
 
@@ -23,12 +24,12 @@ class UserTable extends React.Component {
 
   handlePageChange(page) {
     const renderedData = this.state.data.slice((page - 1) * 10, (page - 1) * 10 + 10);
-    // in a real app you could query the specific page from a server user list
+    
     this.setState({ page, renderedData });
   }
 
   getDataOnLoad = () => {
-    UserApi.all(apiData => {
+    ApiConnection.all(Constants.userApiUrl, apiData => {
       this.setState({
         data: apiData,
         renderedData: apiData.slice(0, 10),

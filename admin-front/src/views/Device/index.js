@@ -2,7 +2,8 @@ import React from 'react';
 import { NavLink } from 'reactstrap';
 import logo from './../../img/logo.svg';
 import { Table } from 'reactstrap';
-import DeviceApi from './../../utils/DeviceApi';
+import Constants from './../../utils/Constants';
+import ApiConnection from './../../utils/ApiConnection';
 import Pagination from './../../utils/Pagination';
 
 
@@ -28,7 +29,7 @@ class DeviceTable extends React.Component {
   }
 
   getDataOnLoad = () => {
-    DeviceApi.all(apiData => {
+    ApiConnection.all(Constants.deviceApiUrl, apiData => {
       this.setState({
         data: apiData,
         renderedData: apiData.slice(0, 10),
