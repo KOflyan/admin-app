@@ -4,16 +4,18 @@ import com.admin.adminapi.base.dao.Dao;
 import com.admin.adminapi.base.dao.entities.AbstractEntity;
 import com.admin.adminapi.base.dto.Dto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.NoResultException;
 import java.util.List;
 
-@Component
 public abstract class GenericService<T extends AbstractEntity> {
 
+    protected final Dao<T> dao;
+
     @Autowired
-    protected Dao<T> dao;
+    public GenericService(Dao<T> dao) {
+        this.dao = dao;
+    }
 
     public T find(Long id) throws NoResultException {
         return dao.find(id);

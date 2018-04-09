@@ -8,7 +8,6 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -22,8 +21,9 @@ public class UserDto extends Dto<AbstractUser> {
 
     private String surname;
 
+    private boolean isActive;
+
     @NotNull
-    @Min(1)
     private int accountId;
 
     @NotNull
@@ -36,7 +36,6 @@ public class UserDto extends Dto<AbstractUser> {
 
     @NotNull
     @Email
-    @Size(min = 10, max = 50)
     private String email;
 
     @NotNull
@@ -49,7 +48,7 @@ public class UserDto extends Dto<AbstractUser> {
     }
 
     public UserDto(int accountId, String name, String surname, String username, String password,
-                   String email, String language, String country) {
+                   String email, String language, String country, Boolean isActive) {
         this.accountId = accountId;
         this.name = name;
         this.surname = surname;
@@ -58,10 +57,11 @@ public class UserDto extends Dto<AbstractUser> {
         this.email = email;
         this.language = language;
         this.country = country;
+        this.isActive = isActive;
     }
 
     @Override
     public AbstractUser get() {
-        return new User(id, accountId, name, surname, username, password, email, language, country, true);
+        return new User(id, accountId, name, surname, username, password, email, language, country, isActive);
     }
 }

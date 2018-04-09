@@ -16,7 +16,7 @@ public class Account extends AbstractAccount {
     public Account() {
     }
 
-    public Account(Long id, String name, boolean isActive, String type) {
-        super(id, name, isActive, type);
+    public Account(Long id, String name, boolean isActive, String accountType) {
+        super(id, name, isActive, accountType);
     }
 }

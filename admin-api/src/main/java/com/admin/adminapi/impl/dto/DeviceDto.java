@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -17,11 +16,9 @@ public class DeviceDto extends Dto<Device> {
     private Long id;
 
     @NotNull
-    @Min(1)
     private int accountId;
 
     @NotNull
-    @Min(1)
     private int userId;
 
     @NotNull

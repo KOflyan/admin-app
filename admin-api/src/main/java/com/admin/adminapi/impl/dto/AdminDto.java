@@ -21,7 +21,7 @@ public class AdminDto extends Dto<Admin> {
     private String surname;
 
     @NotNull
-    @Size(min = 4, max = 50)
+    @Size(min = 3, max = 50)
     private String username;
 
     @NotNull
@@ -30,7 +30,6 @@ public class AdminDto extends Dto<Admin> {
 
     @NotNull
     @Email
-    @Size(min = 10, max = 50)
     private String email;
 
     @NotNull

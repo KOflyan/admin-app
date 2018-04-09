@@ -1,9 +1,8 @@
 package com.admin.adminapi.impl.dao.entities.extended;
 
-import com.admin.adminapi.base.dao.entities.AbstractAccount;
 import com.admin.adminapi.base.dao.entities.AbstractUser;
-import com.admin.adminapi.impl.dao.entities.Device;
 import com.admin.adminapi.impl.dao.entities.Account;
+import com.admin.adminapi.impl.dao.entities.Device;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,7 +44,7 @@ public class ExtendedUser extends AbstractUser {
 
     @ManyToOne(cascade = CascadeType.MERGE, targetEntity = Account.class)
     @JoinColumn(name = "id", insertable = false, updatable = false)
-    private AbstractAccount account;
+    private Account account;
 
 
     public ExtendedUser() {

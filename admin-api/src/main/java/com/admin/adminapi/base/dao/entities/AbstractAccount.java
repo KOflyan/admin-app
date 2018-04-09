@@ -23,15 +23,15 @@ import javax.persistence.*;
     protected boolean isActive;
 
     @Column(name = "type")
-    protected String type;
+    protected String accountType;
 
     public AbstractAccount() {
     }
 
-    public AbstractAccount(Long id, String name, boolean isActive, String type) {
+    public AbstractAccount(Long id, String name, boolean isActive, String accountType) {
         this.id = id;
         this.name = name;
         this.isActive = isActive;
-        this.type = type;
+        this.accountType = accountType;
     }
 }

@@ -18,10 +18,10 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo( use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = UserDto.class, name = "User"),
-        @JsonSubTypes.Type(value = AccountDto.class, name = "Account"),
-        @JsonSubTypes.Type(value = DeviceDto.class, name = "Device"),
-        @JsonSubTypes.Type(value = AdminDto.class, name = "Admin")
+        @JsonSubTypes.Type(value = UserDto.class, name = "user"),
+        @JsonSubTypes.Type(value = AccountDto.class, name = "account"),
+        @JsonSubTypes.Type(value = DeviceDto.class, name = "device"),
+        @JsonSubTypes.Type(value = AdminDto.class, name = "admin")
 })
 @Getter @Setter
 public abstract class Dto<T extends AbstractEntity> implements Serializable {
@@ -29,9 +29,7 @@ public abstract class Dto<T extends AbstractEntity> implements Serializable {
     @JsonProperty
     private String type;
 
-    public T get() {
-         return null;
-     }
+    public abstract T get();
 
 
 }

@@ -8,7 +8,7 @@ public enum Messages {
     DTO_ERROR(0, "DTO error occurred (Invalid DTO)."),
     DATABASE_ERROR(1, "Error occurred while connecting to the database."),
     SUCCESS(2, "Operation completed successfully."),
-    ENTITY_NO_FOUND_ERROR(3, "Entity with the requested ID does not exist.");
+    ENTITY_NOT_FOUND_ERROR(3, "Entity with the requested ID does not exist.");
 
 
     final int code;

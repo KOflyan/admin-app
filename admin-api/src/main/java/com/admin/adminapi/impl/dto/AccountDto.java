@@ -17,8 +17,10 @@ public class AccountDto extends Dto<AbstractAccount> {
     private Long id;
 
     @NotNull
-    @Size(min = 4, max = 25)
-    private String accountName;
+    @Size(min = 3, max = 25)
+    private String name;
+
+    private boolean isActive;
 
     @NotNull
     @Size(min = 3, max = 50)
@@ -27,15 +29,15 @@ public class AccountDto extends Dto<AbstractAccount> {
     public AccountDto() {
     }
 
-    public AccountDto(String accountName, String accountType) {
-        this.accountName = accountName;
+    public AccountDto(String name, String accountType) {
+        this.name = name;
         this.accountType = accountType;
     }
 
     @Override
     public AbstractAccount get() {
 
-        return new Account(id, accountName, true, accountType);
+        return new Account(id, name, isActive, accountType);
     }
 
 }

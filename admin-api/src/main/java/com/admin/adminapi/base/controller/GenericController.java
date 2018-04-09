@@ -23,8 +23,12 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
 
     protected final Logger logger = Logger.getLogger(GenericController.class);
 
+    protected final GenericService<T> service;
+
     @Autowired
-    protected GenericService<T> service;
+    public GenericController(GenericService<T> service) {
+        this.service = service;
+    }
 
     @RequestMapping(method = RequestMethod.GET, path = "/all")
     public @ResponseBody List<T> findAll(@RequestParam(value = "skip", required = false) Integer skip,
@@ -43,6 +47,8 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
 
         if (bindingResult.hasErrors()) {
             logger.error(Messages.DTO_ERROR);
+            System.out.println(dto);
+            System.out.println(bindingResult.getAllErrors());
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
@@ -57,7 +63,7 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
         try {
             service.delete(id);
         } catch (NoResultException ex) {
-            logger.warn(Messages.ENTITY_NO_FOUND_ERROR);
+            logger.warn(Messages.ENTITY_NOT_FOUND_ERROR);
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
