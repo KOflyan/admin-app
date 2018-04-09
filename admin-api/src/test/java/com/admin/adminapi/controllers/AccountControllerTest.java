@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
@@ -27,10 +28,11 @@ import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@EnableAutoConfiguration
 public class AccountControllerTest {
 
     private final Long MAX_VALUE = 20L;
-    private final Long MIN_VALUE = 0L;
+    private final Long MIN_VALUE = 1L;
 
     @PersistenceContext
     private EntityManager manager;
@@ -54,13 +56,15 @@ public class AccountControllerTest {
 
     @Test
     public void controllerUsesService() {
+        Long id = ThreadLocalRandom.current().nextLong(MIN_VALUE, MAX_VALUE);
+
         AccountController controller = new AccountController(serviceMock);
 
-        AbstractAccount a = new Account();
-        a.setName("Test account");
-        when(serviceMock.find(3L)).thenReturn(a);
+        AbstractAccount expected = new Account();
+        expected.setName("Test account");
+        when(serviceMock.find(id)).thenReturn(expected);
 
-        assertEquals(controller.find(3L), a);
+        assertEquals(expected, controller.find(id));
     }
 
     @Test
@@ -86,13 +90,12 @@ public class AccountControllerTest {
         ResponseEntity<Account[]> actual = restTemplate.getForEntity("/account/all", Account[].class);
 
         assertEquals(expected, Arrays.asList(actual.getBody()));
-
     }
 
     @Test
     public void deleteNonExistentAccountShouldReturn404() {
         ResponseEntity responseEntity = controller.delete(Long.MAX_VALUE);
-        assertEquals(responseEntity.getStatusCode(), HttpStatus.NOT_FOUND);
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
     }
 
     @Test
@@ -101,7 +104,6 @@ public class AccountControllerTest {
                 .setFirstResult(10)
                 .setMaxResults(10)
                 .getResultList();
-
 
         ResponseEntity<Account[]> actual = restTemplate.getForEntity("/account/all?skip=10&limit=10", Account[].class);
 

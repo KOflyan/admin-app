@@ -50,7 +50,9 @@ public abstract class Dao<T extends AbstractEntity> {
     public void delete(Long id) throws NoResultException {
         String query = String.format("DELETE FROM %s t WHERE t.id = :id", className);
 
-        find(id);
+        if (find(id) == null) {
+            throw new NoResultException();
+        }
 
         em.createQuery(query)
                 .setParameter("id", id)
