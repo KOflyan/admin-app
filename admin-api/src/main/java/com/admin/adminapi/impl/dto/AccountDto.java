@@ -20,7 +20,7 @@ public class AccountDto extends Dto<AbstractAccount> {
     @Size(min = 3, max = 25)
     private String name;
 
-    private boolean isActive;
+    private boolean active;
 
     @NotNull
     @Size(min = 3, max = 50)
@@ -37,7 +37,7 @@ public class AccountDto extends Dto<AbstractAccount> {
     @Override
     public AbstractAccount get() {
 
-        return new Account(id, name, isActive, accountType);
+        return new Account(id, name, active, accountType);
     }
 
 }

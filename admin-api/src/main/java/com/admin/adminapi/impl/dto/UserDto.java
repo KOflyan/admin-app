@@ -21,7 +21,7 @@ public class UserDto extends Dto<AbstractUser> {
 
     private String surname;
 
-    private boolean isActive;
+    private boolean active;
 
     @NotNull
     private int accountId;
@@ -48,7 +48,7 @@ public class UserDto extends Dto<AbstractUser> {
     }
 
     public UserDto(int accountId, String name, String surname, String username, String password,
-                   String email, String language, String country, Boolean isActive) {
+                   String email, String language, String country, Boolean active) {
         this.accountId = accountId;
         this.name = name;
         this.surname = surname;
@@ -57,11 +57,11 @@ public class UserDto extends Dto<AbstractUser> {
         this.email = email;
         this.language = language;
         this.country = country;
-        this.isActive = isActive;
+        this.active = active;
     }
 
     @Override
     public AbstractUser get() {
-        return new User(id, accountId, name, surname, username, password, email, language, country, isActive);
+        return new User(id, accountId, name, surname, username, password, email, language, country, active);
     }
 }
