@@ -40,7 +40,7 @@ class Home extends React.Component {
                 </div>
                 <div className="card-body">
                   <div className="card border-primary mb-3">
-                    <a href="/users" className="btn btn-fix text-left">
+                    <a href="/devices" className="btn btn-fix text-left">
                       {/* <img className="card-img-top" src="..." alt="Card image cap"/> */}
                       <div className="card-block">
                         <h4 className="card-title text-dark">List all</h4>
@@ -49,7 +49,7 @@ class Home extends React.Component {
                     </a>
                   </div>
                   <div className="card border-primary mb-3">
-                    <a href="/registerUser" className="btn btn-fix text-left">
+                    <a href="/registerDevice" className="btn btn-fix text-left">
                       {/* <img class="card-img-top " src="..." alt="Card image cap"/> */}
                       <div className="card-block ">
                         <h4 className="card-title text-dark ">Create new device</h4>
@@ -80,7 +80,7 @@ class Home extends React.Component {
                     </a>
                   </div>
                   <div className="card border-primary mb-3">
-                    <a href="registerUser" className="btn btn-fix text-left">
+                    <a href="registerAccount" className="btn btn-fix text-left">
                       {/* <img class="card-img-top " src="..." alt="Card image cap"/> */}
                       <div className="card-block ">
                         <h4 className="card-title text-dark ">Create new account</h4>

@@ -1,6 +1,7 @@
 import React from 'react';
+import ApiConnection from './../../utils/ApiConnection';
 
-class RegisterUser extends React.Component {
+class RegisterDevice extends React.Component {
   render() {
     return (
       <div>
@@ -8,7 +9,7 @@ class RegisterUser extends React.Component {
           <div className="panel-heading">
       			<div className="row">
       				<div className="center">
-      					<h5>Register new user</h5>
+      					<h5>Register new device</h5>
       				</div>
             </div>
           </div>
@@ -40,4 +41,4 @@ class RegisterUser extends React.Component {
     )
   }
 }
-export default RegisterUser;
+export default RegisterDevice;

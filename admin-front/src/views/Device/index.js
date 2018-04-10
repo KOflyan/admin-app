@@ -61,8 +61,8 @@ class DeviceTable extends React.Component {
               <th>Foreign IDs</th>
               <th>Device name</th>
               <th>Family</th>
-              <th>OS version</th>
-              <th>Modify</th>
+              <th className="text-center">OS version</th>
+              <th className="text-center">Modify</th>
             </tr>
           </thead>
           <tbody>
@@ -84,7 +84,7 @@ class DeviceTable extends React.Component {
                               <div>{ device.family }</div>
                             </td>
                             <td>
-                              <div>{ device.osVersion }</div>
+                              <div className="text-center">{ device.osVersion }</div>
                             </td>
                             <td className="text-center">
                               <NavLink href={`/device/${device.id}`}>

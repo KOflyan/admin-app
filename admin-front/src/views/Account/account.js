@@ -12,6 +12,8 @@ class Account extends React.Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.deleteById = this.deleteById.bind(this);
+
   }
 
   getDataOnLoad = () => {
@@ -24,6 +26,7 @@ class Account extends React.Component {
         data: apiData
       });
     });
+
   }
 
   componentDidMount() {
@@ -35,12 +38,18 @@ class Account extends React.Component {
     const id = event.target.id;
 
     this.setState({ data: { ...this.state.data, [id]: value } });
-
   }
 
   handleSubmit(event) {
+    const dataToSend = this.state.data;
+    delete dataToSend['users'];
+    delete dataToSend['devices'];
     ApiConnection.update(Constants.accountApiUrl, this.state.data);
     event.preventDefault();
+  }
+
+  deleteById() {
+    ApiConnection.delete(Constants.accountApiUrl, this.state.data.id);
   }
 
 
@@ -50,40 +59,43 @@ class Account extends React.Component {
         <div className="row">
           <div className="col">
             <div className="card border-info mb-3">
-              <div className="card-header">Account information</div>
-                <div className="card-body">
-                  <form onSubmit={this.handleSubmit}>
-
-                  <div className="form-group">
-                    <label htmlFor="id">Account ID</label>
-                    <input type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input type="text" className="form-control" id="name" value={this.state.data.name || ''} onChange={this.handleInputChange}/>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="username">Type</label>
-                      <input type="text" className="form-control" id="username" value={this.state.data.type || ''} onChange={this.handleInputChange}/>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="email">Status</label>
-                    <input type="text" className="form-control" id="email" value={this.state.data.active || ''} onChange={this.handleInputChange}/>
-                  </div>
-                  <div className="form-group">
-                    <br></br>
-                    <button type="submit" className="btn btn-danger btn-block" onClick={this.handleSubmit}>Submit</button>
-                  </div>
-                </form>
+              <div className="card-header">
+                Account information
+                <button type="button" className="btn btn-danger float-right" onClick={this.deleteById}>Delete</button>
               </div>
+              <div className="card-body">
+                <form onSubmit={this.handleSubmit}>
+
+                <div className="form-group">
+                  <label htmlFor="id">Account ID</label>
+                  <input type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="name">Name</label>
+                  <input type="text" className="form-control" id="name" value={this.state.data.name || ''} onChange={this.handleInputChange}/>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="username">Type</label>
+                    <input type="text" className="form-control" id="username" value={this.state.data.accountType || ''} onChange={this.handleInputChange}/>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email">Active</label>
+                  <input type="text" className="form-control" id="email" value={this.state.data.active || ''} onChange={this.handleInputChange}/>
+                </div>
+                <div className="form-group">
+                  <br></br>
+                  <button type="submit" className="btn btn-danger btn-block" onClick={this.handleSubmit}>Submit</button>
+                </div>
+              </form>
             </div>
           </div>
-          <div className="col">
-            {this.state.data.users ? <UsersForAccount users={this.state.data.users} /> : null}
-            {this.state.data.devices ? <DevicesForAccount devices={this.state.data.devices} /> : null}
-          </div>
+        </div>
+        <div className="col">
+          {this.state.data.users ? <UsersForAccount users={this.state.data.users} /> : null}
+          {this.state.data.devices ? <DevicesForAccount devices={this.state.data.devices} /> : null}
         </div>
       </div>
+    </div>
     )
   }
 }
