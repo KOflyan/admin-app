@@ -1,5 +1,6 @@
 import React from 'react';
 import Constants from './../../utils/Constants';
+import { NavLink } from 'reactstrap';
 import ApiConnection from './../../utils/ApiConnection';
 
 class Device extends React.Component {
@@ -50,38 +51,49 @@ class Device extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="card border-info mb-3">
-          <div className="card-header">
-            Device information
-            <button type="button" className="btn btn-danger float-right" onClick={this.deleteById}>Delete</button>
+      <div className="row">
+        <div className="col">
+          <div className="card border-info mb-3">
+            <div className="card-header">
+              Device information
+              <button type="button" className="btn btn-danger float-right" onClick={this.deleteById}>Delete</button>
+            </div>
+            <div className="card-body">
+              <form onSubmit={this.handleSubmit}>
+                  <div className="form-group">
+                    <label htmlFor="id">Device ID</label>
+                    <input type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="name">Device name</label>
+                    <input type="text" className="form-control" id="name" value={this.state.data.deviceName || ''} onChange={this.handleInputChange}/>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="username">Device family</label>
+                      <input type="text" className="form-control" id="username" value={this.state.data.family || ''} onChange={this.handleInputChange}/>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="email">OS version</label>
+                    <input type="text" className="form-control" id="email" value={this.state.data.osVersion || ''} onChange={this.handleInputChange}/>
+                  </div>
+                  <br></br>
+                  <div className="form-group">
+                    <button type="submit" className="btn btn-danger btn-block"  onClick={this.handleSubmit}>Submit</button>
+                  </div>
+              </form>
+            </div>
           </div>
-          <div className="card-body">
-            <form onSubmit={this.handleSubmit}>
-              <div className="form-row">
-                <div className="form-group col-md-2">
-                  <label htmlFor="id">Account ID</label>
-                  <input type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
-                </div>
-                <div className="form-group col">
-                  <label htmlFor="name">Name</label>
-                  <input type="text" className="form-control" id="name" value={this.state.data.name || ''} onChange={this.handleInputChange}/>
-                </div>
-                <div className="form-group col">
-                  <label htmlFor="username">Type</label>
-                    <input type="text" className="form-control" id="username" value={this.state.data.type || ''} onChange={this.handleInputChange}/>
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group col">
-                  <label htmlFor="email">Status</label>
-                  <input type="text" className="form-control" id="email" value={this.state.data.active || ''} onChange={this.handleInputChange}/>
-                </div>
-                <div className="form-group col">
-                  <button type="submit" className="btn btn-danger btn-block" style={{position:'absolute', bottom: '0'}}  onClick={this.handleSubmit}>Submit</button>
-                </div>
-              </div>
-            </form>
+        </div>
+        <div className="col">
+          <div className="card">
+            <NavLink href={`/account/${this.state.data.accountId}`}>
+              <button type="button" className="btn btn-dark btn-block btn-lg">Go to account</button>
+            </NavLink>
+          </div>
+          <div className="card">
+            <NavLink href={`/user/${this.state.data.userId}`}>
+              <button type="button" className="btn btn-dark btn-block btn-lg">Go to user</button>
+            </NavLink>
           </div>
         </div>
       </div>

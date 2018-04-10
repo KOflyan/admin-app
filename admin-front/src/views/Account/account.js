@@ -21,16 +21,12 @@ class Account extends React.Component {
     const accountId = this.props.match.params.id;
 
     ApiConnection.get(Constants.accountApiUrl, accountId, apiData => {
-      // console.log(apiData);
-      // apiData.map(field =>
-      //   this.setState({
-      //     field: apiData[field]
-      //   })
-      // )
+
       this.setState({
         data: apiData
       });
     });
+
   }
 
   componentDidMount() {
@@ -83,7 +79,7 @@ class Account extends React.Component {
                     <input type="text" className="form-control" id="username" value={this.state.data.accountType || ''} onChange={this.handleInputChange}/>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="email">Status</label>
+                  <label htmlFor="email">Active</label>
                   <input type="text" className="form-control" id="email" value={this.state.data.active || ''} onChange={this.handleInputChange}/>
                 </div>
                 <div className="form-group">

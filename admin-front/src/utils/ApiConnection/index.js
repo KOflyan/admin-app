@@ -3,7 +3,9 @@ const ApiConnection = {
   all: function(url, cb) { getAll(url, cb) },
   get: function(url, id, cb) { getById(url, id, cb) },
   update: function(url, data) { updateInfo(url, data) },
-  delete: function(url, id) { deleteById(url, id) }
+  delete: function(url, id) { deleteById(url, id) },
+  registerAdmin: function(data, cb) { registerAdmin(data, cb) },
+  register: function(data, url, cb) { register(data, url, cb) }
 
 }
 
@@ -23,16 +25,13 @@ function getById(url, id, cb) {
 
 function updateInfo(url, data) {
   data['type'] = url;
-  console.log(data);
   fetch('/' + url + '/save', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      data: data
-    })
+    body: JSON.stringify(data)
   })
 }
 
@@ -46,6 +45,28 @@ function deleteById(url, id) {
   })
 }
 
+function registerAdmin(data, cb) {
+  fetch('/admin/save', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data)
+  }).then(cb);
+}
+
+function register(data, url, cb) {
+  fetch('/admin/save', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data)
+  }).then(cb);
+}
+
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -55,7 +76,7 @@ function checkStatus(response) {
   error.status = response.statusText;
   error.response = response;
   console.log(error);
-  throw error;
+  return error;
 }
 
 export default ApiConnection;
