@@ -27,6 +27,6 @@ public class UserController extends GenericController<AbstractUser> {
     @RequestMapping(method = RequestMethod.GET)
     public String getUsers(Model model) {
         model.addAttribute("users", service.findAll());
-        return "main";
+        return "login";
     }
 }

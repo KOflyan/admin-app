@@ -7,4 +7,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class AdminDao extends Dao<Admin> {
+
+    public Admin findByUsername(String username) {
+
+        return em.createQuery("SELECT a FROM Admin a WHERE a.username = :username", Admin.class)
+                .setParameter("username", username)
+                .getSingleResult();
+    }
 }

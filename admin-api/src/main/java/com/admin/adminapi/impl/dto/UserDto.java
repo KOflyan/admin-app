@@ -27,7 +27,7 @@ public class UserDto extends Dto<AbstractUser> {
     private int accountId;
 
     @NotNull
-    @Size(min = 4, max = 25)
+    @Size(min = 3, max = 25)
     private String username;
 
     @NotNull

@@ -6,10 +6,16 @@
 
 ## http://localhost:3000/api/swagger-ui.html
 
+
 Build:
 
+```
 cd admin-api
-./gradlew build
+
+./gradlew build -x test
+
+```
+
 
 Run:
 
