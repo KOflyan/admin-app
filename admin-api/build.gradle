@@ -1,13 +1,13 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.10.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '1.5.10.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 apply plugin: 'java'
@@ -15,11 +15,11 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
 group = 'com.admin.api'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
@@ -28,25 +28,76 @@ dependencies {
 }
 
 jar {
-	baseName = 'admin-api'
-	version =  '0.1.0'
-	manifest {
-		attributes 'admin-api': 'com.admin.adminapi.AdminApiApplication'
-	}
+    baseName = 'admin-api'
+    version =  '1.0.0'
+    manifest {
+        attributes 'admin-api': 'com.admin.adminapi.AdminApiApplication'
+    }
 }
+
+tasks {
+
+    task runApi(type:Exec) {
+
+        workingDir 'build/libs'
+
+        commandLine 'java', '-jar', 'admin-api-1.0.0.jar'
+    }
+
+    task installFrontEndPackages(type:Exec) {
+
+        workingDir '../admin-front'
+
+        commandLine 'yarn', 'install'
+    }
+
+    task runFrontEnd(type:Exec) {
+
+        workingDir '../admin-front'
+
+        commandLine 'yarn', 'start'
+    }
+
+    task start {
+        doLast {
+            println '~~~~ WELCOME TO ADMIN APPLICATION ~~~~'
+            println '\nStarting API'
+            tasks.runApi.execute()
+
+//            println '\n\n\nAPI Started successfully at\n'
+//            println '\nhttp://localhost:3000/api\n'
+//            println '\nhttp://localhost:3000/api/swagger-ui.html'
+//
+//            println '\n=================================================\n'
+//
+//
+//            println '\nInstalling frontend packages . . .\n'
+//            println '\n=================================================\n'
+//            tasks.installFrontEndPackages.execute()
+//
+//            println '\nStarting front-end . . .\n'
+//            println '\n=================================================\n'
+//
+//            tasks.runFrontEnd.execute()
+//            println '\n\n\nDone.'
+        }
+    }
+}
+
+build.finalizedBy(start)
 
 dependencies {
 
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
 //	compile('org.springframework.boot:spring-boot-starter-mail')
-//	compile('org.springframework.boot:spring-boot-starter-security')
-	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-	compile('org.springframework.boot:spring-boot-starter-web')
-//	compile('org.springframework.session:spring-session')
-	runtime('org.springframework.boot:spring-boot-devtools')
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.session:spring-session')
+    runtime('org.springframework.boot:spring-boot-devtools')
 //	runtime('com.h2database:h2')
-	runtime('mysql:mysql-connector-java')
-	compileOnly('org.projectlombok:lombok')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-//	testCompile('org.springframework.security:spring-security-test')
+    runtime('mysql:mysql-connector-java')
+    compileOnly('org.projectlombok:lombok')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.security:spring-security-test')
 }

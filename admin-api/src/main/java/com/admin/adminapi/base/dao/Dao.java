@@ -66,4 +66,10 @@ public abstract class Dao<T extends AbstractEntity> {
             em.persist(t);
         }
     }
+
+    public Long count() {
+        String query = String.format("SELECT COUNT(t) FROM %s t", className);
+        return em.createQuery(query, Long.class)
+                .getSingleResult();
+    }
 }

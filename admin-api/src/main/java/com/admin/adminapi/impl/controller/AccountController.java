@@ -6,6 +6,10 @@ import com.admin.adminapi.impl.service.AccountService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @EnableAutoConfiguration
@@ -14,5 +18,10 @@ public class AccountController extends GenericController<AbstractAccount> {
 
     public AccountController(AccountService service) {
         super(service);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/countByType")
+    public @ResponseBody List<AbstractAccount> countAccountsByType() {
+        return ((AccountService) service).countAccountsByType();
     }
 }

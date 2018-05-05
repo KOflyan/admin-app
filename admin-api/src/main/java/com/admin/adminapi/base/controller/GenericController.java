@@ -10,6 +10,7 @@ import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -42,6 +43,7 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
         return service.find(id);
     }
 
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(method = RequestMethod.POST, path = "/save")
     public @ResponseBody ResponseEntity create(@RequestBody @Valid Dto<T> dto, BindingResult bindingResult) {
 
@@ -58,6 +60,7 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(method = RequestMethod.POST, path = "/delete/{id}")
     public @ResponseBody ResponseEntity delete(@PathVariable("id") Long id) {
         try {
@@ -70,5 +73,10 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
         logger.info(Messages.SUCCESS);
 
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/count")
+    public @ResponseBody Long count() {
+        return service.count();
     }
 }

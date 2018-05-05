@@ -36,4 +36,8 @@ public abstract class GenericService<T extends AbstractEntity> {
     public void save(Dto<T> dto) {
         dao.save(dto.get());
     }
+
+    public Long count() {
+        return dao.count();
+    }
 }
