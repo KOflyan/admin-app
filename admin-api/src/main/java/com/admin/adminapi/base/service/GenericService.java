@@ -40,4 +40,8 @@ public abstract class GenericService<T extends AbstractEntity> {
     public Long count() {
         return dao.count();
     }
+
+    public List<T> search(String searchText) {
+        return dao.search("%" + searchText + "%");
+    }
 }

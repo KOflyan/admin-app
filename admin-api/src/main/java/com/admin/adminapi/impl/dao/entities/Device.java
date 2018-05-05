@@ -17,6 +17,15 @@ import javax.persistence.*;
                         "FROM Device d " +
                         "GROUP BY d.family"
 
+        ),
+        @NamedQuery(
+                name = "Device.search",
+                query = "SELECT d " +
+                        "FROM Device d " +
+                        "WHERE " +
+//                            "d.id = :searchText OR " +
+                            "d.deviceName LIKE :searchText OR " +
+                            "d.family LIKE :searchText"
         )
 })
 @Entity

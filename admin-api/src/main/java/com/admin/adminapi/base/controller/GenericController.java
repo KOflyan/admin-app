@@ -79,4 +79,10 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
     public @ResponseBody Long count() {
         return service.count();
     }
+
+
+    @RequestMapping(method = RequestMethod.GET, path = "/search")
+    public @ResponseBody List<T> search(@RequestParam(value = "searchText") String searchText) {
+        return service.search(searchText);
+    }
 }

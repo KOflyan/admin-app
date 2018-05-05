@@ -21,6 +21,14 @@ public class UserDao extends Dao<AbstractUser> {
     }
 
     @Override
+    public List<AbstractUser> search(String searchText) {
+        return em.createNamedQuery("User.search", AbstractUser.class)
+                .setParameter("searchText", searchText)
+                .getResultList();
+    }
+
+
+    @Override
     public List<AbstractUser> findAll() {
         return em.createNamedQuery("User.getAll", AbstractUser.class)
                 .getResultList();
