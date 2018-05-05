@@ -18,8 +18,16 @@ public class AccountDao extends Dao<AbstractAccount> {
                 .getSingleResult();
     }
 
+    @Override
+    public List<AbstractAccount> search(String searchText) {
+        return em.createNamedQuery("Account.search", AbstractAccount.class)
+                .setParameter("searchText", searchText)
+                .getResultList();
+    }
+
     public List<AbstractAccount> countAccountsByType() {
         return em.createNamedQuery("Account.countByType", AbstractAccount.class)
                 .getResultList();
     }
+
 }

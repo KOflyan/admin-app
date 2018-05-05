@@ -26,6 +26,10 @@ import java.util.List;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final String[] AUTH_WHITELIST = {
+            "/v2/api-docs/**", "/configuration/ui/**", "/swagger-resources/**",
+            "/configuration/security/**", "/swagger-ui.html/**", "/webjars/**"
+    };
 
     private final DataSource dataSource;
 
@@ -38,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers(AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -45,7 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutUrl("/logout")
                 .and().exceptionHandling()
                 .defaultAuthenticationEntryPointFor(
-                        ((request, response, authException) -> response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied"))
+                        ((request, response, authException) ->
+                                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied\nLogin at: http://localhost:3000/api/login"))
                         , request -> !request.getRequestURI().contains("login"));
     }
 

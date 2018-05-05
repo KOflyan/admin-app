@@ -12,16 +12,27 @@ import java.sql.Date;
         @NamedQuery(
                 name = "User.countRecent",
                 query = "SELECT " +
-                        "COUNT(u) " +
+                        "   COUNT(u) " +
                         "FROM User u " +
                         "WHERE u.registrationDate BETWEEN :startDate AND :endDate"
         ),
         @NamedQuery(
                 name = "User.countByLanguage",
                 query = "SELECT new User(" +
-                        "u.language, COUNT(u)) " +
+                            "u.language, COUNT(u)) " +
                         "FROM User u " +
                         "GROUP BY u.language"
+        ),
+        @NamedQuery(
+                name = "User.search",
+                query = "SELECT u " +
+                        "FROM User u " +
+                        "WHERE " +
+                            "u.username LIKE :searchText OR " +
+//                            "u.id = :searchText OR " +
+                            "u.name LIKE :searchText OR " +
+                            "u.email LIKE :searchText OR " +
+                            "u.surname LIKE :searchText"
         )
 })
 @Entity

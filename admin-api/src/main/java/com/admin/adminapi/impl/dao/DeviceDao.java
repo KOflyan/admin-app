@@ -16,4 +16,11 @@ public class DeviceDao extends Dao<Device> {
                 .getResultList();
 
     }
+
+    @Override
+    public List<Device> search(String searchText) {
+        return em.createNamedQuery("Device.search", Device.class)
+                .setParameter("searchText", searchText)
+                .getResultList();
+    }
 }

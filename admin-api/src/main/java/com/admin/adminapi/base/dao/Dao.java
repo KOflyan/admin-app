@@ -72,4 +72,6 @@ public abstract class Dao<T extends AbstractEntity> {
         return em.createQuery(query, Long.class)
                 .getSingleResult();
     }
+
+    public abstract List<T> search(String searchText);
 }

@@ -7,16 +7,26 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-@NamedQueries(
+@NamedQueries({
 
         @NamedQuery(
                 name = "Account.countByType",
                 query = "SELECT new Account(" +
-                            "a.accountType, COUNT(a)) " +
+                        "a.accountType, COUNT(a)) " +
                         "FROM Account a " +
                         "GROUP BY a.accountType"
+        ),
+        @NamedQuery(
+                name = "Account.search",
+                query = "SELECT a " +
+                        "FROM Account a " +
+                        "WHERE " +
+//                        "a.id = :searchText OR " +
+//                        "a.isActive = :searchText OR " +
+                        "a.name LIKE :searchText OR " +
+                        "a.accountType LIKE :searchText"
         )
-)
+})
 
 @Entity
 @Table(name = "Account")
