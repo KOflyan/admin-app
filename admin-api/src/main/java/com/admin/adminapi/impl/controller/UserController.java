@@ -23,6 +23,7 @@ public class UserController extends GenericController<AbstractUser> {
         super(service);
     }
 
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/view").setViewName("main");

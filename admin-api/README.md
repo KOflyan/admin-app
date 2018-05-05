@@ -5,7 +5,7 @@
 ---------
 
 ## http://localhost:3000/api/swagger-ui.html
-
+## http://localhost:3000/api/login
 
 Build:
 
@@ -19,4 +19,4 @@ cd admin-api
 
 Run:
 
-java -jar build/libs/admin-api-x.x.x.jar
+java -jar build/libs/admin-api-1.0.0.jar

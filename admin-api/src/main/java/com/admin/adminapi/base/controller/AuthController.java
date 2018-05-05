@@ -21,6 +21,7 @@ import java.util.Collection;
 @EnableAutoConfiguration
 public class AuthController extends WebMvcConfigurerAdapter {
 
+
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public ResponseEntity logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
