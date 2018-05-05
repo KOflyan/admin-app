@@ -38,4 +38,9 @@ public class UserController extends GenericController<AbstractUser> {
     public @ResponseBody Long countRecentUsers(@PathVariable("interval") String interval) {
         return ((UserService) service).countRecentUsers(interval);
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/countByLanguage")
+    public @ResponseBody List<AbstractUser> countUsersByLanguage() {
+        return ((UserService) service).countUsersByLanguage();
+    }
 }

@@ -19,4 +19,8 @@ public class UserService extends GenericService<AbstractUser> {
     public Long countRecentUsers(String interval) {
         return ((UserDao) dao).countRecentUsers(interval);
     }
+
+    public List<AbstractUser> countUsersByLanguage() {
+        return ((UserDao) dao).countUsersByLanguage();
+    }
 }

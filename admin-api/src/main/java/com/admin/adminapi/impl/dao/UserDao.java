@@ -36,6 +36,11 @@ public class UserDao extends Dao<AbstractUser> {
                 .getSingleResult();
     }
 
+    public List<AbstractUser> countUsersByLanguage() {
+        return em.createNamedQuery("User.countByLanguage", AbstractUser.class)
+                .getResultList();
+    }
+
     private Date getStartDate(LocalDate now, String interval) {
         LocalDate startDate = null;
 
