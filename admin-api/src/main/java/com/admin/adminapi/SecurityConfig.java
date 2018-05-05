@@ -41,10 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/app-login")
-                .loginProcessingUrl("/app-login")
-                .usernameParameter("app_username")
-                .passwordParameter("app_password")
                 .and()
                 .logout().logoutUrl("/logout")
                 .and().exceptionHandling().accessDeniedPage("/Access_Denied");
@@ -60,5 +56,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery(
                         "SELECT username, role from Admin WHERE username = ?");
     }
-
 }

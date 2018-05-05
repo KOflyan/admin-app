@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Date;
 
 @Component
 @Getter @Setter
@@ -62,6 +63,6 @@ public class UserDto extends Dto<AbstractUser> {
 
     @Override
     public AbstractUser get() {
-        return new User(id, accountId, name, surname, username, password, email, language, country, active);
+        return new User(id, accountId, name, surname, username, password, email, new Date(System.currentTimeMillis()), language, country, active);
     }
 }

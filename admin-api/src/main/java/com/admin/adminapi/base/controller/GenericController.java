@@ -74,4 +74,9 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
 
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/count")
+    public @ResponseBody Long count() {
+        return service.count();
+    }
 }

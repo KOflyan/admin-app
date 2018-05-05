@@ -4,8 +4,18 @@ import com.admin.adminapi.base.dao.entities.AbstractUser;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.sql.Date;
+
+@NamedQueries(
+        @NamedQuery(
+                name = "User.countRecent",
+                query = "SELECT " +
+                            "COUNT(u) " +
+                        "FROM User u " +
+                        "WHERE u.registrationDate BETWEEN :startDate AND :endDate"
+        )
+)
 
 @Entity
 @Getter @Setter
@@ -17,7 +27,7 @@ public class User extends AbstractUser {
     }
 
     public User(Long id, int accountId, String name, String surname, String username,
-                String password, String email, String language, String country, boolean isActive) {
-        super(id, accountId, name, surname, username, password, email, language, country, isActive);
+                String password, String email, Date registrationDate, String language, String country, boolean isActive) {
+        super(id, accountId, name, surname, username, password, email, registrationDate, language, country, isActive);
     }
 }
