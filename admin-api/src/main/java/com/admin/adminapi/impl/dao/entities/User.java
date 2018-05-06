@@ -29,7 +29,6 @@ import java.sql.Date;
                         "FROM User u " +
                         "WHERE " +
                             "u.username LIKE :searchText OR " +
-//                            "u.id = :searchText OR " +
                             "u.name LIKE :searchText OR " +
                             "u.email LIKE :searchText OR " +
                             "u.surname LIKE :searchText"
@@ -40,6 +39,7 @@ import java.sql.Date;
 @Table(name = "User")
 public class User extends AbstractUser {
 
+    @Transient
     private Long count;
 
     public User() {

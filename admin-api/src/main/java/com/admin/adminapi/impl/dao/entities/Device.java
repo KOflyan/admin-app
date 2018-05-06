@@ -23,7 +23,6 @@ import javax.persistence.*;
                 query = "SELECT d " +
                         "FROM Device d " +
                         "WHERE " +
-//                            "d.id = :searchText OR " +
                             "d.deviceName LIKE :searchText OR " +
                             "d.family LIKE :searchText"
         )

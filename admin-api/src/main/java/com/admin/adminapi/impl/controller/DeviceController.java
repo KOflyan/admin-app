@@ -22,7 +22,7 @@ public class DeviceController extends GenericController<Device> {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, path = "countByFamily")
+    @RequestMapping(method = RequestMethod.GET, path = "/countByFamily")
     public @ResponseBody List<Device> getUsers() {
         return ((DeviceService) service).countDevicesByFamily();
     }

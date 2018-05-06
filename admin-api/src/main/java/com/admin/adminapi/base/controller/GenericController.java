@@ -49,9 +49,8 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
 
         if (bindingResult.hasErrors()) {
             logger.error(Messages.DTO_ERROR);
-            System.out.println(dto);
-            System.out.println(bindingResult.getAllErrors());
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            logger.error(bindingResult.getAllErrors());
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
         service.save(dto);
@@ -66,8 +65,8 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
         try {
             service.delete(id);
         } catch (NoResultException ex) {
-            logger.warn(Messages.ENTITY_NOT_FOUND_ERROR);
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            logger.error(Messages.ENTITY_NOT_FOUND_ERROR);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
         logger.info(Messages.SUCCESS);

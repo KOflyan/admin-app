@@ -21,10 +21,8 @@ import javax.persistence.*;
                 query = "SELECT a " +
                         "FROM Account a " +
                         "WHERE " +
-//                        "a.id = :searchText OR " +
-//                        "a.isActive = :searchText OR " +
-                        "a.name LIKE :searchText OR " +
-                        "a.accountType LIKE :searchText"
+                            "a.name LIKE :searchText OR " +
+                            "a.accountType LIKE :searchText"
         )
 })
 
