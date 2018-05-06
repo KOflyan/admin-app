@@ -10,7 +10,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,10 +24,25 @@ public class AuthController extends WebMvcConfigurerAdapter {
 
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public ResponseEntity logout(HttpServletRequest request, HttpServletResponse response) {
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
+
+        if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
+            return new ResponseEntity(HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @RequestMapping(value = "/getAuthority")
+    public @ResponseBody Collection<? extends GrantedAuthority> getAuthorities() {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth != null) {
+            return auth.getAuthorities();
+        }
+
+        return null;
     }
 }

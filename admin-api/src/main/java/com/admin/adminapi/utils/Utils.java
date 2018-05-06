@@ -12,6 +12,7 @@ public class Utils {
 
     public static String getClassName(Class clazz) {
         String className = clazz.getName();
+
         if (className.contains(".")) {
             className = className.substring(className.lastIndexOf('.') + 1);
         }

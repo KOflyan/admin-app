@@ -60,8 +60,9 @@ tasks {
 
     task start {
         doLast {
+            println '\n\n'
             println '~~~~ WELCOME TO ADMIN APPLICATION ~~~~'
-            println '\nStarting API'
+            println '\n\nStarting API...\n'
             tasks.runApi.execute()
 
 //            println '\n\n\nAPI Started successfully at\n'

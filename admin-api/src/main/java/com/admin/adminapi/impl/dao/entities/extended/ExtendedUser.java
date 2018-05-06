@@ -14,7 +14,6 @@ import java.util.Set;
 
                 name = "User.getById",
                 query = "SELECT u " +
-
                         "FROM ExtendedUser u " +
                             "LEFT JOIN FETCH u.account a " +
                             "LEFT JOIN FETCH u.devices d " +
