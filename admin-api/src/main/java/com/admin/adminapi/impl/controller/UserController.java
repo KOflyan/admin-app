@@ -32,7 +32,7 @@ public class UserController extends GenericController<AbstractUser> {
     @RequestMapping(method = RequestMethod.GET)
     public String getUsers(Model model) {
         model.addAttribute("users", service.findAll());
-        return "login";
+        return "main";
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/countRecent/{interval}")
