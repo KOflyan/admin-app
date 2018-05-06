@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .failureHandler(((request, response, exception) -> response.sendError(HttpServletResponse.SC_FORBIDDEN)))
+                .successHandler(((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK)))
                 .and()
                 .logout().logoutUrl("/logout")
                 .and().exceptionHandling()
