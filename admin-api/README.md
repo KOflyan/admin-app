@@ -19,4 +19,6 @@ cd admin-api
 
 Run:
 
+```
 java -jar build/libs/admin-api-1.0.0.jar
+```
