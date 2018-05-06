@@ -31,8 +31,10 @@ public class AuthController extends WebMvcConfigurerAdapter {
             new SecurityContextLogoutHandler().logout(request, response, auth);
             return new ResponseEntity(HttpStatus.OK);
         }
+
         return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
 
     @RequestMapping(method = RequestMethod.GET, path = "/getAuthority")
     public @ResponseBody Collection<? extends GrantedAuthority> getAuthorities() {
