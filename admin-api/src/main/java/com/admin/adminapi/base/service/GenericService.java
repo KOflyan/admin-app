@@ -17,7 +17,7 @@ public abstract class GenericService<T extends AbstractEntity> {
         this.dao = dao;
     }
 
-    public T find(Long id) throws NoResultException {
+    public T find(Long id)  {
         return dao.find(id);
     }
 

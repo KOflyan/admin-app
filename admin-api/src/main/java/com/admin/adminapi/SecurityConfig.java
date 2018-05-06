@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().exceptionHandling()
                 .defaultAuthenticationEntryPointFor(
                         ((request, response, authException) ->
-                                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied\nLogin at: http://localhost:3000/api/login"))
+                                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied\n\n\nLogin at: http://localhost:3000/api/login"))
                         , request -> !request.getRequestURI().contains("login"));
     }
 
