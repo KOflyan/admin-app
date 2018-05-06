@@ -21,7 +21,7 @@ const Content = () => (
     <Switch>
       <Route exact path='/' component={ Home }/>
       <Route path='/home' component={ Home }/>
-      <Route path='/login' component={ Login }/>
+      <Route path='/loginn' component={ Login }/>
       <Route path='/registerUser' component={ RegisterUser }/>
       <Route path='/registerAccount' component={ RegisterAccount }/>
       <Route path='/registerDevice' component={ RegisterDevice }/>

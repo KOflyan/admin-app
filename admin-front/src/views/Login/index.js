@@ -1,7 +1,56 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class Login extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+      authError: false
+    }
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.validateLogin = this.validateLogin.bind(this);
+  }
+
+  handleInputChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  validateLogin(event) {
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password
+      })
+    }).then( response => {
+      console.log(response.status)
+      if (response.status === 200 || response.status === 302) {
+        return <Redirect to='/home' />;
+      } else {
+        this.setState({authError: true})
+      }
+    })
+    event.preventDefault();
+  }
+
+  showAuthError() {
+    if (this.state.authError) {
+      return <div className="alert alert-danger">Something went wrong! Try again!</div>;
+    } else {
+      return;
+    }
+  }
+
   render() {
     return (
       <div>
@@ -13,30 +62,27 @@ class Login extends React.Component {
       				</div>
             </div>
           </div>
+        <br></br>
           <div className="panel-body">
             <form>
               <div className="form-group">
-        				<input type="text" name="username" id="username" tabindex="1" className="form-control" placeholder="Username"/>
+        				<input type="text" name="username" value={this.state.username} onChange={this.handleInputChange} className="form-control" placeholder="Username"/>
         			</div>
         			<div className="form-group">
-        				<input type="password" name="password" id="password" tabindex="2" className="form-control" placeholder="Password"/>
+        				<input type="password" name="password" value={this.state.password} onChange={this.handleInputChange} className="form-control" placeholder="Password"/>
         			</div>
-              <div className="form-group">
-                <select className="form-control" id="formSelectRole">
-                  <option>Admin</option>
-                  <option>Tester</option>
-                </select>
-              </div>
+              <br></br>
         			<div className="form-group">
         				<div className="row">
         					<div className="center">
-                    <Link to="/home">
-                      <button className="btn btn-info btn-lg" tabindex="4"> Log in </button>
-                    </Link>
+                    <input type="submit" className="btn btn-info btn-lg" onClick={this.validateLogin} value="Log in"/>
         					</div>
         				</div>
         			</div>
             </form>
+          </div>
+          <div>
+            { this.showAuthError() }
           </div>
         </div>
       </div>
