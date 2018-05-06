@@ -67,4 +67,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery(
                         "SELECT username, role from Admin WHERE username = ?");
     }
+
 }
