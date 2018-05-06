@@ -22,7 +22,7 @@ import java.util.Collection;
 public class AuthController extends WebMvcConfigurerAdapter {
 
 
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, path="/logout")
     public ResponseEntity logout(HttpServletRequest request, HttpServletResponse response) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -34,7 +34,7 @@ public class AuthController extends WebMvcConfigurerAdapter {
         return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @RequestMapping(value = "/getAuthority")
+    @RequestMapping(method = RequestMethod.GET, path = "/getAuthority")
     public @ResponseBody Collection<? extends GrantedAuthority> getAuthorities() {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
