@@ -41,17 +41,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.csrf().disable()
+        .authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                .failureHandler(((request, response, exception) -> response.sendError(HttpServletResponse.SC_FORBIDDEN)))
                 .and()
                 .logout().logoutUrl("/logout")
                 .and().exceptionHandling()
                 .defaultAuthenticationEntryPointFor(
                         ((request, response, authException) ->
-                                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied. Login at: /api/login")),
+                                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied. Login at: /api/login")),
                         request -> !request.getRequestURI().contains("login"));
     }
 
