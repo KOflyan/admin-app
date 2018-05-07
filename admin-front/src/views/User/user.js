@@ -40,7 +40,7 @@ class User extends React.Component {
   }
 
   handleSubmit(event) {
-    ApiConnection.update(Constants.userApiUrl, this.state.data);
+    ApiConnection.save(Constants.userApiUrl, this.state.data);
     event.preventDefault();
   }
 

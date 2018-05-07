@@ -53,8 +53,8 @@ class RegistrationForm extends React.Component {
     delete this.state['error'];
     ApiConnection.registerAdmin(this.state, (response) => {
       if (response.status === 200) {
+        this.setState(this.initialState)
         this.setState({error: false})
-        this.setState({name: '', surname: '', username: '', email: '', password: ''})
       } else {
         this.setState({error: true})
       }

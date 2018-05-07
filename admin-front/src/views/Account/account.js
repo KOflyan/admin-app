@@ -44,7 +44,11 @@ class Account extends React.Component {
     const dataToSend = this.state.data;
     delete dataToSend['users'];
     delete dataToSend['devices'];
-    ApiConnection.update(Constants.accountApiUrl, this.state.data);
+    ApiConnection.save(Constants.accountApiUrl, this.state.data, response => {
+      if (response.status === 200) {
+        alert("Yeee")
+      }
+    });
     event.preventDefault();
   }
 

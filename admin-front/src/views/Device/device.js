@@ -40,7 +40,7 @@ class Device extends React.Component {
   }
 
   handleSubmit(event) {
-    ApiConnection.update(Constants.deviceApiUrl, this.state.data);
+    ApiConnection.save(Constants.deviceApiUrl, this.state.data);
     event.preventDefault();
   }
 

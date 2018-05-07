@@ -2,7 +2,7 @@ const ApiConnection = {
 
   all: function(url, skip, limit, cb) { getAll(url, skip, limit, cb) },
   get: function(url, id, cb) { getById(url, id, cb) },
-  update: function(url, data) { updateInfo(url, data) },
+  save: function(url, data, cb) { save(url, data, cb) },
   delete: function(url, id) { deleteById(url, id) },
   registerAdmin: function(data, cb) { registerAdmin(data, cb) },
   register: function(data, url, cb) { register(data, url, cb) }
@@ -48,7 +48,7 @@ function getById(url, id, cb) {
   .then(cb);
 }
 
-function updateInfo(url, data) {
+function save(url, data, cb) {
   data['type'] = url;
   fetch('/' + url + '/save', {
     method: 'POST',
@@ -57,7 +57,7 @@ function updateInfo(url, data) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data)
-  })
+  }).then(cb);
 }
 
 function deleteById(url, id) {
