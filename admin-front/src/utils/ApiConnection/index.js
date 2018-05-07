@@ -5,7 +5,10 @@ const ApiConnection = {
   save: function(url, data, cb) { save(url, data, cb) },
   delete: function(url, id) { deleteById(url, id) },
   registerAdmin: function(data, cb) { registerAdmin(data, cb) },
-  register: function(data, url, cb) { register(data, url, cb) }
+  register: function(data, url, cb) { register(data, url, cb) },
+  countByLanguage: function(cb) { countByLanguage(cb) },
+  countByDeviceType: function(cb) { countByDeviceType(cb) },
+  countByAccountType: function(cb) { countByAccountType(cb) }
 
 }
 
@@ -24,7 +27,7 @@ function getAll(url, skip, limit, cb) {
 }
 
 function get(url, skip, limit) {
-  return fetch('/' + url + '/all' + '?skip=' + skip + '&limit=' + limit)
+  return fetch('/' + url + '/all?skip=' + skip + '&limit=' + limit)
   .then( response => checkStatus(response) )
   .then( response => response.json() )
   .then(res => {
@@ -90,6 +93,27 @@ function register(data, url, cb) {
     },
     body: JSON.stringify(data)
   }).then(cb);
+}
+
+function countByLanguage(cb) {
+  return fetch('/user/countByLanguage')
+  .then( response => checkStatus(response) )
+  .then( response => response.json() )
+  .then(cb);
+}
+
+function countByDeviceType(cb) {
+  return fetch('/device/countByFamily')
+  .then( response => checkStatus(response) )
+  .then( response => response.json() )
+  .then(cb);
+}
+
+function countByAccountType(cb) {
+  return fetch('/account/countByType')
+  .then( response => checkStatus(response) )
+  .then( response => response.json() )
+  .then(cb);
 }
 
 

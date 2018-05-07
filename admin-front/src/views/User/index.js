@@ -5,7 +5,7 @@ import { Table, Badge } from 'reactstrap';
 import Constants from './../../utils/Constants';
 import ApiConnection from './../../utils/ApiConnection';
 import Pagination from './../../utils/Pagination';
-import FlagIcon from './../FlagIcon';
+import FlagIcon from './../../utils/FlagIcon';
 
 
 class UserTable extends React.Component {
@@ -63,7 +63,7 @@ class UserTable extends React.Component {
               <th>#</th>
               <th>User</th>
               <th>Username</th>
-              <th>Language</th>
+              <th className="text-center">Language</th>
               <th>Country</th>
               <th>Email</th>
               <th className="text-center">Status</th>
@@ -86,7 +86,7 @@ class UserTable extends React.Component {
                               <div>{ user.username }</div>
                             </td>
                             <td>
-                              <div>
+                              <div className="text-center">
                                 <FlagIcon code={user.language} size={'2x'} />
                               </div>
                             </td>

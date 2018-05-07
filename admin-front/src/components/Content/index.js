@@ -12,8 +12,7 @@ import AccountTable from './../../views/Account'
 import Account from './../../views/Account/account'
 import DeviceTable from './../../views/Device'
 import Device from './../../views/Device/device'
-
-
+import Statistics from './../../views/Statistics'
 
 
 const Content = () => (
@@ -22,6 +21,7 @@ const Content = () => (
       <Route exact path='/' component={ Home }/>
       <Route path='/home' component={ Home }/>
       <Route path='/loginn' component={ Login }/>
+      <Route path='/stats' component={ Statistics }/>
       <Route path='/registerUser' component={ RegisterUser }/>
       <Route path='/registerAccount' component={ RegisterAccount }/>
       <Route path='/registerDevice' component={ RegisterDevice }/>
