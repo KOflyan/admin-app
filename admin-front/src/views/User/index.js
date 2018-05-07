@@ -5,6 +5,7 @@ import { Table, Badge } from 'reactstrap';
 import Constants from './../../utils/Constants';
 import ApiConnection from './../../utils/ApiConnection';
 import Pagination from './../../utils/Pagination';
+import FlagIcon from './../FlagIcon';
 
 
 class UserTable extends React.Component {
@@ -13,7 +14,6 @@ class UserTable extends React.Component {
 
     this.state = {
       data: [],
-      renderedData: [],
       page: 1,
       total: 0,
     };
@@ -23,17 +23,20 @@ class UserTable extends React.Component {
   }
 
   handlePageChange(page) {
-    const renderedData = this.state.data.slice((page - 1) * 10, (page - 1) * 10 + 10);
-    
-    this.setState({ page, renderedData });
+    ApiConnection.all(Constants.userApiUrl, (page - 1) * Constants.tablePageSize, Constants.tablePageSize, apiData => {
+      this.setState({
+        data: apiData.data,
+        total: apiData.count,
+        page: page
+      });
+    });
   }
 
   getDataOnLoad = () => {
-    ApiConnection.all(Constants.userApiUrl, apiData => {
+    ApiConnection.all(Constants.userApiUrl, 0, Constants.tablePageSize, apiData => {
       this.setState({
-        data: apiData,
-        renderedData: apiData.slice(0, 10),
-        total: apiData.length
+        data: apiData.data,
+        total: apiData.count
       });
     });
   }
@@ -44,7 +47,7 @@ class UserTable extends React.Component {
 
 
   render() {
-    const { page, total, renderedData} = this.state;
+    const { page, data, total} = this.state;
     return (
       <div>
        <div className ='form-container'>
@@ -68,7 +71,7 @@ class UserTable extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {renderedData.map(user => {
+            {data.map(user => {
                 return ( <tr key={user.id}>
                             <td>
                               <div>ID { user.id } </div>
@@ -83,8 +86,9 @@ class UserTable extends React.Component {
                               <div>{ user.username }</div>
                             </td>
                             <td>
-                              {/* <i className="h4 mb-0 flag-icon flag-icon-{{ user.language }}"></i> */}
-                               <strong>{ user.language }</strong>
+                              <div>
+                                <FlagIcon code={user.language} size={'2x'} />
+                              </div>
                             </td>
                             <td>
                               <strong>{ user.country }</strong>

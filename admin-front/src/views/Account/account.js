@@ -68,7 +68,7 @@ class Account extends React.Component {
 
                 <div className="form-group">
                   <label htmlFor="id">Account ID</label>
-                  <input type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
+                  <input disabled type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
                 </div>
                 <div className="form-group">
                   <label htmlFor="name">Name</label>

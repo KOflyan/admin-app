@@ -13,7 +13,6 @@ class AccountTable extends React.Component {
 
     this.state = {
       data: [],
-      renderedData: [],
       page: 1,
       total: 0,
     };
@@ -23,17 +22,20 @@ class AccountTable extends React.Component {
   }
 
   handlePageChange(page) {
-    const renderedData = this.state.data.slice((page - 1) * 10, (page - 1) * 10 + 10);
-
-    this.setState({ page, renderedData });
+    ApiConnection.all(Constants.accountApiUrl, (page - 1) * Constants.tablePageSize, Constants.tablePageSize, apiData => {
+      this.setState({
+        data: apiData.data,
+        total: apiData.count,
+        page: page
+      });
+    });
   }
 
   getDataOnLoad = () => {
-    ApiConnection.all(Constants.accountApiUrl, apiData => {
+    ApiConnection.all(Constants.accountApiUrl, 0, Constants.tablePageSize, apiData => {
       this.setState({
-        data: apiData,
-        renderedData: apiData.slice(0, 10),
-        total: apiData.length
+        data: apiData.data,
+        total: apiData.count
       });
     });
   }
@@ -44,7 +46,7 @@ class AccountTable extends React.Component {
 
 
   render() {
-    const { page, total, renderedData} = this.state;
+    const { page, data, total} = this.state;
     return (
       <div>
        <div className ='form-container'>
@@ -65,7 +67,7 @@ class AccountTable extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {renderedData.map(account => {
+            {data.map(account => {
                 return ( <tr key={ account.id }>
                             <td><div>ID { account.id } </div></td>
                             <td><div>{ account.name }</div></td>

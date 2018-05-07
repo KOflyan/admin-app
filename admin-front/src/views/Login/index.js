@@ -34,13 +34,14 @@ class Login extends React.Component {
       })
     }).then( response => {
       console.log(response.status)
-      if (response.status === 200 || response.status === 302) {
-        return <Redirect to='/home' />;
-      } else {
-        this.setState({authError: true})
-      }
+      // if (response.status === 200 || response.status === 302) {
+      // } else {
+      //   this.setState({authError: true})
+      // }
     })
     event.preventDefault();
+    return <Redirect to='/home' />;
+
   }
 
   showAuthError() {
@@ -48,6 +49,7 @@ class Login extends React.Component {
       return <div className="alert alert-danger">Something went wrong! Try again!</div>;
     } else {
       return;
+      // return <Redirect to='/home' />;
     }
   }
 

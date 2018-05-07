@@ -1,6 +1,6 @@
 const ApiConnection = {
 
-  all: function(url, cb) { getAll(url, cb) },
+  all: function(url, skip, limit, cb) { getAll(url, skip, limit, cb) },
   get: function(url, id, cb) { getById(url, id, cb) },
   update: function(url, data) { updateInfo(url, data) },
   delete: function(url, id) { deleteById(url, id) },
@@ -9,11 +9,36 @@ const ApiConnection = {
 
 }
 
-function getAll(url, cb) {
-  return fetch('/' + url + '/all')
+function getAll(url, skip, limit, cb) {
+  const promiseAll = get(url, skip, limit);
+  const promiseCount = count(url);
+
+  Promise.all([promiseAll, promiseCount])
+  .then(data => {
+    cb({
+      data: data[0],
+      count: data[1]
+    })
+  })
+
+}
+
+function get(url, skip, limit) {
+  return fetch('/' + url + '/all' + '?skip=' + skip + '&limit=' + limit)
   .then( response => checkStatus(response) )
   .then( response => response.json() )
-  .then(cb);
+  .then(res => {
+    return res;
+  });
+}
+
+function count(url) {
+  return fetch('/' + url + '/count')
+  .then( response => checkStatus(response) )
+  .then( response => response.json() )
+  .then(res => {
+    return res;
+  });
 }
 
 function getById(url, id, cb) {
