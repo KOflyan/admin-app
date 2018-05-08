@@ -8,7 +8,8 @@ const ApiConnection = {
   register: function(data, url, cb) { register(data, url, cb) },
   countByLanguage: function(cb) { countByLanguage(cb) },
   countByDeviceType: function(cb) { countByDeviceType(cb) },
-  countByAccountType: function(cb) { countByAccountType(cb) }
+  countByAccountType: function(cb) { countByAccountType(cb) },
+  countRecent: function(interval, cb) { countRecent(interval, cb) }
 
 }
 
@@ -23,7 +24,6 @@ function getAll(url, skip, limit, cb) {
       count: data[1]
     })
   })
-
 }
 
 function get(url, skip, limit) {
@@ -111,6 +111,13 @@ function countByDeviceType(cb) {
 
 function countByAccountType(cb) {
   return fetch('/account/countByType')
+  .then( response => checkStatus(response) )
+  .then( response => response.json() )
+  .then(cb);
+}
+
+function countRecent(interval, cb) {
+  return fetch('/user/countRecent/' + interval)
   .then( response => checkStatus(response) )
   .then( response => response.json() )
   .then(cb);

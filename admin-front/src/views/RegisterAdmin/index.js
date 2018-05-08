@@ -43,10 +43,9 @@ class RegistrationForm extends React.Component {
   }
 
   handleInputChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({[name]: value});
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   }
 
   handleSubmit(event) {

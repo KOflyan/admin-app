@@ -18,22 +18,8 @@ class Statistics extends React.Component {
           <div className="col-6">
             <AccountTypesGraph />
           </div>
-          <div className="col">
-            <div className="card border-info mb-3">
-              <div className="card-header">
-                List all corporate users or show user statistics
-              </div>
-              <div className="card-body">
-                <div className="card border-primary mb-3">
-                  <a href="/stats" className="btn btn-fix text-left">
-                    <div className="card-block">
-                      <h4 className="card-title text-dark ">Statistics</h4>
-                      <p className="card-text "><small className="text-muted">Show users statistics</small></p>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
+          <div className="col-6 pb-3">
+            <RecentUsersGraph />
           </div>
         </div>
       </div>
@@ -192,11 +178,11 @@ class AccountTypesGraph extends React.Component {
     labels: this.state.labels,
     datasets: [{
       label: 'Accounts by types',
-      backgroundColor: 'rgba(255,99,132,0.2)',
-      borderColor: 'rgba(255,99,132,1)',
+      backgroundColor: 'rgba(0,204,0,0.3)',
+      borderColor: 'rgba(0,204,0,1)',
       borderWidth: 1,
-      hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-      hoverBorderColor: 'rgba(255,99,132,1)',
+      hoverBackgroundColor: 'rgba(0,204,0,0.5)',
+      hoverBorderColor: 'rgba(0,204,0,1)',
       data: this.state.data
     }]
   };
@@ -226,21 +212,58 @@ class AccountTypesGraph extends React.Component {
 class RecentUsersGraph extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.initialState;
+    this.state = {
+      interval: 'year',
+      count: 0
+    };
 
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleIntervalChange = this.handleIntervalChange.bind(this);
   }
 
-  initialState = {
-      name: '',
-      surname: '',
-      username: '',
-      email: '',
-      password: '',
-      role: 'admin',
-      type: 'admin',
-      error: ''
+  handleIntervalChange(event) {
+    const interval = event.target.value
+    ApiConnection.countRecent(interval, (apiData) => {
+      this.setState({
+        interval: interval,
+        count: apiData
+      });
+    });
+    event.preventDefault();
+  }
+
+  componentDidMount() {
+    ApiConnection.countRecent(this.state.interval, apiData => this.setState({count: apiData}));
+  }
+
+  render() {
+    return (
+      <div className="card border-info mb-3" style={{'height': '100%'}}>
+        <div className="card-header pb-1">
+          <div className="row">
+            <div className="col-6">
+              Count of recent users for the chosen interval
+            </div>
+            <div className="col-2 offset-4">
+              <select name="interval" value={this.state.interval} onChange={this.handleIntervalChange} className="custom-select custom-select-sm mx-3">
+                <option value="week">Week</option>
+                <option value="month">Month</option>
+                <option value="year">Year</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div className="card-body">
+            <div className="card bg-info text-white" style={{'height': '100%'}}>
+              <div className="card-body text-center">
+                <p style={{'font-size': '600%', 'position': 'relative',
+                   'top': '50%','transform': 'translateY(-50%)'}}>
+                   { this.state.count }
+                </p>
+              </div>
+            </div>
+        </div>
+      </div>
+    )
   }
 
 }
