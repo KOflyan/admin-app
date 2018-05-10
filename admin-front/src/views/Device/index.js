@@ -13,7 +13,6 @@ class DeviceTable extends React.Component {
 
     this.state = {
       data: [],
-      renderedData: [],
       page: 1,
       total: 0,
     };
@@ -23,17 +22,20 @@ class DeviceTable extends React.Component {
   }
 
   handlePageChange(page) {
-    const renderedData = this.state.data.slice((page - 1) * 10, (page - 1) * 10 + 10);
-
-    this.setState({ page, renderedData });
+    ApiConnection.all(Constants.deviceApiUrl, (page - 1) * Constants.tablePageSize, Constants.tablePageSize, apiData => {
+      this.setState({
+        data: apiData.data,
+        total: apiData.count,
+        page: page
+      });
+    });
   }
 
   getDataOnLoad = () => {
-    ApiConnection.all(Constants.deviceApiUrl, apiData => {
+    ApiConnection.all(Constants.deviceApiUrl, 0, Constants.tablePageSize, apiData => {
       this.setState({
-        data: apiData,
-        renderedData: apiData.slice(0, 10),
-        total: apiData.length
+        data: apiData.data,
+        total: apiData.count
       });
     });
   }
@@ -44,7 +46,7 @@ class DeviceTable extends React.Component {
 
 
   render() {
-    const { page, total, renderedData} = this.state;
+    const { page, data, total} = this.state;
     return (
       <div>
        <div className ='form-container'>
@@ -61,12 +63,12 @@ class DeviceTable extends React.Component {
               <th>Foreign IDs</th>
               <th>Device name</th>
               <th>Family</th>
-              <th>OS version</th>
-              <th>Modify</th>
+              <th className="text-center">OS version</th>
+              <th className="text-center">Modify</th>
             </tr>
           </thead>
           <tbody>
-            {renderedData.map(device => {
+            {data.map(device => {
                 return ( <tr key={ device.id }>
                             <td>
                               <div>ID { device.id } </div>
@@ -84,7 +86,7 @@ class DeviceTable extends React.Component {
                               <div>{ device.family }</div>
                             </td>
                             <td>
-                              <div>{ device.osVersion }</div>
+                              <div className="text-center">{ device.osVersion }</div>
                             </td>
                             <td className="text-center">
                               <NavLink href={`/device/${device.id}`}>

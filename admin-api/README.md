@@ -4,13 +4,13 @@
 
 ---------
 
-### http://localhost:3000/api/swagger-ui.html
+## http://localhost:3000/api/swagger-ui.html
 
 Navigate to **auth-controller -> login** to get your API token and authorize
 
 ---------
 
-Build (should run automatically when finished):
+Build (app should run automatically when finished):
 
 ```
 cd admin-api
