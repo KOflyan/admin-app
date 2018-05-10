@@ -41,13 +41,8 @@ public class AuthController extends WebMvcConfigurerAdapter {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        System.out.println(auth);
 
         if (auth != null) {
-            System.out.println(auth.getCredentials());
-
-            System.out.println(auth.getAuthorities());
-
             return auth.getAuthorities();
         }
 

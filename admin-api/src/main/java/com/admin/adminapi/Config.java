@@ -48,7 +48,7 @@ public class Config extends WebMvcConfigurerAdapter{
     private ApiInfo apiInfo() {
         return new ApiInfo(
                 "Admin API",
-                "Admin Application API, which is created to simplify user administration.",
+                "Admin Application API",
                 "1.0.0",
                 "",
                 new Contact("Karen Oflyan", "http://github.com/KOflyan", "karen.oflyan@gmail.com"),

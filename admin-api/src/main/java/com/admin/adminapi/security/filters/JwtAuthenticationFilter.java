@@ -30,8 +30,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
 
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
+        String username = obtainUsername(req);
+        String password = obtainPassword(req);
 
 
         return authenticationManager.authenticate(
@@ -43,11 +43,17 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res,
                                             FilterChain chain, Authentication auth) {
 
+
+        User user = (User) auth.getPrincipal();
+
+        String subject = user.getUsername() + "," + user.getAuthorities().iterator().next().toString();
+
         String token = Jwts.builder()
-                .setSubject(((User) auth.getPrincipal()).getUsername())
+                .setSubject(subject)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
                 .compact();
+
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
     }
 }
