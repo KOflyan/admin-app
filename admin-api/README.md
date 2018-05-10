@@ -1,13 +1,16 @@
 # Admin Application API
 
-### NB! This project uses Lombok. Lombok requires plugin and annotation processig enabled!
+### NB! This project uses Lombok. When developing, lombok requires plugin and annotation processing enabled.
 
 ---------
 
-## http://localhost:3000/api/swagger-ui.html
-## http://localhost:3000/api/login
+### http://localhost:3000/api/swagger-ui.html
 
-Build:
+Navigate to **auth-controller -> login** to get your API token and authorize
+
+---------
+
+Build (should run automatically when finished):
 
 ```
 cd admin-api

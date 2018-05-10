@@ -35,16 +35,20 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
 
+        String username = obtainUsername(req);
+        String password = obtainPassword(req);
 
-        JsonObject credentials = getCredentialsFromRequest(req);
+        if (username == null && password == null) {
 
-        if (!validateJsonObject(credentials)) {
-            throw new BadCredentialsException("No credentials provided");
+            JsonObject credentials = getCredentialsFromRequest(req);
+
+            if (!validateJsonObject(credentials)) {
+                throw new BadCredentialsException("No credentials provided");
+            }
+            username = credentials.get("username").getAsString();
+            password = credentials.get("password").getAsString();
+
         }
-
-        String username = credentials.get("username").getAsString();
-        String password = credentials.get("password").getAsString();
-
 
 
         return authenticationManager.authenticate(
