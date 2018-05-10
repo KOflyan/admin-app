@@ -25,7 +25,7 @@ public class UserDto extends Dto<AbstractUser> {
     private boolean active;
 
     @NotNull
-    private int accountId;
+    private Integer accountId;
 
     @NotNull
     @Size(min = 3, max = 25)
@@ -48,7 +48,7 @@ public class UserDto extends Dto<AbstractUser> {
     public UserDto() {
     }
 
-    public UserDto(int accountId, String name, String surname, String username, String password,
+    public UserDto(Integer accountId, String name, String surname, String username, String password,
                    String email, String language, String country, Boolean active) {
         this.accountId = accountId;
         this.name = name;

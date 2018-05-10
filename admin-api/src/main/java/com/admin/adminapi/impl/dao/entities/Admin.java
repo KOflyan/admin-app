@@ -8,6 +8,15 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "Admin.findByUsername",
+                query = "SELECT a " +
+                        "FROM Admin a " +
+                        "WHERE a.username = :username"
+        )
+})
+
 @Entity
 @Table(name = "Admin")
 @Getter @Setter @EqualsAndHashCode
@@ -35,6 +44,7 @@ public class Admin implements AbstractEntity{
 
     @Column(name = "role")
     private String role;
+
 
     public Admin() {
 

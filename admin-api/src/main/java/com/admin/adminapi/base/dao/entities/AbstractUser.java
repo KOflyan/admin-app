@@ -16,8 +16,8 @@ public abstract class AbstractUser implements AbstractEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
-    @Column(name = "account_id", insertable = false, updatable = false)
-    protected int accountId;
+    @Column(name = "account_id")
+    protected Integer accountId;
 
     @Column(name = "name")
     protected String name;
@@ -50,7 +50,7 @@ public abstract class AbstractUser implements AbstractEntity {
 
     }
 
-    public AbstractUser(Long id, int accountId, String name, String surname, String username,
+    public AbstractUser(Long id, Integer accountId, String name, String surname, String username,
                         String password, String email, Date registrationDate, String language, String country, boolean isActive) {
         this.id = id;
         this.accountId = accountId;

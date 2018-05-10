@@ -4,6 +4,7 @@ package com.admin.adminapi.impl.dao;
 import com.admin.adminapi.base.dao.Dao;
 import com.admin.adminapi.impl.dao.entities.Admin;
 import org.springframework.stereotype.Repository;
+import javax.persistence.NoResultException;
 
 import java.util.List;
 
@@ -12,9 +13,15 @@ public class AdminDao extends Dao<Admin> {
 
     public Admin findByUsername(String username) {
 
-        return em.createQuery("SELECT a FROM Admin a WHERE a.username = :username", Admin.class)
-                .setParameter("username", username)
-                .getSingleResult();
+        Admin admin = null;
+
+        try {
+            admin = em.createNamedQuery("Admin.findByUsername", Admin.class)
+                    .setParameter("username", username)
+                    .getSingleResult();
+        } catch (NoResultException ignored) {}
+
+        return admin;
     }
 
     @Override
