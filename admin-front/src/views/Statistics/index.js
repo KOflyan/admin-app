@@ -255,7 +255,7 @@ class RecentUsersGraph extends React.Component {
         <div className="card-body">
             <div className="card bg-info text-white" style={{'height': '100%'}}>
               <div className="card-body text-center">
-                <p style={{'font-size': '600%', 'position': 'relative',
+                <p style={{'fontSize': '600%', 'position': 'relative',
                    'top': '50%','transform': 'translateY(-50%)'}}>
                    { this.state.count }
                 </p>

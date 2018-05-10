@@ -2,14 +2,14 @@ import React from 'react';
 import ApiConnection from './../../utils/ApiConnection';
 import Constants from './../../utils/Constants';
 
-class RegisterAccount extends React.Component {
+class RegisterDevice extends React.Component {
   render() {
     return (
       <div className="row justify-content-center">
         <div className="col-5">
           <div className="card border-info">
             <div className="card-header">
-              Create new account
+              Create new device and assign it to user and account
             </div>
             <div className="card-body">
               <RegistrationForm />
@@ -28,13 +28,14 @@ class RegistrationForm extends React.Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.setActive = this.setActive.bind(this);
   }
 
   initialState = {
-      name: '',
-      accountType: '',
-      active: 'true',
+      userId: '',
+      accountId: '',
+      deviceName: '',
+      family: 'iOS',
+      osVersion: '',
       error: ''
   }
 
@@ -47,7 +48,7 @@ class RegistrationForm extends React.Component {
   handleSubmit(event) {
     delete this.state['error'];
     console.log(this.state)
-    ApiConnection.save(Constants.accountApiUrl, this.state, (response) => {
+    ApiConnection.save(Constants.deviceApiUrl, this.state, (response) => {
       if (response.status === 200) {
         this.setState(this.initialState)
         this.setState({error: false})
@@ -58,15 +59,11 @@ class RegistrationForm extends React.Component {
     event.preventDefault();
   }
 
-  setActive() {
-    this.setState({active: !this.state.active});
-  }
-
   showError() {
     if (this.state.error === '') {
       return <div></div>
     } else if (!this.state.error) {
-      return <div className="alert alert-success">New account created successfully!</div>
+      return <div className="alert alert-success">New device created successfully!</div>
     } else if (this.state.error) {
       return <div className="alert alert-danger">Something went wrong! Try again!</div>
     }
@@ -77,23 +74,28 @@ class RegistrationForm extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input type="text" className="form-control" name="name" value={this.state.name || ''} onChange={this.handleInputChange}/>
+            <label htmlFor="name">User ID</label>
+            <input type="text" className="form-control" name="userId" value={this.state.userId || ''} onChange={this.handleInputChange}/>
           </div>
           <div className="form-group">
-            <label htmlFor="type">Type</label>
-            <select id="accountType" name="accountType" value={this.accountType} onChange={this.handleInputChange} className="form-control">
-              <option value="free">Free</option>
-              <option value="premium">Premium</option>
+            <label htmlFor="name">Account ID</label>
+            <input type="text" className="form-control" name="accountId" value={this.state.accountId || ''} onChange={this.handleInputChange}/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="name">Device name</label>
+            <input type="text" className="form-control" name="deviceName" value={this.state.deviceName || ''} onChange={this.handleInputChange}/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="type">Device family</label>
+            <select id="accountType" name="accountType" value={this.family} onChange={this.handleInputChange} className="form-control">
+              <option value="iOS">iOS</option>
+              <option value="Android OS">Android</option>
+              <option value="Windows Phone">Windows Phone</option>
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="active">Active</label>
-            { this.state.active ? (
-              <button type="button" className="btn btn-outline-success btn-block" onClick={this.setActive}>Active</button>
-            ) : (
-              <button type="button" className="btn btn-outline-danger btn-block" onClick={this.setActive}>Inactive</button>
-            )}
+            <label htmlFor="name">OS version</label>
+            <input type="text" className="form-control" name="osVersion" value={this.state.osVersion || ''} onChange={this.handleInputChange}/>
           </div>
           <div className="form-group">
             <br></br>
@@ -108,4 +110,4 @@ class RegistrationForm extends React.Component {
   }
 }
 
-export default RegisterAccount;
+export default RegisterDevice;
