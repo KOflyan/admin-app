@@ -17,7 +17,7 @@ public abstract class GenericService<T extends AbstractEntity> {
         this.dao = dao;
     }
 
-    public T find(Long id) throws NoResultException {
+    public T find(Long id)  {
         return dao.find(id);
     }
 
@@ -35,5 +35,13 @@ public abstract class GenericService<T extends AbstractEntity> {
 
     public void save(Dto<T> dto) {
         dao.save(dto.get());
+    }
+
+    public Long count() {
+        return dao.count();
+    }
+
+    public List<T> search(String searchText) {
+        return dao.search("%" + searchText + "%");
     }
 }

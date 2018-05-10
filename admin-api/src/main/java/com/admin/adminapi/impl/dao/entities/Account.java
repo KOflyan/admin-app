@@ -5,13 +5,35 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+@NamedQueries({
+
+        @NamedQuery(
+                name = "Account.countByType",
+                query = "SELECT new Account(" +
+                        "a.accountType, COUNT(a)) " +
+                        "FROM Account a " +
+                        "GROUP BY a.accountType"
+        ),
+        @NamedQuery(
+                name = "Account.search",
+                query = "SELECT a " +
+                        "FROM Account a " +
+                        "WHERE " +
+                            "a.name LIKE :searchText OR " +
+                            "a.accountType LIKE :searchText"
+        )
+})
 
 @Entity
 @Table(name = "Account")
 @Getter @Setter @ToString
 public class Account extends AbstractAccount {
+
+    @Transient
+    private Long count;
+
 
     public Account() {
     }
@@ -19,4 +41,11 @@ public class Account extends AbstractAccount {
     public Account(Long id, String name, boolean isActive, String accountType) {
         super(id, name, isActive, accountType);
     }
+
+    public Account(String accountType, Long count) {
+        this.accountType = accountType;
+        this.count = count;
+    }
+
+
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Date;
 
 @Component
 @Getter @Setter
@@ -24,10 +25,10 @@ public class UserDto extends Dto<AbstractUser> {
     private boolean active;
 
     @NotNull
-    private int accountId;
+    private Integer accountId;
 
     @NotNull
-    @Size(min = 4, max = 25)
+    @Size(min = 3, max = 25)
     private String username;
 
     @NotNull
@@ -47,7 +48,7 @@ public class UserDto extends Dto<AbstractUser> {
     public UserDto() {
     }
 
-    public UserDto(int accountId, String name, String surname, String username, String password,
+    public UserDto(Integer accountId, String name, String surname, String username, String password,
                    String email, String language, String country, Boolean active) {
         this.accountId = accountId;
         this.name = name;
@@ -62,6 +63,6 @@ public class UserDto extends Dto<AbstractUser> {
 
     @Override
     public AbstractUser get() {
-        return new User(id, accountId, name, surname, username, password, email, language, country, active);
+        return new User(id, accountId, name, surname, username, password, email, new Date(System.currentTimeMillis()), language, country, active);
     }
 }

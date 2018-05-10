@@ -36,7 +36,6 @@ public class AccountDto extends Dto<AbstractAccount> {
 
     @Override
     public AbstractAccount get() {
-
         return new Account(id, name, active, accountType);
     }
 

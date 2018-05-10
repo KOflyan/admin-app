@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Getter @Setter @EqualsAndHashCode
 @MappedSuperclass
@@ -15,8 +16,8 @@ public abstract class AbstractUser implements AbstractEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
-    @Column(name = "account_id", insertable = false, updatable = false)
-    protected int accountId;
+    @Column(name = "account_id")
+    protected Integer accountId;
 
     @Column(name = "name")
     protected String name;
@@ -33,6 +34,9 @@ public abstract class AbstractUser implements AbstractEntity {
     @Column(name = "email")
     protected String email;
 
+    @Column(name = "registration_date")
+    protected Date registrationDate;
+
     @Column(name = "language")
     protected String language;
 
@@ -46,8 +50,8 @@ public abstract class AbstractUser implements AbstractEntity {
 
     }
 
-    public AbstractUser(Long id, int accountId, String name, String surname, String username,
-                        String password, String email, String language, String country, boolean isActive) {
+    public AbstractUser(Long id, Integer accountId, String name, String surname, String username,
+                        String password, String email, Date registrationDate, String language, String country, boolean isActive) {
         this.id = id;
         this.accountId = accountId;
         this.name = name;
@@ -55,6 +59,7 @@ public abstract class AbstractUser implements AbstractEntity {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.registrationDate = registrationDate;
         this.language = language;
         this.country = country;
         this.isActive = isActive;

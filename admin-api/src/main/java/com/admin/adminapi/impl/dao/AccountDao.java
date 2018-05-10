@@ -2,8 +2,11 @@ package com.admin.adminapi.impl.dao;
 
 import com.admin.adminapi.base.dao.Dao;
 import com.admin.adminapi.base.dao.entities.AbstractAccount;
+import com.admin.adminapi.impl.dao.entities.Account;
 import com.admin.adminapi.impl.dao.entities.extended.ExtendedAccount;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class AccountDao extends Dao<AbstractAccount> {
@@ -14,4 +17,17 @@ public class AccountDao extends Dao<AbstractAccount> {
                 .setParameter("id", id)
                 .getSingleResult();
     }
+
+    @Override
+    public List<AbstractAccount> search(String searchText) {
+        return em.createNamedQuery("Account.search", AbstractAccount.class)
+                .setParameter("searchText", searchText)
+                .getResultList();
+    }
+
+    public List<AbstractAccount> countAccountsByType() {
+        return em.createNamedQuery("Account.countByType", AbstractAccount.class)
+                .getResultList();
+    }
+
 }

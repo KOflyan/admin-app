@@ -10,6 +10,7 @@ import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -42,14 +43,14 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
         return service.find(id);
     }
 
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(method = RequestMethod.POST, path = "/save")
     public @ResponseBody ResponseEntity create(@RequestBody @Valid Dto<T> dto, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             logger.error(Messages.DTO_ERROR);
-            System.out.println(dto);
-            System.out.println(bindingResult.getAllErrors());
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            logger.error(bindingResult.getAllErrors());
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
         service.save(dto);
@@ -58,17 +59,29 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(method = RequestMethod.POST, path = "/delete/{id}")
     public @ResponseBody ResponseEntity delete(@PathVariable("id") Long id) {
         try {
             service.delete(id);
         } catch (NoResultException ex) {
-            logger.warn(Messages.ENTITY_NOT_FOUND_ERROR);
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            logger.error(Messages.ENTITY_NOT_FOUND_ERROR);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
         logger.info(Messages.SUCCESS);
 
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/count")
+    public @ResponseBody Long count() {
+        return service.count();
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET, path = "/search")
+    public @ResponseBody List<T> search(@RequestParam(value = "searchText") String searchText) {
+        return service.search(searchText);
     }
 }
