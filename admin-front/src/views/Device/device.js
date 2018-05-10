@@ -40,7 +40,7 @@ class Device extends React.Component {
   }
 
   handleSubmit(event) {
-    ApiConnection.update(Constants.deviceApiUrl, this.state.data);
+    ApiConnection.save(Constants.deviceApiUrl, this.state.data);
     event.preventDefault();
   }
 
@@ -62,7 +62,7 @@ class Device extends React.Component {
               <form onSubmit={this.handleSubmit}>
                   <div className="form-group">
                     <label htmlFor="id">Device ID</label>
-                    <input type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
+                    <input disabled type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
                   </div>
                   <div className="form-group">
                     <label htmlFor="name">Device name</label>

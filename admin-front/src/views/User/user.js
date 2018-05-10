@@ -40,7 +40,7 @@ class User extends React.Component {
   }
 
   handleSubmit(event) {
-    ApiConnection.update(Constants.userApiUrl, this.state.data);
+    ApiConnection.save(Constants.userApiUrl, this.state.data);
     event.preventDefault();
   }
 
@@ -63,11 +63,11 @@ class User extends React.Component {
                   <div className="form-row">
                     <div className="form-group col-md-2">
                       <label htmlFor="id">User ID</label>
-                      <input type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
+                      <input disabled type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
                     </div>
                     <div className="form-group col-md-2">
                       <label htmlFor="accountId">Account ID</label>
-                      <input type="text" className="form-control" id="accountId" value={this.state.data.accountId || ''} onChange={this.handleInputChange}/>
+                      <input disabled type="text" className="form-control" id="accountId" value={this.state.data.accountId || ''} onChange={this.handleInputChange}/>
                     </div>
                     <div className="form-group col">
                       <label htmlFor="name">Name</label>

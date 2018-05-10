@@ -1,19 +1,47 @@
 const ApiConnection = {
 
-  all: function(url, cb) { getAll(url, cb) },
+  all: function(url, skip, limit, cb) { getAll(url, skip, limit, cb) },
   get: function(url, id, cb) { getById(url, id, cb) },
-  update: function(url, data) { updateInfo(url, data) },
+  save: function(url, data, cb) { save(url, data, cb) },
   delete: function(url, id) { deleteById(url, id) },
   registerAdmin: function(data, cb) { registerAdmin(data, cb) },
-  register: function(data, url, cb) { register(data, url, cb) }
+  register: function(data, url, cb) { register(data, url, cb) },
+  countByLanguage: function(cb) { countByLanguage(cb) },
+  countByDeviceType: function(cb) { countByDeviceType(cb) },
+  countByAccountType: function(cb) { countByAccountType(cb) },
+  countRecent: function(interval, cb) { countRecent(interval, cb) }
 
 }
 
-function getAll(url, cb) {
-  return fetch('/' + url + '/all')
+function getAll(url, skip, limit, cb) {
+  const promiseAll = get(url, skip, limit);
+  const promiseCount = count(url);
+
+  Promise.all([promiseAll, promiseCount])
+  .then(data => {
+    cb({
+      data: data[0],
+      count: data[1]
+    })
+  })
+}
+
+function get(url, skip, limit) {
+  return fetch('/' + url + '/all?skip=' + skip + '&limit=' + limit)
   .then( response => checkStatus(response) )
   .then( response => response.json() )
-  .then(cb);
+  .then(res => {
+    return res;
+  });
+}
+
+function count(url) {
+  return fetch('/' + url + '/count')
+  .then( response => checkStatus(response) )
+  .then( response => response.json() )
+  .then(res => {
+    return res;
+  });
 }
 
 function getById(url, id, cb) {
@@ -23,7 +51,7 @@ function getById(url, id, cb) {
   .then(cb);
 }
 
-function updateInfo(url, data) {
+function save(url, data, cb) {
   data['type'] = url;
   fetch('/' + url + '/save', {
     method: 'POST',
@@ -32,7 +60,7 @@ function updateInfo(url, data) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data)
-  })
+  }).then(cb);
 }
 
 function deleteById(url, id) {
@@ -65,6 +93,34 @@ function register(data, url, cb) {
     },
     body: JSON.stringify(data)
   }).then(cb);
+}
+
+function countByLanguage(cb) {
+  return fetch('/user/countByLanguage')
+  .then( response => checkStatus(response) )
+  .then( response => response.json() )
+  .then(cb);
+}
+
+function countByDeviceType(cb) {
+  return fetch('/device/countByFamily')
+  .then( response => checkStatus(response) )
+  .then( response => response.json() )
+  .then(cb);
+}
+
+function countByAccountType(cb) {
+  return fetch('/account/countByType')
+  .then( response => checkStatus(response) )
+  .then( response => response.json() )
+  .then(cb);
+}
+
+function countRecent(interval, cb) {
+  return fetch('/user/countRecent/' + interval)
+  .then( response => checkStatus(response) )
+  .then( response => response.json() )
+  .then(cb);
 }
 
 

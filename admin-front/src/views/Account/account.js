@@ -44,7 +44,11 @@ class Account extends React.Component {
     const dataToSend = this.state.data;
     delete dataToSend['users'];
     delete dataToSend['devices'];
-    ApiConnection.update(Constants.accountApiUrl, this.state.data);
+    ApiConnection.save(Constants.accountApiUrl, this.state.data, response => {
+      if (response.status === 200) {
+        alert("Yeee")
+      }
+    });
     event.preventDefault();
   }
 
@@ -68,7 +72,7 @@ class Account extends React.Component {
 
                 <div className="form-group">
                   <label htmlFor="id">Account ID</label>
-                  <input type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
+                  <input disabled type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
                 </div>
                 <div className="form-group">
                   <label htmlFor="name">Name</label>

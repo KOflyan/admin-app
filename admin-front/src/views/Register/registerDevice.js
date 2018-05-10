@@ -1,44 +1,113 @@
 import React from 'react';
 import ApiConnection from './../../utils/ApiConnection';
+import Constants from './../../utils/Constants';
 
 class RegisterDevice extends React.Component {
   render() {
     return (
-      <div>
-        <div className="panel panel-login">
-          <div className="panel-heading">
-      			<div className="row">
-      				<div className="center">
-      					<h5>Register new device</h5>
-      				</div>
+      <div className="row justify-content-center">
+        <div className="col-5">
+          <div className="card border-info">
+            <div className="card-header">
+              Create new device and assign it to user and account
             </div>
-          </div>
-          <div className="panel-body">
-            <form id="register-form" action="#" method="post">
-      				<div className="form-group">
-      					<input type="text" name="username" id="username" tabindex="1" className="form-control" placeholder="Username"/>
-      				</div>
-      				<div className="form-group">
-      					<input type="email" name="email" id="email" tabindex="1" className="form-control" placeholder="Email Address"/>
-      				</div>
-      				<div className="form-group">
-      					<input type="password" name="password" id="password" tabindex="2" className="form-control" placeholder="Password"/>
-      				</div>
-      				<div className="form-group">
-      					<input type="password" name="confirm-password" id="confirm-password" tabindex="2" className="form-control" placeholder="Confirm Password"/>
-      				</div>
-      				<div className="form-group">
-      					<div className="row">
-      						<div className="center">
-      							<input type="submit" name="register-submit" id="register-submit" tabindex="4" className="form-control btn btn-register" value="Register Now"/>
-      						</div>
-      					</div>
-      				</div>
-      			</form>
+            <div className="card-body">
+              <RegistrationForm />
+            </div>
           </div>
         </div>
       </div>
     )
   }
 }
+
+class RegistrationForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.initialState;
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  initialState = {
+      userId: '',
+      accountId: '',
+      deviceName: '',
+      family: 'iOS',
+      osVersion: '',
+      error: ''
+  }
+
+  handleInputChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+  handleSubmit(event) {
+    delete this.state['error'];
+    console.log(this.state)
+    ApiConnection.save(Constants.deviceApiUrl, this.state, (response) => {
+      if (response.status === 200) {
+        this.setState(this.initialState)
+        this.setState({error: false})
+      } else {
+        this.setState({error: true})
+      }
+    });
+    event.preventDefault();
+  }
+
+  showError() {
+    if (this.state.error === '') {
+      return <div></div>
+    } else if (!this.state.error) {
+      return <div className="alert alert-success">New device created successfully!</div>
+    } else if (this.state.error) {
+      return <div className="alert alert-danger">Something went wrong! Try again!</div>
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="name">User ID</label>
+            <input type="text" className="form-control" name="userId" value={this.state.userId || ''} onChange={this.handleInputChange}/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="name">Account ID</label>
+            <input type="text" className="form-control" name="accountId" value={this.state.accountId || ''} onChange={this.handleInputChange}/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="name">Device name</label>
+            <input type="text" className="form-control" name="deviceName" value={this.state.deviceName || ''} onChange={this.handleInputChange}/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="type">Device family</label>
+            <select id="accountType" name="accountType" value={this.family} onChange={this.handleInputChange} className="form-control">
+              <option value="iOS">iOS</option>
+              <option value="Android OS">Android</option>
+              <option value="Windows Phone">Windows Phone</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="name">OS version</label>
+            <input type="text" className="form-control" name="osVersion" value={this.state.osVersion || ''} onChange={this.handleInputChange}/>
+          </div>
+          <div className="form-group">
+            <br></br>
+            <button type="submit" className="btn btn-danger btn-block" onClick={this.handleSubmit}>Submit</button>
+          </div>
+        </form>
+        <div>
+          { this.showError() }
+        </div>
+      </div>
+    );
+  }
+}
+
 export default RegisterDevice;

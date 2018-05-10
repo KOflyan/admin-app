@@ -43,18 +43,17 @@ class RegistrationForm extends React.Component {
   }
 
   handleInputChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({[name]: value});
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   }
 
   handleSubmit(event) {
     delete this.state['error'];
     ApiConnection.registerAdmin(this.state, (response) => {
       if (response.status === 200) {
+        this.setState(this.initialState)
         this.setState({error: false})
-        this.setState({name: '', surname: '', username: '', email: '', password: ''})
       } else {
         this.setState({error: true})
       }
