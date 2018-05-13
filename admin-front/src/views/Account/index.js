@@ -22,22 +22,27 @@ class AccountTable extends React.Component {
   }
 
   handlePageChange(page) {
-    ApiConnection.all(Constants.accountApiUrl, (page - 1) * Constants.tablePageSize, Constants.tablePageSize, apiData => {
+    ApiConnection.all(Constants.accountApiUrl, (page - 1) * Constants.tablePageSize, Constants.tablePageSize)
+    .then(response => {
       this.setState({
-        data: apiData.data,
-        total: apiData.count,
+        data: response[0].data,
+        total: response[1].count,
         page: page
       });
-    });
+    })
+    .catch(error => console.log(error))
+
   }
 
   getDataOnLoad = () => {
-    ApiConnection.all(Constants.accountApiUrl, 0, Constants.tablePageSize, apiData => {
+    ApiConnection.all(Constants.accountApiUrl, 0, Constants.tablePageSize)
+    .then(response => {
       this.setState({
-        data: apiData.data,
-        total: apiData.count
+        data: response[0].data,
+        total: response[1].count
       });
-    });
+    })
+    .catch(error => console.log(error))
   }
 
   componentDidMount() {

@@ -23,22 +23,25 @@ class UserTable extends React.Component {
   }
 
   handlePageChange(page) {
-    ApiConnection.all(Constants.userApiUrl, (page - 1) * Constants.tablePageSize, Constants.tablePageSize, apiData => {
+    ApiConnection.all(Constants.userApiUrl, (page - 1) * Constants.tablePageSize, Constants.tablePageSize)
+    .then(response => {
       this.setState({
-        data: apiData.data,
-        total: apiData.count,
+        data: response[0].data,
+        total: response[1].data,
         page: page
       });
-    });
+    })
+
   }
 
   getDataOnLoad = () => {
-    ApiConnection.all(Constants.userApiUrl, 0, Constants.tablePageSize, apiData => {
+    ApiConnection.all(Constants.userApiUrl, 0, Constants.tablePageSize)
+    .then(response => {
       this.setState({
-        data: apiData.data,
-        total: apiData.count
+        data: response[0].data,
+        total: response[1].data,
       });
-    });
+    })
   }
 
   componentDidMount() {

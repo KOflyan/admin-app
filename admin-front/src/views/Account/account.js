@@ -20,12 +20,12 @@ class Account extends React.Component {
 
     const accountId = this.props.match.params.id;
 
-    ApiConnection.get(Constants.accountApiUrl, accountId, apiData => {
-
+    ApiConnection.get(Constants.accountApiUrl, accountId)
+    .then(response => {
       this.setState({
-        data: apiData
+        data: response.data
       });
-    });
+    })
 
   }
 
@@ -41,14 +41,11 @@ class Account extends React.Component {
   }
 
   handleSubmit(event) {
-    const dataToSend = this.state.data;
-    delete dataToSend['users'];
-    delete dataToSend['devices'];
-    ApiConnection.save(Constants.accountApiUrl, this.state.data, response => {
-      if (response.status === 200) {
-        alert("Yeee")
-      }
-    });
+    ApiConnection.save(Constants.accountApiUrl, this.state.data)
+    .then(response => {
+      console.log(response)
+    }).catch(error => console.log(error))
+
     event.preventDefault();
   }
 

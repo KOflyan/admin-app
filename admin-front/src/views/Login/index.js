@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import axios from "axios";
 
 class Login extends React.Component {
 
@@ -8,7 +9,7 @@ class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
-      authError: false
+      authError: ''
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -22,34 +23,27 @@ class Login extends React.Component {
   }
 
   validateLogin(event) {
-    fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password
-      })
-    }).then( response => {
-      console.log(response.status)
-      // if (response.status === 200 || response.status === 302) {
-      // } else {
-      //   this.setState({authError: true})
-      // }
+    axios.post('/login', {
+      username: this.state.username,
+      password: this.state.password
     })
+    .then( response => {
+      localStorage.setItem("token", response.headers.authorization);
+      this.setState({authError: false})
+    })
+    .catch( error => console.log(error))
+
     event.preventDefault();
-    return <Redirect to='/home' />;
 
   }
 
   showAuthError() {
-    if (this.state.authError) {
-      return <div className="alert alert-danger">Something went wrong! Try again!</div>;
+    if (this.state.authError === '') {
+      return <div></div>
+    } else if (this.state.authError) {
+      return <div className="alert alert-danger">Wrong username or password! Try again!</div>;
     } else {
-      return;
-      // return <Redirect to='/home' />;
+      return <Redirect to='/home' />;
     }
   }
 
