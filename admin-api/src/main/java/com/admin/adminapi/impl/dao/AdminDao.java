@@ -4,9 +4,9 @@ package com.admin.adminapi.impl.dao;
 import com.admin.adminapi.base.dao.Dao;
 import com.admin.adminapi.impl.dao.entities.Admin;
 import org.springframework.stereotype.Repository;
-import javax.persistence.NoResultException;
 
-import java.util.List;
+import javax.persistence.NoResultException;
+import java.util.Set;
 
 @Repository
 public class AdminDao extends Dao<Admin> {
@@ -25,7 +25,7 @@ public class AdminDao extends Dao<Admin> {
     }
 
     @Override
-    public List<Admin> search(String searchText) {
+    public Set<Admin> search(String searchText) {
         return null;
     }
 }

@@ -2,13 +2,13 @@ package com.admin.adminapi.impl.dao;
 
 import com.admin.adminapi.base.dao.Dao;
 import com.admin.adminapi.base.dao.entities.AbstractUser;
-import com.admin.adminapi.impl.dao.entities.User;
 import com.admin.adminapi.impl.dao.entities.extended.ExtendedUser;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Repository
 public class UserDao extends Dao<AbstractUser> {
@@ -21,17 +21,17 @@ public class UserDao extends Dao<AbstractUser> {
     }
 
     @Override
-    public List<AbstractUser> search(String searchText) {
-        return em.createNamedQuery("User.search", AbstractUser.class)
+    public Set<AbstractUser> search(String searchText) {
+        return new LinkedHashSet<>(em.createNamedQuery("User.search", AbstractUser.class)
                 .setParameter("searchText", searchText)
-                .getResultList();
+                .getResultList());
     }
 
 
     @Override
-    public List<AbstractUser> findAll() {
-        return em.createNamedQuery("User.getAll", AbstractUser.class)
-                .getResultList();
+    public Set<AbstractUser> findAll() {
+        return new LinkedHashSet<>(em.createNamedQuery("User.getAll", AbstractUser.class)
+                .getResultList());
     }
 
     public Long countRecentUsers(String interval) {
@@ -44,9 +44,9 @@ public class UserDao extends Dao<AbstractUser> {
                 .getSingleResult();
     }
 
-    public List<AbstractUser> countUsersByLanguage() {
-        return em.createNamedQuery("User.countByLanguage", AbstractUser.class)
-                .getResultList();
+    public Set<AbstractUser> countUsersByLanguage() {
+        return new LinkedHashSet<>(em.createNamedQuery("User.countByLanguage", AbstractUser.class)
+                .getResultList());
     }
 
     private Date getStartDate(LocalDate now, String interval) {

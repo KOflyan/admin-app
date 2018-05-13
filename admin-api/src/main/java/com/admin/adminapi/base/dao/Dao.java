@@ -9,7 +9,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Component
 @Transactional
@@ -26,21 +27,20 @@ public abstract class Dao<T extends AbstractEntity> {
         className = Utils.getClassName(clazz);
     }
 
-    public List<T> findAll() {
+    public Set<T> findAll() {
         String query = String.format("SELECT t FROM %s t", className);
-
-        return em.createQuery(query, clazz)
-                .getResultList();
+        return new LinkedHashSet<>(em.createQuery(query, clazz)
+                .getResultList());
     }
 
-    public List<T> findAll(int skip, int limit) {
+    public Set<T> findAll(int skip, int limit) {
 
         String query = String.format("SELECT t FROM %s t", className);
 
-        return em.createQuery(query, clazz)
+        return new LinkedHashSet<>(em.createQuery(query, clazz)
                 .setFirstResult(skip)
                 .setMaxResults(limit)
-                .getResultList();
+                .getResultList());
     }
 
     public T find(Long id) {
@@ -73,5 +73,5 @@ public abstract class Dao<T extends AbstractEntity> {
                 .getSingleResult();
     }
 
-    public abstract List<T> search(String searchText);
+    public abstract Set<T> search(String searchText);
 }

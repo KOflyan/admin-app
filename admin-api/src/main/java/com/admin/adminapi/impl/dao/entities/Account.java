@@ -1,9 +1,9 @@
 package com.admin.adminapi.impl.dao.entities;
 
 import com.admin.adminapi.base.dao.entities.AbstractAccount;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -28,7 +28,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Account")
-@Getter @Setter @ToString
+@Getter @Setter @EqualsAndHashCode(callSuper = true)
 public class Account extends AbstractAccount {
 
     @Transient

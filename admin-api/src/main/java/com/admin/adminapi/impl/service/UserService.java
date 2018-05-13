@@ -6,7 +6,7 @@ import com.admin.adminapi.impl.dao.UserDao;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -20,7 +20,7 @@ public class UserService extends GenericService<AbstractUser> {
         return ((UserDao) dao).countRecentUsers(interval);
     }
 
-    public List<AbstractUser> countUsersByLanguage() {
+    public Set<AbstractUser> countUsersByLanguage() {
         return ((UserDao) dao).countUsersByLanguage();
     }
 }

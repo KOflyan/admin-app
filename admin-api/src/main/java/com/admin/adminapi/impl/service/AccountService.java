@@ -6,7 +6,7 @@ import com.admin.adminapi.impl.dao.AccountDao;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -16,7 +16,7 @@ public class AccountService extends GenericService<AbstractAccount> {
         super(dao);
     }
 
-    public List<AbstractAccount> countAccountsByType() {
+    public Set<AbstractAccount> countAccountsByType() {
         return ((AccountDao) dao).countAccountsByType();
     }
 }

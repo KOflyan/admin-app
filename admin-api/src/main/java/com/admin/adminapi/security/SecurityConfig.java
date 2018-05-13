@@ -25,13 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/configuration/security/**", "/swagger-ui.html/**", "/webjars/**", "/login/**", "/logout"
     };
 
-//    private final DataSource dataSource;
-//
-//    @Autowired
-//    public SecurityConfig(DataSource dataSource) {
-//        this.dataSource = dataSource;
-//    }
-
     private UserDetailsService userDetailsService;
 
     public SecurityConfig(UserDetailsService userDetailsService) {
@@ -49,11 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
-                .addFilter(new JwtAuthorizationFilter(authenticationManager()))
-                .logout().logoutUrl("/logout")
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                    .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+                    .addFilter(new JwtAuthorizationFilter(authenticationManager()))
+                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
-import java.util.List;
+import java.util.Set;
 
 @Controller
 @EnableAutoConfiguration
@@ -41,7 +41,7 @@ public class UserController extends GenericController<AbstractUser> {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/countByLanguage")
-    public @ResponseBody List<AbstractUser> countUsersByLanguage() {
+    public @ResponseBody Set<AbstractUser> countUsersByLanguage() {
         return ((UserService) service).countUsersByLanguage();
     }
 }
