@@ -50,15 +50,12 @@ class RegistrationForm extends React.Component {
 
   handleSubmit(event) {
     delete this.state['error'];
-    ApiConnection.registerAdmin(this.state, (response) => {
-      if (response.status === 200) {
-        this.setState(this.initialState)
-        this.setState({error: false})
-      } else {
-        this.setState({error: true})
-      }
+    ApiConnection.registerAdmin(this.state)
+    .then( response => {
+      this.setState(this.initialState)
+      this.setState({error: false})
+    }).catch(error => this.setState({error: true}))
 
-    });
     event.preventDefault();
   }
 

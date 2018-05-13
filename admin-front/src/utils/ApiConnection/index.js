@@ -12,12 +12,11 @@ const ApiConnection = {
   get: function(url, id) { return getById(url, id) },
   save: function(url, data, cb) { return save(url, data, cb) },
   delete: function(url, id) { deleteById(url, id) },
-  registerAdmin: function(data, cb) { registerAdmin(data, cb) },
-  register: function(data, url, cb) { register(data, url, cb) },
-  countByLanguage: function(cb) { countByLanguage(cb) },
-  countByDeviceType: function(cb) { countByDeviceType(cb) },
-  countByAccountType: function(cb) { countByAccountType(cb) },
-  countRecent: function(interval, cb) { countRecent(interval, cb) }
+  registerAdmin: function(data) { return registerAdmin(data) },
+  countByLanguage: function() { return countByLanguage() },
+  countByDeviceType: function() { return countByDeviceType() },
+  countByAccountType: function() { return countByAccountType() },
+  countRecent: function(interval) { return countRecent(interval) }
 
 }
 
@@ -49,54 +48,24 @@ function deleteById(url, id) {
   axios.post('/' + url + '/delete/' + id)
 }
 
-function registerAdmin(data, cb) {
-  fetch('/admin/save', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data)
-  }).then(cb);
+function registerAdmin(data) {
+  return axios.post('/admin/save', data)
 }
 
-function register(data, url, cb) {
-  fetch('/admin/save', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data)
-  }).then(cb);
+function countByLanguage() {
+  return axios.get('/user/countByLanguage')
 }
 
-function countByLanguage(cb) {
-  return fetch('/user/countByLanguage')
-
-  .then( response => response.json() )
-  .then(cb);
+function countByDeviceType() {
+  return axios.get('/device/countByFamily')
 }
 
-function countByDeviceType(cb) {
-  return fetch('/device/countByFamily')
-
-  .then( response => response.json() )
-  .then(cb);
+function countByAccountType() {
+  return axios.get('/account/countByType')
 }
 
-function countByAccountType(cb) {
-  return fetch('/account/countByType')
-
-  .then( response => response.json() )
-  .then(cb);
-}
-
-function countRecent(interval, cb) {
-  return fetch('/user/countRecent/' + interval)
-
-  .then( response => response.json() )
-  .then(cb);
+function countRecent(interval) {
+  return axios.get('/user/countRecent/' + interval)
 }
 
 export default ApiConnection;

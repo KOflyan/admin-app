@@ -37,16 +37,17 @@ class UsersByLanguageGraph extends React.Component {
   }
 
   getDataOnLoad = () => {
-    ApiConnection.countByLanguage(apiData => {
+    ApiConnection.countByLanguage()
+    .then(response => {
       const labels = [];
       const data = [];
-      apiData.map((elem) => {
+      response.data.map((elem) => {
         labels.push(elem.language.toUpperCase());
         data.push(elem.count);
         return null;
       })
       this.setState({labels: labels, data: data});
-    });
+    }).catch(error => console.log(error))
   }
 
   componentDidMount() {
@@ -99,16 +100,17 @@ class DeviceTypesGraph extends React.Component {
   }
 
   getDataOnLoad = () => {
-    ApiConnection.countByDeviceType(apiData => {
+    ApiConnection.countByDeviceType()
+    .then(response => {
       const labels = [];
       const data = [];
-      apiData.map((elem) => {
+      response.data.map((elem) => {
         labels.push(elem.family);
         data.push(elem.count);
         return null;
       })
       this.setState({labels: labels, data: data});
-    });
+    }).catch(error => console.log(error))
   }
 
   componentDidMount() {
@@ -157,16 +159,17 @@ class AccountTypesGraph extends React.Component {
   }
 
   getDataOnLoad = () => {
-    ApiConnection.countByAccountType(apiData => {
+    ApiConnection.countByAccountType()
+    .then(response => {
       const labels = [];
       const data = [];
-      apiData.map((elem) => {
+      response.data.map((elem) => {
         labels.push(elem.accountType);
         data.push(elem.count);
         return null;
       })
       this.setState({labels: labels, data: data});
-    });
+    })
   }
 
   componentDidMount() {
@@ -222,17 +225,19 @@ class RecentUsersGraph extends React.Component {
 
   handleIntervalChange(event) {
     const interval = event.target.value
-    ApiConnection.countRecent(interval, (apiData) => {
+    ApiConnection.countRecent(interval)
+    .then(response => {
       this.setState({
         interval: interval,
-        count: apiData
+        count: response.data
       });
-    });
+    })
     event.preventDefault();
   }
 
   componentDidMount() {
-    ApiConnection.countRecent(this.state.interval, apiData => this.setState({count: apiData}));
+    ApiConnection.countRecent(this.state.interval)
+    .then(response => this.setState({count: response.data}))
   }
 
   render() {
