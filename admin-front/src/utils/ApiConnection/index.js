@@ -17,7 +17,7 @@ const ApiConnection = {
   countByDeviceType: function() { return countByDeviceType() },
   countByAccountType: function() { return countByAccountType() },
   countRecent: function(interval) { return countRecent(interval) }
-
+  
 }
 
 function getAll(url, skip, limit, cb) {

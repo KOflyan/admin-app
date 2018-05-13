@@ -1,5 +1,6 @@
 import React from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { logout } from './../../utils/Auth';
 
 class Header extends React.Component {
 
@@ -34,6 +35,9 @@ class Header extends React.Component {
               </NavItem>
               <NavItem>
                 <NavLink href="/devices">Devices</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/"><div onClick={logout}>Logout</div></NavLink>
               </NavItem>
             </Nav>
           </Collapse>

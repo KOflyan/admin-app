@@ -1,7 +1,6 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Home from './../../views/Home'
-import Login from './../../views/Login'
 import RegisterUser from './../../views/Register/registerUser'
 import RegisterAccount from './../../views/Register/registerAccount'
 import RegisterDevice from './../../views/Register/registerDevice'
@@ -20,7 +19,6 @@ const Content = () => (
     <Switch>
       <Route exact path='/' component={ Home }/>
       <Route path='/home' component={ Home }/>
-      <Route path='/loginn' component={ Login }/>
       <Route path='/stats' component={ Statistics }/>
       <Route path='/registerUser' component={ RegisterUser }/>
       <Route path='/registerAccount' component={ RegisterAccount }/>
