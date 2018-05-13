@@ -19,12 +19,11 @@ class User extends React.Component {
 
     const userId = this.props.match.params.id;
 
-    ApiConnection.get(Constants.userApiUrl, userId, apiData => {
+    ApiConnection.get(Constants.userApiUrl, userId)
+    .then(res => {
+      this.setState({data: res.data})
+    }).catch(error => console.log(error))
 
-      this.setState({
-        data: apiData
-      });
-    });
   }
 
   componentDidMount() {

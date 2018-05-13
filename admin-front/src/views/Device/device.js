@@ -19,12 +19,13 @@ class Device extends React.Component {
 
     const deviceId = this.props.match.params.id;
 
-    ApiConnection.get(Constants.deviceApiUrl, deviceId, apiData => {
-
+    ApiConnection.get(Constants.deviceApiUrl, deviceId)
+    .then(response => {
       this.setState({
-        data: apiData
-      });
-    });
+        data: response.data
+      })
+    })
+
   }
 
   componentDidMount() {
@@ -36,7 +37,6 @@ class Device extends React.Component {
     const id = event.target.id;
 
     this.setState({ data: { ...this.state.data, [id]: value } });
-
   }
 
   handleSubmit(event) {
@@ -66,15 +66,15 @@ class Device extends React.Component {
                   </div>
                   <div className="form-group">
                     <label htmlFor="name">Device name</label>
-                    <input type="text" className="form-control" id="name" value={this.state.data.deviceName || ''} onChange={this.handleInputChange}/>
+                    <input type="text" className="form-control" id="deviceName" value={this.state.data.deviceName || ''} onChange={this.handleInputChange}/>
                   </div>
                   <div className="form-group">
                     <label htmlFor="username">Device family</label>
-                      <input type="text" className="form-control" id="username" value={this.state.data.family || ''} onChange={this.handleInputChange}/>
+                      <input type="text" className="form-control" id="family" value={this.state.data.family || ''} onChange={this.handleInputChange}/>
                   </div>
                   <div className="form-group">
                     <label htmlFor="email">OS version</label>
-                    <input type="text" className="form-control" id="email" value={this.state.data.osVersion || ''} onChange={this.handleInputChange}/>
+                    <input type="text" className="form-control" id="osVersion" value={this.state.data.osVersion || ''} onChange={this.handleInputChange}/>
                   </div>
                   <br></br>
                   <div className="form-group">

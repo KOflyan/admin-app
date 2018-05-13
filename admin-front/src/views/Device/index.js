@@ -22,22 +22,24 @@ class DeviceTable extends React.Component {
   }
 
   handlePageChange(page) {
-    ApiConnection.all(Constants.deviceApiUrl, (page - 1) * Constants.tablePageSize, Constants.tablePageSize, apiData => {
+    ApiConnection.all(Constants.deviceApiUrl, (page - 1) * Constants.tablePageSize, Constants.tablePageSize)
+    .then( response => {
       this.setState({
-        data: apiData.data,
-        total: apiData.count,
+        data: response[0].data,
+        total: response[1].data,
         page: page
-      });
-    });
+      })
+    })
   }
 
   getDataOnLoad = () => {
-    ApiConnection.all(Constants.deviceApiUrl, 0, Constants.tablePageSize, apiData => {
+    ApiConnection.all(Constants.deviceApiUrl, 0, Constants.tablePageSize)
+    .then(response => {
       this.setState({
-        data: apiData.data,
-        total: apiData.count
-      });
-    });
+        data: response[0].data,
+        total: response[1].data
+      })
+    })
   }
 
   componentDidMount() {
