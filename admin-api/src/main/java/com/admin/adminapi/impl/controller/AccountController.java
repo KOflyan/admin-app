@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import java.util.Set;
 
 @Controller
 @EnableAutoConfiguration
@@ -21,7 +21,7 @@ public class AccountController extends GenericController<AbstractAccount> {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/countByType")
-    public @ResponseBody List<AbstractAccount> countAccountsByType() {
+    public @ResponseBody Set<AbstractAccount> countAccountsByType() {
         return ((AccountService) service).countAccountsByType();
     }
 }

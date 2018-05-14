@@ -2,11 +2,11 @@ package com.admin.adminapi.impl.dao;
 
 import com.admin.adminapi.base.dao.Dao;
 import com.admin.adminapi.base.dao.entities.AbstractAccount;
-import com.admin.adminapi.impl.dao.entities.Account;
 import com.admin.adminapi.impl.dao.entities.extended.ExtendedAccount;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Repository
 public class AccountDao extends Dao<AbstractAccount> {
@@ -19,15 +19,15 @@ public class AccountDao extends Dao<AbstractAccount> {
     }
 
     @Override
-    public List<AbstractAccount> search(String searchText) {
-        return em.createNamedQuery("Account.search", AbstractAccount.class)
+    public Set<AbstractAccount> search(String searchText) {
+        return new LinkedHashSet<>(em.createNamedQuery("Account.search", AbstractAccount.class)
                 .setParameter("searchText", searchText)
-                .getResultList();
+                .getResultList());
     }
 
-    public List<AbstractAccount> countAccountsByType() {
-        return em.createNamedQuery("Account.countByType", AbstractAccount.class)
-                .getResultList();
+    public Set<AbstractAccount> countAccountsByType() {
+        return new LinkedHashSet<>(em.createNamedQuery("Account.countByType", AbstractAccount.class)
+                .getResultList());
     }
 
 }

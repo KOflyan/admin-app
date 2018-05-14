@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
-import java.util.List;
+import java.util.Set;
 
 @Getter @Setter
 public abstract class GenericController<T extends AbstractEntity> extends WebMvcConfigurerAdapter {
@@ -32,7 +32,7 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/all")
-    public @ResponseBody List<T> findAll(@RequestParam(value = "skip", required = false) Integer skip,
+    public @ResponseBody Set<T> findAll(@RequestParam(value = "skip", required = false) Integer skip,
                    @RequestParam(value = "limit", required = false) Integer limit) {
 
         return skip == null || limit == null ? service.findAll() : service.findAll(skip, limit);
@@ -81,7 +81,7 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
 
 
     @RequestMapping(method = RequestMethod.GET, path = "/search")
-    public @ResponseBody List<T> search(@RequestParam(value = "searchText") String searchText) {
+    public @ResponseBody Set<T> search(@RequestParam(value = "searchText") String searchText) {
         return service.search(searchText);
     }
 }

@@ -25,12 +25,4 @@ public interface AuthApi {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     default void login(@RequestParam("username") String username,
                        @RequestParam("password") String password) {}
-
-    /**
-     * Implemented by Spring Security
-     */
-    @ApiOperation(value = "Logout", notes = "Logout the current user.")
-    @ApiResponses({@ApiResponse(code = 200, message = "")})
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    default void logout() {}
 }

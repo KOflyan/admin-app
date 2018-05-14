@@ -7,7 +7,7 @@ import com.admin.adminapi.impl.dao.entities.Device;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -17,7 +17,7 @@ public class DeviceService extends GenericService<Device> {
         super(dao);
     }
 
-    public List<Device> countDevicesByFamily() {
+    public Set<Device> countDevicesByFamily() {
         return ((DeviceDao) dao).countDevicesByFamily();
     }
 }

@@ -6,7 +6,7 @@ import com.admin.adminapi.base.dto.Dto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.NoResultException;
-import java.util.List;
+import java.util.Set;
 
 public abstract class GenericService<T extends AbstractEntity> {
 
@@ -21,11 +21,11 @@ public abstract class GenericService<T extends AbstractEntity> {
         return dao.find(id);
     }
 
-    public List<T> findAll(int skip, int limit) {
+    public Set<T> findAll(int skip, int limit) {
         return dao.findAll(skip, limit);
     }
 
-    public List<T> findAll() {
+    public Set<T> findAll() {
         return dao.findAll();
     }
 
@@ -41,7 +41,7 @@ public abstract class GenericService<T extends AbstractEntity> {
         return dao.count();
     }
 
-    public List<T> search(String searchText) {
+    public Set<T> search(String searchText) {
         return dao.search("%" + searchText + "%");
     }
 }
