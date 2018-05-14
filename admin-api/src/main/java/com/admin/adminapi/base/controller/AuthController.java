@@ -38,8 +38,7 @@ public class AuthController implements AuthApi {
 
 
     @RequestMapping(method = RequestMethod.GET, path = "/getAuthority")
-    public @ResponseBody
-    Collection<? extends GrantedAuthority> getAuthorities() {
+    public @ResponseBody Collection<? extends GrantedAuthority> getAuthorities() {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 

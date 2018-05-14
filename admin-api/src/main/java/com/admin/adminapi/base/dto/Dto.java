@@ -16,7 +16,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeInfo( use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = UserDto.class, name = "user"),
         @JsonSubTypes.Type(value = AccountDto.class, name = "account"),

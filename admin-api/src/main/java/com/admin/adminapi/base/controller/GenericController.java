@@ -67,6 +67,7 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
     @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(method = RequestMethod.POST, path = "/delete/{id}")
     public @ResponseBody ResponseEntity delete(@PathVariable("id") Long id) {
+
         try {
             service.delete(id);
         } catch (NoResultException ex) {
