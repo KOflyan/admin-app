@@ -1,5 +1,6 @@
 package com.admin.adminapi.security.filters;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -55,12 +56,18 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             return null;
         }
 
+        String details = null;
 
-        String details = Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                .getBody()
-                .getSubject();
+        try {
+            details = Jwts.parser()
+                    .setSigningKey(SECRET.getBytes())
+                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                    .getBody()
+                    .getSubject();
+        } catch (ExpiredJwtException ex) {
+            ex.printStackTrace();
+        }
+
 
         if (details != null) {
 
