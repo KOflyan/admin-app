@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
+ * THIS INTERFACE IS JUST FOR DOCUMENTATION.
+ *
  * Authentication API specification for Swagger documentation and Code Generation.
  * Implemented by Spring Security.
  */
 @Api("Authentication")
 @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface AuthApi {
+
+
     /**
      * Implemented by Spring Security
      */

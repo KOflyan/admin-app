@@ -54,11 +54,11 @@ public class UserDao extends Dao<AbstractUser> {
 
         switch (interval) {
             case "week":
-                startDate = now.minusDays(7);
+                startDate = now.minusWeeks(1);
                 break;
 
             case "month":
-                startDate = now.minusWeeks(1);
+                startDate = now.minusMonths(1);
                 break;
 
             case "year":

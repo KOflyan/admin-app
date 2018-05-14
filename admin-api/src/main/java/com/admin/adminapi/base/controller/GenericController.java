@@ -33,7 +33,12 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
 
     @RequestMapping(method = RequestMethod.GET, path = "/all")
     public @ResponseBody Set<T> findAll(@RequestParam(value = "skip", required = false) Integer skip,
-                   @RequestParam(value = "limit", required = false) Integer limit) {
+                                        @RequestParam(value = "limit", required = false) Integer limit,
+                                        @RequestParam(value = "searchText", required = false) String searchText) {
+
+        if (searchText != null) {
+            return service.search(searchText);
+        }
 
         return skip == null || limit == null ? service.findAll() : service.findAll(skip, limit);
     }
@@ -62,6 +67,7 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
     @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(method = RequestMethod.POST, path = "/delete/{id}")
     public @ResponseBody ResponseEntity delete(@PathVariable("id") Long id) {
+
         try {
             service.delete(id);
         } catch (NoResultException ex) {
@@ -77,11 +83,5 @@ public abstract class GenericController<T extends AbstractEntity> extends WebMvc
     @RequestMapping(method = RequestMethod.GET, path = "/count")
     public @ResponseBody Long count() {
         return service.count();
-    }
-
-
-    @RequestMapping(method = RequestMethod.GET, path = "/search")
-    public @ResponseBody Set<T> search(@RequestParam(value = "searchText") String searchText) {
-        return service.search(searchText);
     }
 }

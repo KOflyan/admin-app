@@ -19,8 +19,8 @@ import java.util.Set;
                 name = "Account.getById",
                 query = "SELECT a " +
                         "FROM ExtendedAccount a " +
-                            "INNER JOIN FETCH a.devices d " +
-                            "INNER JOIN FETCH a.users u " +
+                            "LEFT JOIN FETCH a.devices d " +
+                            "LEFT JOIN FETCH a.users u " +
                         "WHERE a.id = :id " +
                         "GROUP BY a.id, u.id, d.id"
 
