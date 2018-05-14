@@ -15,6 +15,7 @@ public class UserDao extends Dao<AbstractUser> {
 
     @Override
     public AbstractUser find(Long id) {
+        System.out.println(id);
         return em.createNamedQuery("User.getById", ExtendedUser.class)
                 .setParameter("id", id)
                 .getSingleResult();

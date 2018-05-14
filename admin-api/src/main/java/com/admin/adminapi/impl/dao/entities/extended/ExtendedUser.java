@@ -18,8 +18,8 @@ import java.util.Set;
                 name = "User.getById",
                 query = "SELECT u " +
                         "FROM ExtendedUser u " +
-                            "INNER JOIN FETCH u.account a " +
-                            "INNER JOIN FETCH u.devices d " +
+                            "LEFT JOIN FETCH u.account a " +
+                            "LEFT JOIN FETCH u.devices d " +
                         "WHERE u.id = :id " +
                         "GROUP BY u.id, d.id " +
                         "ORDER BY u.id"
@@ -28,8 +28,8 @@ import java.util.Set;
                 name = "User.getAll",
                 query = "SELECT u " +
                         "FROM ExtendedUser u " +
-                            "INNER JOIN FETCH u.account a " +
-                            "INNER JOIN FETCH u.devices d " +
+                            "LEFT JOIN FETCH u.account a " +
+                            "LEFT JOIN FETCH u.devices d " +
                         "GROUP BY u.id, d.id " +
                         "ORDER BY u.id"
         )
