@@ -1,13 +1,16 @@
 import React from 'react';
 import { NavLink, Table } from 'reactstrap';
+import { Redirect } from 'react-router-dom';
 import Constants from './../../utils/Constants';
 import ApiConnection from './../../utils/ApiConnection';
+
 
 class User extends React.Component {
   constructor() {
     super();
     this.state = {
-      data: []
+      data: [],
+      error: ''
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -20,8 +23,8 @@ class User extends React.Component {
     const userId = this.props.match.params.id;
 
     ApiConnection.get(Constants.userApiUrl, userId)
-    .then(res => {
-      this.setState({data: res.data})
+    .then(response => {
+      this.setState({data: response.data})
     }).catch(error => console.log(error))
 
   }
@@ -39,12 +42,31 @@ class User extends React.Component {
   }
 
   handleSubmit(event) {
-    ApiConnection.save(Constants.userApiUrl, this.state.data);
+    ApiConnection.save(Constants.userApiUrl, this.state.data)
+    .then(response => {
+      this.setState({error: false})
+    }).catch(error => {
+      this.setState({error: true})
+      console.log(error)
+    })
     event.preventDefault();
   }
 
   deleteById() {
     ApiConnection.delete(Constants.userApiUrl, this.state.data.id);
+    this.setState({error: 'redirect'});
+  }
+
+  showError() {
+    if (this.state.error === '') {
+      return <div></div>
+    } else if (this.state.error === 'redirect') {
+      return <Redirect to='/users' />;
+    } else if (!this.state.error) {
+      return <div className="alert alert-success">Changes saved successfully!</div>
+    } else if (this.state.error) {
+      return <div className="alert alert-danger">Something went wrong! Try again!</div>
+    }
   }
 
   render() {
@@ -105,6 +127,9 @@ class User extends React.Component {
                     <div className="form-group col">
                       <button type="submit" className="btn btn-danger btn-block" style={{position:'absolute', bottom: '0'}}  onClick={this.handleSubmit}>Submit</button>
                     </div>
+                  </div>
+                  <div>
+                    { this.showError() }
                   </div>
                 </form>
               </div>

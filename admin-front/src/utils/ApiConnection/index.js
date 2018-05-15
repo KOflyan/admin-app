@@ -1,26 +1,31 @@
 import axios from "axios";
 
 axios.interceptors.request.use((config) => {
-    const token = localStorage.getItem("token");
-    config.headers.Authorization = token;
-    return config;
+  const token = localStorage.getItem("token");
+  config.headers.Authorization = token;
+  return config;
 })
+
+axios.interceptors.response.use(undefined, err => {
+  if (err.response.status === 403) localStorage.removeItem("token");
+});
 
 const ApiConnection = {
 
   all: function(url, skip, limit) { return getAll(url, skip, limit) },
   get: function(url, id) { return getById(url, id) },
-  save: function(url, data, cb) { return save(url, data, cb) },
+  getSearch: function(url, searchText) { return search(url, searchText) },
+  save: function(url, data) { return save(url, data) },
   delete: function(url, id) { deleteById(url, id) },
   registerAdmin: function(data) { return registerAdmin(data) },
   countByLanguage: function() { return countByLanguage() },
   countByDeviceType: function() { return countByDeviceType() },
   countByAccountType: function() { return countByAccountType() },
   countRecent: function(interval) { return countRecent(interval) }
-  
+
 }
 
-function getAll(url, skip, limit, cb) {
+function getAll(url, skip, limit) {
   const promiseAll = get(url, skip, limit);
   const promiseCount = count(url);
 
@@ -35,11 +40,15 @@ function count(url) {
   return axios.get('/' + url + '/count')
 }
 
+function search(url, searchText) {
+  return axios.get('/' + url + '/all?searchText=' + searchText)
+}
+
 function getById(url, id) {
   return axios.get('/' + url + '/' + id)
 }
 
-function save(url, data, cb) {
+function save(url, data) {
   data['type'] = url;
   return axios.post('/' + url + '/save', data)
 }

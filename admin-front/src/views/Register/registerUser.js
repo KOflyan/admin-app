@@ -53,15 +53,14 @@ class RegistrationForm extends React.Component {
   handleSubmit(event) {
     delete this.state['error'];
     this.setState({registrationDate: new Date()});
-    console.log(this.state)
-    ApiConnection.save(Constants.userApiUrl, this.state, (response) => {
-      if (response.status === 200) {
-        this.setState(this.initialState)
-        this.setState({error: false})
-      } else {
-        this.setState({error: true})
-      }
-    });
+
+    ApiConnection.save(Constants.userApiUrl, this.state)
+    .then(response => {
+      this.setState(this.initialState)
+      this.setState({error: false})
+    }).catch(error => {
+      this.setState({error:true}); console.log(error)
+    })
     event.preventDefault();
   }
 
@@ -73,9 +72,9 @@ class RegistrationForm extends React.Component {
     if (this.state.error === '') {
       return <div></div>
     } else if (!this.state.error) {
-      return <div className="alert alert-success">New account created successfully!</div>
+      return <div className="alert alert-success">New user created successfully!</div>
     } else if (this.state.error) {
-      return <div className="alert alert-danger">Something went wrong! Try again!</div>
+      return <div className="alert alert-danger">Something went wrong! Make sure that account with such ID exists!</div>
     }
   }
 
@@ -105,7 +104,7 @@ class RegistrationForm extends React.Component {
           </div>
           <div className="form-group">
             <label htmlFor="name">Password</label>
-            <input type="text" className="form-control" name="password" value={this.state.password || ''} onChange={this.handleInputChange}/>
+            <input type="text" className="form-control" name="password" value={this.state.password || ''} onChange={this.handleInputChange} placeholder="Min 5 characters"/>
           </div>
           <div className="form-group">
             <label htmlFor="name">Country</label>

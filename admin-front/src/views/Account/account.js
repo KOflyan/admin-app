@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink, Table, Badge } from 'reactstrap';
+import { Redirect } from 'react-router-dom';
 import ApiConnection from './../../utils/ApiConnection';
 import Constants from './../../utils/Constants';
 
@@ -7,7 +8,8 @@ class Account extends React.Component {
   constructor() {
     super();
     this.state = {
-      data: []
+      data: [],
+      error: ''
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -43,16 +45,30 @@ class Account extends React.Component {
   handleSubmit(event) {
     ApiConnection.save(Constants.accountApiUrl, this.state.data)
     .then(response => {
-      console.log(response)
-    }).catch(error => console.log(error))
-
+      this.setState({error: false})
+    }).catch(error => {
+      this.setState({error: true})
+      console.log(error)
+    })
     event.preventDefault();
   }
 
   deleteById() {
     ApiConnection.delete(Constants.accountApiUrl, this.state.data.id);
+    this.setState({error: 'redirect'});
   }
 
+  showError() {
+    if (this.state.error === '') {
+      return <div></div>
+    } else if (this.state.error === 'redirect') {
+      return <Redirect to='/users' />;
+    } else if (!this.state.error) {
+      return <div className="alert alert-success">Changes saved successfully!</div>
+    } else if (this.state.error) {
+      return <div className="alert alert-danger">Something went wrong! Try again!</div>
+    }
+  }
 
   render() {
     return (
@@ -86,6 +102,9 @@ class Account extends React.Component {
                 <div className="form-group">
                   <br></br>
                   <button type="submit" className="btn btn-danger btn-block" onClick={this.handleSubmit}>Submit</button>
+                </div>
+                <div>
+                  { this.showError() }
                 </div>
               </form>
             </div>

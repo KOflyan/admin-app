@@ -47,15 +47,14 @@ class RegistrationForm extends React.Component {
 
   handleSubmit(event) {
     delete this.state['error'];
-    console.log(this.state)
-    ApiConnection.save(Constants.deviceApiUrl, this.state, (response) => {
-      if (response.status === 200) {
-        this.setState(this.initialState)
-        this.setState({error: false})
-      } else {
-        this.setState({error: true})
-      }
-    });
+
+    ApiConnection.save(Constants.deviceApiUrl, this.state)
+    .then(response => {
+      this.setState(this.initialState)
+      this.setState({error: false})
+    }).catch(error => {
+      this.setState({error:true}); console.log(error)
+    })
     event.preventDefault();
   }
 
@@ -65,7 +64,7 @@ class RegistrationForm extends React.Component {
     } else if (!this.state.error) {
       return <div className="alert alert-success">New device created successfully!</div>
     } else if (this.state.error) {
-      return <div className="alert alert-danger">Something went wrong! Try again!</div>
+      return <div className="alert alert-danger">Something went wrong! Make sure that such account and device exist!</div>
     }
   }
 

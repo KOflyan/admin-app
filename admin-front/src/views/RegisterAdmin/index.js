@@ -54,7 +54,10 @@ class RegistrationForm extends React.Component {
     .then( response => {
       this.setState(this.initialState)
       this.setState({error: false})
-    }).catch(error => this.setState({error: true}))
+    }).catch(error => {
+      this.setState({error: true})
+      console.log(error)
+    })
 
     event.preventDefault();
   }

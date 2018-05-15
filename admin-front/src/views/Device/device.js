@@ -1,5 +1,6 @@
 import React from 'react';
 import Constants from './../../utils/Constants';
+import { Redirect } from 'react-router-dom';
 import { NavLink } from 'reactstrap';
 import ApiConnection from './../../utils/ApiConnection';
 
@@ -7,7 +8,8 @@ class Device extends React.Component {
   constructor() {
     super();
     this.state = {
-      data: []
+      data: [],
+      error: ''
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -46,8 +48,20 @@ class Device extends React.Component {
 
   deleteById() {
     ApiConnection.delete(Constants.deviceApiUrl, this.state.data.id);
+    this.setState({error: 'redirect'});
   }
 
+  showError() {
+    if (this.state.error === '') {
+      return <div></div>
+    } else if (this.state.error === 'redirect') {
+      return <Redirect to='/users' />;
+    } else if (!this.state.error) {
+      return <div className="alert alert-success">Changes saved successfully!</div>
+    } else if (this.state.error) {
+      return <div className="alert alert-danger">Something went wrong! Try again!</div>
+    }
+  }
 
   render() {
     return (
@@ -60,26 +74,29 @@ class Device extends React.Component {
             </div>
             <div className="card-body">
               <form onSubmit={this.handleSubmit}>
-                  <div className="form-group">
-                    <label htmlFor="id">Device ID</label>
-                    <input disabled type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="name">Device name</label>
-                    <input type="text" className="form-control" id="deviceName" value={this.state.data.deviceName || ''} onChange={this.handleInputChange}/>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="username">Device family</label>
-                      <input type="text" className="form-control" id="family" value={this.state.data.family || ''} onChange={this.handleInputChange}/>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="email">OS version</label>
-                    <input type="text" className="form-control" id="osVersion" value={this.state.data.osVersion || ''} onChange={this.handleInputChange}/>
-                  </div>
-                  <br></br>
-                  <div className="form-group">
-                    <button type="submit" className="btn btn-danger btn-block"  onClick={this.handleSubmit}>Submit</button>
-                  </div>
+                <div className="form-group">
+                  <label htmlFor="id">Device ID</label>
+                  <input disabled type="text" className="form-control" id="id" value={this.state.data.id || ''} onChange={this.handleInputChange}/>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="name">Device name</label>
+                  <input type="text" className="form-control" id="deviceName" value={this.state.data.deviceName || ''} onChange={this.handleInputChange}/>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="username">Device family</label>
+                    <input type="text" className="form-control" id="family" value={this.state.data.family || ''} onChange={this.handleInputChange}/>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email">OS version</label>
+                  <input type="text" className="form-control" id="osVersion" value={this.state.data.osVersion || ''} onChange={this.handleInputChange}/>
+                </div>
+                <br></br>
+                <div className="form-group">
+                  <button type="submit" className="btn btn-danger btn-block"  onClick={this.handleSubmit}>Submit</button>
+                </div>
+                <div>
+                  { this.showError() }
+                </div>
               </form>
             </div>
           </div>
