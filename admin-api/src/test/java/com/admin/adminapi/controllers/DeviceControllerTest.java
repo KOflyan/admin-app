@@ -1,5 +1,6 @@
 package com.admin.adminapi.controllers;
 
+import com.admin.adminapi.TestBase;
 import com.admin.adminapi.impl.controller.DeviceController;
 import com.admin.adminapi.impl.dao.entities.Device;
 import com.admin.adminapi.impl.service.DeviceService;
@@ -10,12 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -27,19 +26,13 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @EnableAutoConfiguration
-public class DeviceControllerTest {
+public class DeviceControllerTest extends TestBase {
 
-    private final Long MAX_VALUE = 20L;
-    private final Long MIN_VALUE = 1L;
-
-    @PersistenceContext
-    private EntityManager manager;
+    @Autowired
+    protected TestRestTemplate restTemplate;
 
     @Autowired
     private DeviceController controller;
-
-    @Autowired
-    private TestRestTemplate restTemplate;
 
     @Mock
     private DeviceService serviceMock;
@@ -72,7 +65,8 @@ public class DeviceControllerTest {
                 .setParameter("id", id)
                 .getSingleResult();
 
-        ResponseEntity<Device> actual = restTemplate.getForEntity("/device/" + id, Device.class);
+        ResponseEntity<Device> actual = restTemplate.exchange("/device/" + id,
+                HttpMethod.GET, entity, Device.class);
 
 
         assertEquals(expected, actual.getBody());
@@ -83,14 +77,20 @@ public class DeviceControllerTest {
         List<Device> expected = manager.createQuery("SELECT d FROM Device d", Device.class)
                 .getResultList();
 
-        ResponseEntity<Device[]> actual = restTemplate.getForEntity("/device/all", Device[].class);
+        ResponseEntity<Device[]> actual = restTemplate.exchange("/device/all",
+                HttpMethod.GET, entity, Device[].class);
 
         assertEquals(expected, Arrays.asList(actual.getBody()));
     }
 
     @Test
-    public void deleteNonExistentAccountShouldReturn404() {
-        ResponseEntity responseEntity = controller.delete(Long.MAX_VALUE);
-        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+    public void testCountByFamily() {
+        List<Device> expected = manager.createNamedQuery("Device.countByFamily", Device.class)
+                .getResultList();
+
+        ResponseEntity<Device[]> actual = restTemplate.exchange("/device/countByFamily",
+                HttpMethod.GET, entity, Device[].class);
+
+        assertEquals(expected, Arrays.asList(actual.getBody()));
     }
 }

@@ -1,7 +1,6 @@
 package com.admin.adminapi.impl.dao.entities;
 
 import com.admin.adminapi.base.dao.entities.AbstractEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +10,7 @@ import javax.persistence.*;
 @NamedQueries({
 
         @NamedQuery(
-                name = "Device.count",
+                name = "Device.countByFamily",
                 query = "SELECT new Device(" +
                             "COUNT(d), d.family) " +
                         "FROM Device d " +

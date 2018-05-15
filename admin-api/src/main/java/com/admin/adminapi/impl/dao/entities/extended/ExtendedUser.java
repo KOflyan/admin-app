@@ -35,9 +35,8 @@ import java.util.Set;
         )
 })
 @Entity
-@Getter @Setter
+@Getter @Setter @EqualsAndHashCode(callSuper = false)
 @Table(name = "User")
-@EqualsAndHashCode(callSuper = true)
 public class ExtendedUser extends AbstractUser {
 
 

@@ -3,7 +3,6 @@ package com.admin.adminapi.impl.dao.entities.extended;
 import com.admin.adminapi.base.dao.entities.AbstractAccount;
 import com.admin.adminapi.impl.dao.entities.Device;
 import com.admin.adminapi.impl.dao.entities.User;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.NotFound;
@@ -29,7 +28,6 @@ import java.util.Set;
 @Entity
 @Table(name = "Account")
 @Getter @Setter
-@EqualsAndHashCode(callSuper = true)
 public class ExtendedAccount extends AbstractAccount {
 
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, targetEntity = Device.class)

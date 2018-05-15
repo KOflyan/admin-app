@@ -30,7 +30,6 @@ public class DeviceDto extends Dto<Device> {
     private String family;
 
     @NotNull
-    @Size(min = 3)
     private String osVersion;
 
     public DeviceDto() {

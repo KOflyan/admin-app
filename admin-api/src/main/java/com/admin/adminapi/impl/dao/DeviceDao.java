@@ -13,7 +13,7 @@ public class DeviceDao extends Dao<Device> {
 
 
     public Set<Device> countDevicesByFamily() {
-        return new LinkedHashSet<>(em.createNamedQuery("Device.count", Device.class)
+        return new LinkedHashSet<>(em.createNamedQuery("Device.countByFamily", Device.class)
                 .getResultList());
 
     }
