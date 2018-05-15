@@ -14,11 +14,16 @@ class AccountTable extends React.Component {
     this.state = {
       data: [],
       page: 1,
-      total: 0,
+      total: 0
     };
 
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.search = this.search.bind(this);
+  }
 
+  componentDidMount() {
+    this.getDataOnLoad();
   }
 
   handlePageChange(page) {
@@ -26,12 +31,11 @@ class AccountTable extends React.Component {
     .then(response => {
       this.setState({
         data: response[0].data,
-        total: response[1].count,
+        total: response[1].data,
         page: page
       });
     })
     .catch(error => console.log(error))
-
   }
 
   getDataOnLoad = () => {
@@ -39,14 +43,28 @@ class AccountTable extends React.Component {
     .then(response => {
       this.setState({
         data: response[0].data,
-        total: response[1].count
+        total: response[1].data
       });
     })
     .catch(error => console.log(error))
   }
 
-  componentDidMount() {
-    this.getDataOnLoad();
+  handleSearchChange(event) {
+    const value = event.target.value;
+    this.setState({searchText: value});
+  }
+
+  search(event) {
+    if (!this.state.searchText) {
+      this.getDataOnLoad();
+    } else {
+      ApiConnection.getSearch(Constants.accountApiUrl, this.state.searchText)
+      .then(response => {
+        this.setState({data: response.data, page: 1, total: Constants.tablePageSize});
+      })
+      .catch(error => console.log(error))
+    }
+    event.preventDefault();
   }
 
 
@@ -56,8 +74,9 @@ class AccountTable extends React.Component {
       <div>
        <div className ='form-container'>
          <form className="form-inline my-2 my-lg-0">
-           <input className="form-control mr-sm-2" style={{width: '400px'}} type="text" placeholder="Search"/>
-           <button className="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+           <input className="form-control mr-sm-2" style={{width: '400px'}}
+              type="text" value={this.state.searchText || ''} onChange={this.handleSearchChange} />
+           <button className="btn btn-outline-info my-2 my-sm-0" type="submit" onClick={this.search}>Search</button>
          </form>
          <img src={logo} className="App-logo" alt="logo"/>
        </div>

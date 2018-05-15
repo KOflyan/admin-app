@@ -1,19 +1,23 @@
 import React from 'react';
 import { NavLink, Table, Badge } from 'reactstrap';
+import { Redirect } from 'react-router-dom';
 import ApiConnection from './../../utils/ApiConnection';
 import Constants from './../../utils/Constants';
+import { isAdmin } from './../../utils/Auth';
 
 class Account extends React.Component {
   constructor() {
     super();
     this.state = {
-      data: []
+      data: [],
+      error: '',
+      admin: false
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.deleteById = this.deleteById.bind(this);
-
+    this.setActive = this.setActive.bind(this);
   }
 
   getDataOnLoad = () => {
@@ -30,6 +34,9 @@ class Account extends React.Component {
   }
 
   componentDidMount() {
+    isAdmin(bool => {
+      this.setState({admin: bool})
+    })
     this.getDataOnLoad();
   }
 
@@ -43,16 +50,34 @@ class Account extends React.Component {
   handleSubmit(event) {
     ApiConnection.save(Constants.accountApiUrl, this.state.data)
     .then(response => {
-      console.log(response)
-    }).catch(error => console.log(error))
-
+      this.setState({error: false})
+    }).catch(error => {
+      this.setState({error: true})
+      console.log(error)
+    })
     event.preventDefault();
   }
 
   deleteById() {
     ApiConnection.delete(Constants.accountApiUrl, this.state.data.id);
+    this.setState({error: 'redirect'});
   }
 
+  setActive() {
+    this.setState({ data: { ...this.state.data, active: !this.state.data.active } });
+  }
+
+  showError() {
+    if (this.state.error === '') {
+      return <div></div>
+    } else if (this.state.error === 'redirect') {
+      return <Redirect to='/users' />;
+    } else if (!this.state.error) {
+      return <div className="alert alert-success">Changes saved successfully!</div>
+    } else if (this.state.error) {
+      return <div className="alert alert-danger">Something went wrong! Try again!</div>
+    }
+  }
 
   render() {
     return (
@@ -62,7 +87,8 @@ class Account extends React.Component {
             <div className="card border-info mb-3">
               <div className="card-header">
                 Account information
-                <button type="button" className="btn btn-danger float-right" onClick={this.deleteById}>Delete</button>
+                { this.state.admin ? (<button type="button" className="btn btn-danger float-right" onClick={this.deleteById}>Delete</button>)
+                : <a type="button" className="btn btn-danger float-right disabled">Delete</a> }
               </div>
               <div className="card-body">
                 <form onSubmit={this.handleSubmit}>
@@ -81,11 +107,19 @@ class Account extends React.Component {
                 </div>
                 <div className="form-group">
                   <label htmlFor="email">Active</label>
-                  <input type="text" className="form-control" id="email" value={this.state.data.active || ''} onChange={this.handleInputChange}/>
+                  { this.state.data.active ? (
+                    <button type="button" className="btn btn-outline-success btn-block" onClick={this.setActive}>Active</button>
+                  ) : (
+                    <button type="button" className="btn btn-outline-danger btn-block" onClick={this.setActive}>Inactive</button>
+                  ) }
                 </div>
                 <div className="form-group">
                   <br></br>
-                  <button type="submit" className="btn btn-danger btn-block" onClick={this.handleSubmit}>Submit</button>
+                  { this.state.admin ? (<button type="submit" className="btn btn-danger btn-block" onClick={this.handleSubmit}>Submit</button>)
+                    : (<a type="submit" className="btn btn-danger btn-block disabled">Submit</a>) }
+                </div>
+                <div>
+                  { this.showError() }
                 </div>
               </form>
             </div>

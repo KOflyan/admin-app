@@ -37,7 +37,7 @@ class Header extends React.Component {
                 <NavLink href="/devices">Devices</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/"><div onClick={logout}>Logout</div></NavLink>
+                <NavLink href="/"><div onClick={ logout }>Logout</div></NavLink>
               </NavItem>
             </Nav>
           </Collapse>

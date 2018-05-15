@@ -31,10 +31,12 @@ class Login extends React.Component {
       localStorage.setItem("token", response.headers.authorization);
       this.setState({authError: false})
     })
-    .catch( error => console.log(error))
-
+    .catch( error => {
+      this.setState({authError: true})
+      console.log(error)
+    })
+    
     event.preventDefault();
-
   }
 
   showAuthError() {
