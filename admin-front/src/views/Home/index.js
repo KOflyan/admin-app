@@ -1,6 +1,17 @@
 import React from 'react';
+import { isAdmin } from './../../utils/Auth';
 
 class Home extends React.Component {
+  constructor() {
+    super();
+    this.state = {admin: false};
+  }
+
+  componentDidMount() {
+    isAdmin(bool => {
+      this.setState({admin: bool})
+    })
+  }
 
   render() {
     return (
@@ -15,7 +26,6 @@ class Home extends React.Component {
               <div className="card-body">
                 <div className="card border-primary mb-3">
                   <a href="/users" className="btn btn-fix text-left">
-                    {/* <img className="card-img-top" src="..." alt="Card image cap"/> */}
                     <div className="card-block">
                       <h4 className="card-title text-dark">List all</h4>
                       <p className="card-text"><small className="text-muted">List all registered users</small></p>
@@ -23,13 +33,18 @@ class Home extends React.Component {
                   </a>
                 </div>
                 <div className="card border-primary mb-3">
-                  <a href="/registerUser" className="btn btn-fix text-left">
-                    {/* <img class="card-img-top " src="..." alt="Card image cap"/> */}
+                  { this.state.admin ? (<a href="/registerUser" className="btn btn-fix text-left">
                     <div className="card-block ">
                       <h4 className="card-title text-dark ">Create new user</h4>
                       <p className="card-text "><small className="text-muted">Register new user manually</small></p>
                     </div>
-                  </a>
+                  </a>) :
+                  (<a href="/registerUser" className="btn btn-fix text-left disabled">
+                    <div className="card-block ">
+                      <h4 className="card-title text-dark ">Create new user</h4>
+                      <p className="card-text "><small className="text-muted">Register new user manually</small></p>
+                    </div>
+                  </a>) }
                 </div>
               </div>
             </div>
@@ -41,7 +56,6 @@ class Home extends React.Component {
               <div className="card-body">
                 <div className="card border-primary mb-3">
                   <a href="/devices" className="btn btn-fix text-left">
-                    {/* <img className="card-img-top" src="..." alt="Card image cap"/> */}
                     <div className="card-block">
                       <h4 className="card-title text-dark">List all</h4>
                       <p className="card-text"><small className="text-muted">List all devices</small></p>
@@ -49,13 +63,18 @@ class Home extends React.Component {
                   </a>
                 </div>
                 <div className="card border-primary mb-3">
-                  <a href="/registerDevice" className="btn btn-fix text-left">
-                    {/* <img class="card-img-top " src="..." alt="Card image cap"/> */}
+                  { this.state.admin ? (<a href="/registerDevice" className="btn btn-fix text-left">
                     <div className="card-block ">
                       <h4 className="card-title text-dark ">Create new device</h4>
                       <p className="card-text "><small className="text-muted">Register new device manually</small></p>
                     </div>
-                  </a>
+                  </a>) :
+                  (<a href="/registerDevice" className="btn btn-fix text-left disabled">
+                    <div className="card-block ">
+                      <h4 className="card-title text-dark ">Create new device</h4>
+                      <p className="card-text "><small className="text-muted">Register new device manually</small></p>
+                    </div>
+                  </a>) }
                 </div>
               </div>
             </div>
@@ -70,23 +89,27 @@ class Home extends React.Component {
               <div className="card-body">
                 <div className="card border-primary mb-3">
                   <a href="/accounts" className="btn btn-fix text-left">
-                      {/* <img className="card-img-top " src="..." alt="Card image cap"/> */}
                     <div className="card-block">
                       <h4 className="card-title text-dark ">List all</h4>
                       <p className="card-text">
-                        <small className="text-muted">List all accounts and their status</small>
+                        <small className="text-muted">List all accounts and their statuses</small>
                       </p>
                     </div>
                   </a>
                 </div>
                 <div className="card border-primary mb-3">
-                  <a href="registerAccount" className="btn btn-fix text-left">
-                    {/* <img class="card-img-top " src="..." alt="Card image cap"/> */}
+                  { this.state.admin ? (<a href="registerAccount" className="btn btn-fix text-left">
                     <div className="card-block">
                       <h4 className="card-title text-dark">Create new account</h4>
                       <p className="card-text"><small className="text-muted">Register new account manually</small></p>
                     </div>
-                  </a>
+                  </a>) :
+                  (<a href="registerAccount" className="btn btn-fix text-left disabled">
+                    <div className="card-block">
+                      <h4 className="card-title text-dark">Create new account</h4>
+                      <p className="card-text"><small className="text-muted">Register new account manually</small></p>
+                    </div>
+                  </a>) }
                 </div>
               </div>
             </div>
@@ -105,12 +128,18 @@ class Home extends React.Component {
                   </a>
                 </div>
                 <div className="card border-primary mb-3">
-                  <a href="/registerAdmin" className="btn btn-fix text-left">
+                  { this.state.admin ? (<a href="/registerAdmin" className="btn btn-fix text-left">
                     <div className="card-block">
                       <h4 className="card-title text-dark ">Register user</h4>
                       <p className="card-text "><small className="text-muted">Register new corporate user</small></p>
                     </div>
-                  </a>
+                  </a>) :
+                  (<a href="/registerAdmin" className="btn btn-fix text-left disabled">
+                    <div className="card-block">
+                      <h4 className="card-title text-dark ">Register user</h4>
+                      <p className="card-text "><small className="text-muted">Register new corporate user</small></p>
+                    </div>
+                  </a>) }
                 </div>
               </div>
             </div>

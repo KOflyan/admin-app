@@ -56,8 +56,13 @@ class RegistrationForm extends React.Component {
 
     ApiConnection.save(Constants.userApiUrl, this.state)
     .then(response => {
-      this.setState(this.initialState)
-      this.setState({error: false})
+      if (!response) {
+        this.setState(this.initialState)
+        this.setState({error: true})
+      } else {
+        this.setState(this.initialState)
+        this.setState({error: false})
+      }
     }).catch(error => {
       this.setState({error:true}); console.log(error)
     })

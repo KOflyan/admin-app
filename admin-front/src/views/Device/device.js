@@ -3,13 +3,15 @@ import Constants from './../../utils/Constants';
 import { Redirect } from 'react-router-dom';
 import { NavLink } from 'reactstrap';
 import ApiConnection from './../../utils/ApiConnection';
+import { isAdmin } from './../../utils/Auth';
 
 class Device extends React.Component {
   constructor() {
     super();
     this.state = {
       data: [],
-      error: ''
+      error: '',
+      admin: false
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -31,6 +33,9 @@ class Device extends React.Component {
   }
 
   componentDidMount() {
+    isAdmin(bool => {
+      this.setState({admin: bool})
+    })
     this.getDataOnLoad();
   }
 
@@ -70,7 +75,8 @@ class Device extends React.Component {
           <div className="card border-info mb-3">
             <div className="card-header">
               Device information
-              <button type="button" className="btn btn-danger float-right" onClick={this.deleteById}>Delete</button>
+              { this.state.admin ? (<button type="button" className="btn btn-danger float-right" onClick={this.deleteById}>Delete</button>)
+              : <a type="button" className="btn btn-danger float-right disabled">Delete</a> }
             </div>
             <div className="card-body">
               <form onSubmit={this.handleSubmit}>
@@ -92,7 +98,8 @@ class Device extends React.Component {
                 </div>
                 <br></br>
                 <div className="form-group">
-                  <button type="submit" className="btn btn-danger btn-block"  onClick={this.handleSubmit}>Submit</button>
+                  { this.state.admin ? (<button type="submit" className="btn btn-danger btn-block"  onClick={this.handleSubmit}>Submit</button>)
+                    : (<a type="submit" className="btn btn-danger btn-block disabled ">Submit</a>) }
                 </div>
                 <div>
                   { this.showError() }
