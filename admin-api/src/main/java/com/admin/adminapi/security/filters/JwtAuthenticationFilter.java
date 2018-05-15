@@ -1,9 +1,8 @@
 package com.admin.adminapi.security.filters;
 
+import com.admin.adminapi.utils.Utils;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,10 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 
-import static com.admin.adminapi.utils.Constants.*;
+import static com.admin.adminapi.utils.Constants.HEADER_STRING;
+import static com.admin.adminapi.utils.Constants.TOKEN_PREFIX;
 
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -62,13 +61,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         User user = (User) auth.getPrincipal();
 
-        String subject = user.getUsername() + "," + user.getAuthorities().iterator().next().toString();
+        String role = user.getAuthorities().iterator().next().toString();
 
-        String token = Jwts.builder()
-                .setSubject(subject)
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
-                .compact();
+        String token = Utils.generateToken(user.getUsername(), role);
 
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
     }

@@ -1,5 +1,6 @@
 package com.admin.adminapi.controllers;
 
+import com.admin.adminapi.TestBase;
 import com.admin.adminapi.impl.controller.UserController;
 import com.admin.adminapi.impl.dao.entities.User;
 import com.admin.adminapi.impl.dao.entities.extended.ExtendedUser;
@@ -11,14 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Arrays;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,18 +28,13 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @EnableAutoConfiguration
-public class UserControllerTest {
-    private final Long MAX_VALUE = 20L;
-    private final Long MIN_VALUE = 1L;
+public class UserControllerTest extends TestBase {
 
-    @PersistenceContext
-    private EntityManager manager;
+    @Autowired
+    protected TestRestTemplate restTemplate;
 
     @Autowired
     private UserController controller;
-
-    @Autowired
-    private TestRestTemplate restTemplate;
 
     @Mock
     private UserService serviceMock;
@@ -72,25 +67,20 @@ public class UserControllerTest {
                 .setParameter("id", id)
                 .getSingleResult();
 
-        ResponseEntity<ExtendedUser> actual = restTemplate.getForEntity("/user/" + id, ExtendedUser.class);
-
+        ResponseEntity<ExtendedUser> actual = restTemplate.exchange("/user/" + id,
+                HttpMethod.GET, entity, ExtendedUser.class);
 
         assertEquals(expected, actual.getBody());
     }
 
     @Test
     public void findAllUsers() {
-        List<ExtendedUser> expected = manager.createNamedQuery("User.getAll", ExtendedUser.class)
-                .getResultList();
+        Set<ExtendedUser> expected = new LinkedHashSet<>(manager.createNamedQuery("User.getAll", ExtendedUser.class)
+                .getResultList());
 
-        ResponseEntity<ExtendedUser[]> actual = restTemplate.getForEntity("/user/all", ExtendedUser[].class);
+        ResponseEntity<ExtendedUser[]> actual = restTemplate.exchange("/user/all",
+                HttpMethod.GET, entity, ExtendedUser[].class);
 
-        assertEquals(expected, Arrays.asList(actual.getBody()));
-    }
-
-    @Test
-    public void deleteNonExistentAccountShouldReturn404() {
-        ResponseEntity responseEntity = controller.delete(Long.MAX_VALUE);
-        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+        assertEquals(expected, new LinkedHashSet<>(Arrays.asList(actual.getBody())));
     }
 }

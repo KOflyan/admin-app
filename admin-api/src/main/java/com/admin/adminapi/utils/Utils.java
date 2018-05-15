@@ -1,6 +1,14 @@
 package com.admin.adminapi.utils;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.core.GenericTypeResolver;
+
+import java.sql.Date;
+
+import static com.admin.adminapi.utils.Constants.EXPIRATION_TIME;
+import static com.admin.adminapi.utils.Constants.SECRET;
+import static com.admin.adminapi.utils.Constants.TOKEN_PREFIX;
 
 
 public class Utils {
@@ -24,5 +32,16 @@ public class Utils {
             className = "User";
         }
         return className;
+    }
+
+    public static String generateToken(String username, String role) {
+
+        String token = Jwts.builder()
+                .setSubject(username + "," + role)
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
+                .compact();
+
+        return TOKEN_PREFIX + token;
     }
 }

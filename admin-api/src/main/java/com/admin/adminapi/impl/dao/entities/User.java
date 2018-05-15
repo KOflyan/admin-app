@@ -1,7 +1,6 @@
 package com.admin.adminapi.impl.dao.entities;
 
 import com.admin.adminapi.base.dao.entities.AbstractUser;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,7 +37,6 @@ import java.sql.Date;
 @Entity
 @Getter @Setter
 @Table(name = "User")
-@EqualsAndHashCode(callSuper = true)
 public class User extends AbstractUser {
 
     @Transient
